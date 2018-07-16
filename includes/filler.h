@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/16 18:21:57 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/16 18:25:53 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ typedef struct		s_filler
 {
 	int				boundary;
 	float			possession;
-}					t_filler;
+}					t_sqrt;
 
 #endif
