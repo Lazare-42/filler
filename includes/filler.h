@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/16 18:44:32 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 18:52:20 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ typedef struct		s_filler
 	float			possession;
 }					t_sqrt;
 
-#endif
+t_sqrt	**board_init(int x_max, int y_max, t_sqrt ***b);
+
+# endif
