@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 19:13:10 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 21:24:04 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(void)
 	int		x_max;
 	int		y_max;
 
+	x_max = 10;
+	y_max = 10;
 	board = board_init(x_max, y_max);
 	print_board(x_max, y_max, board);
 	return (0);
