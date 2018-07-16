@@ -6,11 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/07/16 23:59:13 by lazrossi         ###   ########.fr       */
-=======
-/*   Updated: 2018/07/17 00:00:15 by jboursal         ###   ########.fr       */
->>>>>>> 3f92071a094ee7067875f253e7d8764b955f64e8
+/*   Updated: 2018/07/17 00:25:52 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +60,7 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		}
 		y++;
 	}
+	return (board);
 }
 
 t_filler	get_game_settings()
@@ -88,7 +85,7 @@ t_filler	get_game_settings()
 	game_settings.x_max = ft_atoi(buf);
 	return (game_settings);
 }
-
+/*
 t_filler	update_map(t_sqrt **board, t_filler game_settings)
 {
 	char	*buf;
@@ -97,8 +94,8 @@ t_filler	update_map(t_sqrt **board, t_filler game_settings)
 
 	y = 0;
 }
-
-int main()
+*/
+/*int main()
 {
 	t_sqrt		**board;
 	t_filler	game_settings;
@@ -109,7 +106,6 @@ int main()
 	if (!(board = board_malloc(game_settings)))
 		return (0);
 	board = board_init(board, game_settings);
-	/*
 	if (game_settings.opponent == 'O')
 		// board_update
 		// boundary_update
@@ -123,7 +119,6 @@ int main()
 		// board_update
 		// boundary_update
 	}
-	*/
 	return (0);
 }
-
+*/

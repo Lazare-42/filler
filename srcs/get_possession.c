@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 00:11:52 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 00:21:15 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 			while (i < i_lim)
 			{
 				position_update(&pt, direction);
-				printf("POSITION x: %d - y: %d\n", pt.x, pt.y); fflush(stdout);
+//				printf("POSITION x: %d - y: %d\n", pt.x, pt.y); fflush(stdout);
 				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
 				{
 					if (board[pt.y][pt.x].possession == 1)
@@ -99,6 +99,7 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 		{
 			if (board[pt.y][pt.x].possession > 0 && board[pt.y][pt.x].possession < 1)
 				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
+			print_board(filler.x_max, filler.y_max, board);
 			pt.x++;
 		}
 		pt.y++;
