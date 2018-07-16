@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filler.h                                           :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/16 19:06:22 by jboursal         ###   ########.fr       */
+/*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
+/*   Updated: 2018/07/16 19:08:22 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef FILLER_H
-#define FILLER_H
+#include "../includes/filler.h"
 
-#include <stdlib.h>
-
-typedef struct		s_filler
+int	main(void)
 {
-	int				boundary;
-	float			possession;
-}					t_sqrt;
+	t_sqrt	**board;
+	int		x_max;
+	int		y_max;
 
-t_sqrt	**board_init(int x_max, int y_max);
-void	print_board(int x_max, int y_max, t_sqrt **board);
-
-# endif
+	board = board_init(x_max, y_max);
+	print_board(x_max, y_max, board);
+	return (0);
+}

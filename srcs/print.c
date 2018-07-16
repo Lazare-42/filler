@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   board_init.c                                       :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 19:03:15 by jboursal         ###   ########.fr       */
+/*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
+/*   Updated: 2018/07/16 19:08:56 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h> /*debug*/
 #include "../includes/filler.h"
 
-t_sqrt	**board_init(int x_max, int y_max, t_sqrt ***b)
+void	print_board(int x_max, int y_max, t_sqrt **board)
 {
 	int		y;
 	int		x;
-	t_sqrt	**board;
 
-	board = *b;
-	if (!(board = (t_sqrt **)malloc(sizeof(t_sqrt *) * y_max)))
-		return (0);
 	y = 0;
 	while (y < y_max)
 	{
-		if (!(board[y] = (t_sqrt *)malloc(sizeof(t_sqrt) * x_max)))
-			return (0);
 		x = 0;
 		while (x < x_max)
 		{
-			board[y][x].boundary = 0;
-			board[y][x].possession = 0;
+			printf("%-4.2f ", board[y][x].possession);
 			x++;
 		}
 		y++;
 	}
-	return (board);
 }
