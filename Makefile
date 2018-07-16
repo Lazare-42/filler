@@ -1,9 +1,10 @@
 NAME = the_legend_27
 
-SOURCES = main_test.c \
-		  print.c \
-		  get_possession.c \
-		  board_init.c \
+SOURCES =	main_test.c \
+			print.c \
+			get_possession.c \
+			board_init.c \
+			calc_score.c \
 
 LIBDIR = libft
 
