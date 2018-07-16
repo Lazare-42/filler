@@ -6,11 +6,12 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 23:59:31 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 00:11:52 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include <stdio.h>
 
 static void		position_update(t_point *position, t_direction direction)
 {
@@ -37,21 +38,21 @@ static void		position_init(t_point *position, int x, int y)
 	position->y = y;
 }
 
-static float	get_possession(t_sqrt **board, t_point pt, t_filler filler)
+static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 {
 	float		possession;
-	t_point		position;
+	t_point		pt;
 	t_direction	direction;
 	int			i;
 	int			i_lim;
-	int			distance_p1;
-	int			distance_p2;
+	float		distance_p1;
+	float		distance_p2;
 	int			time;
 
 	(void)board;
 	(void)filler;
 	i_lim = 1;
-	position_init(&position, pt.x, pt.y);
+	position_init(&pt, o.x, o.y);
 	distance_p1 = -1;
 	distance_p2 = -1;
 	while (distance_p1 < 0 || distance_p2 < 0)
@@ -62,17 +63,18 @@ static float	get_possession(t_sqrt **board, t_point pt, t_filler filler)
 			i = 0;
 			while (i < i_lim)
 			{
-				position_update(&position, direction);
+				position_update(&pt, direction);
+				printf("POSITION x: %d - y: %d\n", pt.x, pt.y); fflush(stdout);
 				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
 				{
-					//if (board[position.y][position.x].possession == 1)
-					//{
+					if (board[pt.y][pt.x].possession == 1)
+					{
 						distance_p1 = i + 1;
-					//}
-					//else if (board[position.y][position.x].possession == 0)
-					//{
+					}
+					else if (board[pt.y][pt.x].possession == 0)
+					{
 						distance_p2 = i + 1;
-					//}
+					}
 				}
 				i++;
 			}
