@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 21:39:32 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:00:47 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_sqrt	**board_malloc(int x_max, int y_max)
 		while (x < x_max)
 		{
 			board[y][x].boundary = 0;
-			board[y][x].possession = 0.5;
+			board[y][x].possession = -1;
 			x++;
 		}
 		y++;
@@ -42,28 +42,23 @@ t_sqrt	**board_malloc(int x_max, int y_max)
 t_sqrt **board_init(t_sqrt **board, int x_max, int y_max)
 {
 	char	*buf;
-	int		tmp;
-	int		i;
-	int		j;
+	int		x;
+	int		y;
 
-	get_next_line(1, &buf, '\n');
-	i = 0;
-	while (i < y_max)
+	y = 0;
+	while (y < y_max)
 	{
-		j = 0;
-		while (!ft_strchr(".XO", *buf))
-			buf++;
-		while (j < x_max)
-		{
-			if (*buf == 'X')
-				board[i][j].possession = 1;
-			else if (*buf == 'O')
-				board[i][j].possession = 0;
-			buf++;
-			j++;
-		}
-		i++;
 		get_next_line(1, &buf, '\n');
+		x = 0;
+		while (x < x_max)
+		{
+			if (buf[x + 4] != '.')
+				board[y][x].possession = (buf[x + 4] = 'X');
+			else
+				board[y][x].possession = 0.5;
+			x++;
+		}
+		y++;
 	}
 }
 
