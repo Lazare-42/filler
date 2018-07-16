@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 22:33:29 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 23:06:25 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int	main(void)
 {
-	t_sqrt	**board;
-	int		x_max;
-	int		y_max;
+	t_sqrt		**board;
+	t_filler	f;
 
-	x_max = 10;
-	y_max = 15;
-	board = board_malloc(x_max, y_max);
+	f.x_max = 10;
+	f.y_max = 15;
+	board = board_malloc(f.x_max, f.y_max);
 	board[2][2].possession = 0;
-	board[y_max - 2][x_max - 2].possession = 1;
-	boundary_draw(&board, x_max, y_max);
-	print_board(x_max, y_max, board);
+	board[f.y_max - 2][f.x_max - 2].possession = 1;
+	boundary_draw(board, f);
+	print_board(f.x_max, f.y_max, board);
 
 	return (0);
 }

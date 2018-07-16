@@ -6,13 +6,13 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 21:25:12 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 23:59:31 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-static void	position_update(t_point *position, t_direction direction)
+static void		position_update(t_point *position, t_direction direction)
 {
 	int	x_diff;
 	int	y_diff;
@@ -31,13 +31,13 @@ static void	position_update(t_point *position, t_direction direction)
 	position->y += y_diff;
 }
 
-static void	position_init(t_point *position, int x, int y)
+static void		position_init(t_point *position, int x, int y)
 {
 	position->x = x;
 	position->y = y;
 }
 
-float		get_possession(t_sqrt **board, int x, int y)
+static float	get_possession(t_sqrt **board, t_point pt, t_filler filler)
 {
 	float		possession;
 	t_point		position;
@@ -48,8 +48,10 @@ float		get_possession(t_sqrt **board, int x, int y)
 	int			distance_p2;
 	int			time;
 
+	(void)board;
+	(void)filler;
 	i_lim = 1;
-	position_init(&position, x, y);
+	position_init(&position, pt.x, pt.y);
 	distance_p1 = -1;
 	distance_p2 = -1;
 	while (distance_p1 < 0 || distance_p2 < 0)
@@ -61,13 +63,16 @@ float		get_possession(t_sqrt **board, int x, int y)
 			while (i < i_lim)
 			{
 				position_update(&position, direction);
-				if (board[position.y][position.x].possession == 1)
+				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
 				{
-					distance_p1 = i + 1;
-				}
-				else if (board[position.y][position.x].possession == 0)
-				{
-					distance_p2 = i + 1;
+					//if (board[position.y][position.x].possession == 1)
+					//{
+						distance_p1 = i + 1;
+					//}
+					//else if (board[position.y][position.x].possession == 0)
+					//{
+						distance_p2 = i + 1;
+					//}
 				}
 				i++;
 			}
@@ -78,4 +83,22 @@ float		get_possession(t_sqrt **board, int x, int y)
 	}
 	possession = distance_p1 / (distance_p1 + distance_p2);
 	return (possession);
+}
+
+void		boundary_draw(t_sqrt **board, t_filler filler)
+{
+	t_point	pt;
+
+	pt.y = 0;
+	while (pt.y < filler.y_max)
+	{
+		pt.x = 0;
+		while (pt.x < filler.x_max)
+		{
+			if (board[pt.y][pt.x].possession > 0 && board[pt.y][pt.x].possession < 1)
+				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
+			pt.x++;
+		}
+		pt.y++;
+	}
 }
