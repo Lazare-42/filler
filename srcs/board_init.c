@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 22:00:47 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:02:53 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ t_sqrt **board_init(t_sqrt **board, int x_max, int y_max)
 		x = 0;
 		while (x < x_max)
 		{
-			if (buf[x + 4] != '.')
-				board[y][x].possession = (buf[x + 4] = 'X');
-			else
+			if (buf[x + 4] = '.')
 				board[y][x].possession = 0.5;
+			else
+				board[y][x].possession = (buf[x + 4] = 'X');
 			x++;
 		}
 		y++;
