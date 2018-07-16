@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 22:03:07 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:13:44 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_sqrt **board_init(t_sqrt **board, int x_max, int y_max)
 		}
 		y++;
 	}
+	return (board);
 }
 
 t_sqrt	**return_board(void)

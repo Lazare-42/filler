@@ -126,6 +126,7 @@ SRCS =			ft_advance_for_quotes.c \
 				store_nbr_data.c \
 				store_char_data.c \
 				bonus_colors_formatting.c \
+				get_next_line.c \
 
 # CC = gcc -Wall -Wextra -Werror -c -g
 

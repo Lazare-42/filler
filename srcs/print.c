@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 19:08:56 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:14:06 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print_board(int x_max, int y_max, t_sqrt **board)
 			printf("%-4.2f ", board[y][x].possession);
 			x++;
 		}
+		printf("\n");
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/16 21:39:54 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:08:26 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 
 	x_max = 10;
 	y_max = 10;
-	board = board_init(x_max, y_max);
+	board = board_malloc(x_max, y_max);
 	print_board(x_max, y_max, board);
 	return (0);
 }

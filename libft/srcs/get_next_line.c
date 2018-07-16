@@ -6,11 +6,12 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 13:30:36 by lazrossi          #+#    #+#             */
-/*   Updated: 2017/12/27 14:12:53 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/16 22:12:58 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/libft.h"
+#include "./../includes/get_next_line.h"
 
 char	*ft_str_join_free(char **s1, char **s2)
 {
