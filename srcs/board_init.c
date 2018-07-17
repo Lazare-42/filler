@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 12:46:15 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/17 20:16:30 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_sqrt	**board_malloc(t_filler game_settings)
 	t_sqrt	**board;
 
 	board = NULL;
-	srand(time(NULL)); /* TEST */
 	if (!(board = (t_sqrt **)malloc(sizeof(t_sqrt *) * game_settings.y_max)))
 		return (0);
 	y = 0;
@@ -41,6 +40,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 }
 
 #include <fcntl.h>
+#include <unistd.h>
 
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
@@ -48,11 +48,8 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 	int		x;
 	int		y;
 
-	int fd;
-
-	fd = open("./coucou", O_RDWR | O_CREAT);
-	fd = 
 	y = 0;
+	get_next_line(0, &buf, '\n');
 	while (y < game_settings.y_max)
 	{
 		get_next_line(0, &buf, '\n');

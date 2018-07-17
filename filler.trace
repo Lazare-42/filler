@@ -1,6 +1,3 @@
-seed = 577
-O: error on input
-X: error on input
-resources/players/champely.filler won
-Score:
-0AGAINST0
+seed = 2553
+O: timedout
+./the_legend_27: Segfault at 0
