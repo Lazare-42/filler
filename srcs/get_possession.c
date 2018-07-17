@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 00:14:26 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 01:22:02 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,46 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 	return (distance_p2 / (distance_p1 + distance_p2));
 }
 
+void	possession_update_from_point(t_sqrt **board, t_point o,
+t_filler filler, int player_side)
+{
+	t_point		pt;
+	t_direction	direction;
+	int			i;
+	int			i_lim;
+	int			time;
+	int			k;
+
+	i_lim = 1;
+	position_init(&pt, o.x, o.y);
+	direction = up;
+	k = 1;
+	while (k)
+	{
+		k = 0;
+		time = 0;
+		while (time++ < 2)
+		{
+			i = 0;
+			while (i++ < i_lim)
+			{
+				position_update(&pt, direction);
+				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
+				{
+					k = 1;
+					if (board[pt.y][pt.x].possession != FDF_P1 && board[pt.y][pt.x].possession != FDF_P2)
+						board[pt.y][pt.x].possession += player_side * (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x));
+				}
+			}
+			direction = (direction + 1) % 4;
+		}
+		i_lim++;
+	}
+}
+
 void		boundary_draw(t_sqrt **board, t_filler filler)
 {
+	printf("DRAW IN\n"); fflush(stdout);
 	t_point	pt;
 	float	possession;
 
@@ -105,10 +143,11 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 		while (pt.x < filler.x_max)
 		{
 			possession = board[pt.y][pt.x].possession;
-			if (possession > 0 && possession < 1)
-				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
-			//print_board(filler.x_max, filler.y_max, board);
-			//getchar();
+			printf("X: %d Y: %d Possession: %.2f\n", pt.x, pt.y, possession); fflush(stdout);
+			if (possession == FDF_P1 || possession == FDF_P2)
+				possession_update_from_point(board, pt, filler, (possession > 0) * 2 - 1);
+				print_board(filler.x_max, filler.y_max, board);
+				getchar();
 			pt.x++;
 		}
 		pt.y++;

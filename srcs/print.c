@@ -6,33 +6,40 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 00:46:03 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 01:21:48 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h> /*debug*/
 #include "../includes/filler.h"
-#include <fcntl.h>
-#include <unistd.h>
 
 void	print_board(int x_max, int y_max, t_sqrt **board)
 {
 	int		y;
 	int		x;
+	float	possession;
 
-	int fd = open("./coucou", O_RDWR | O_CREAT | O_APPEND);
 	y = 0;
 	while (y < y_max)
 	{
 		x = 0;
 		while (x < x_max)
 		{
-			ft_putnbr_fd(board[y][x].possession, fd);
+			possession = board[y][x].possession;
+			if (possession == -1000)
+				printf("\033[31m  X  \033[0m");
+			else if (possession == 1000)
+				printf("\033[34m  O  \033[0m");
+			else if (possession < 0)
+				printf("\033[35m%+04.f \033[0m", possession);
+			else if (possession > 0)
+				printf("\033[36m%+04.f \033[0m", possession);
+			else
+				printf("%+04.f ", possession * 100);
 			x++;
 		}
-		ft_putstr_fd("\n", fd);
+		printf("\n");
 		y++;
 	}
-	ft_putstr_fd("\n", fd);
-	close(fd);
+	printf("\n");
 }
