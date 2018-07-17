@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/17 02:01:25 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 10:52:01 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ typedef struct		s_filler
 	char			opponent;
 }					t_filler;
 
-t_sqrt	**board_malloc(t_filler game_settings);
-t_sqrt	**board_init(t_sqrt **board, t_filler game_settings);
-void	print_board(int x_max, int y_max, t_sqrt **board);
-void	boundary_draw(t_sqrt **board, t_filler filler);
-float	calc_score(t_sqrt **board, t_filler f);
+t_sqrt				**board_malloc(t_filler game_settings);
+t_sqrt				**board_init(t_sqrt **board, t_filler game_settings);
+void				print_board(int x_max, int y_max, t_sqrt **board);
+void				boundary_draw(t_sqrt **board, t_filler filler);
+t_filler			get_game_settings(void);
+float				calc_score(t_sqrt **board, t_filler f);
 
 # endif

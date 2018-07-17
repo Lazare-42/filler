@@ -6,13 +6,12 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 03:05:04 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 12:46:15 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include "../libft/includes/libft.h"
-#include <time.h> /* TEST */
 
 t_sqrt	**board_malloc(t_filler game_settings)
 {
@@ -33,12 +32,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].boundary = 0;
-			if (rand()%100 < 3) /* TEST */
-				board[y][x].possession = 1; /* TEST */
-			else if (rand()%100 > 97) /* TEST */
-				board[y][x].possession = 0; /* TEST */
-			else /* TEST */
-				board[y][x].possession = 0.5;
+			board[y][x].possession = 0.5;
 			x++;
 		}
 		y++;
@@ -46,16 +40,22 @@ t_sqrt	**board_malloc(t_filler game_settings)
 	return (board);
 }
 
+#include <fcntl.h>
+
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
 	char	*buf;
 	int		x;
 	int		y;
 
+	int fd;
+
+	fd = open("./coucou", O_RDWR | O_CREAT);
+	fd = 
 	y = 0;
 	while (y < game_settings.y_max)
 	{
-		get_next_line(1, &buf, '\n');
+		get_next_line(0, &buf, '\n');
 		x = 0;
 		while (x < game_settings.x_max)
 		{
@@ -76,14 +76,13 @@ t_filler	get_game_settings()
 	t_filler	game_settings;
 
 	buf = NULL;
-	while (!(ft_strstr(buf, "exec p1")))
-		get_next_line(1, &buf, '\n');
-	if (ft_strstr(buf, "the_legend_27"))
-		game_settings.opponent = 'X';
-	else
+	get_next_line(0, &buf, '\n');
+	if (ft_strstr(buf, "p2"))
 		game_settings.opponent = 'O';
+	else
+		game_settings.opponent = 'X';
 	while (!(ft_strstr(buf, "Plateau")))
-		get_next_line(1, &buf, '\n');
+		get_next_line(0, &buf, '\n');
 	while (*buf && !(ft_isdigit(*buf)))
 		buf++;
 	game_settings.y_max = ft_atoi(buf);
@@ -104,12 +103,6 @@ t_filler	update_map(t_sqrt **board, t_filler game_settings)
 */
 /*int main()
 {
-	t_sqrt		**board;
-	t_filler	game_settings;
-	int			opponent_turn;
-
-	game_settings = get_game_settings();
-	board = NULL;
 	if (!(board = board_malloc(game_settings)))
 		return (0);
 	board = board_init(board, game_settings);

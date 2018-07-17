@@ -6,24 +6,32 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 03:05:07 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 12:16:54 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include "../libft//includes/libft.h"
 #include <stdio.h>
+#include <fcntl.h>
 
 int	main(void)
 {
 	t_sqrt		**board;
-	t_filler	f;
-	int			i;
-	float		score;
+	int			fd;
+	t_filler	game_settings;
 
-	f.x_max = 20;
-	f.y_max = 20;
-	board = board_malloc(f);
-
+	board = NULL;
+	game_settings = get_game_settings();
+	fd = open("./coucou", O_RDWR | O_CREAT);
+	ft_putchar_fd(game_settings.opponent, fd);
+	ft_putstr_fd("\nthis is game_settings.x_max :", fd);
+	ft_putnbr_fd(game_settings.x_max, fd);
+	ft_putstr_fd("\nthis is game_settings.y_max :", fd);
+	ft_putnbr_fd(game_settings.y_max, fd);
+	board = board_malloc(game_settings);
+//	board = board_init(board, game_settings);
+	//print_board(game_settings.x_max, game_settings.y_max, board);
 	//board[1][1].possession = 0;
 	//board[1][2].possession = 0;
 	//board[1][3].possession = 0;
@@ -35,15 +43,5 @@ int	main(void)
 	//board[f.y_max - 5][f.x_max - 5].possession = 1;
 	//board[f.y_max - 6][f.x_max - 6].possession = 1;
 
-	i = 0;
-	while (i++ < 133)
-		boundary_draw(board, f);
-	print_board(f.x_max, f.y_max, board);
-
-	score = calc_score(board, f);
-	if (score > f.x_max * f.y_max / 2)
-		printf("possession totale: \033[32m%.2f / %d\033[37m\n", score, f.x_max * f.y_max);
-	else
-		printf("possession totale: \033[31m%.2f / %d\033[37m\n", score, f.x_max * f.y_max);
 	return (0);
 }
