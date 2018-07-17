@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 13:30:36 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/16 22:12:58 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 00:08:50 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ t_gnl	*manage_stock(t_gnl **stock, int fd)
 	*stock = new;
 	return (*stock);
 }
+
+#include <fcntl.h>
 
 int		get_next_line(const int fd, char **line, char tofind)
 {

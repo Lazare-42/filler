@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 14:32:30 by lazrossi          #+#    #+#             */
-/*   Updated: 2017/04/25 12:24:32 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/17 23:54:50 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strstr(const char *haystack, const char *needle)
 		{
 			while (haystack[cmp] == needle[j] && haystack[cmp] && needle[j])
 			{
-				if (haystack[cmp] == needle[j] && (needle[j + 1] == '\0' \
+				if (haystack[cmp] == needle[j] && (needle[j + 1] == '\0'
 						|| needle[j] == '\0'))
 					return ((char*)haystack + i);
 				cmp++;
