@@ -1,4 +1,6 @@
-seed = 8001
+seed = 2233
+O: error on input
+./the_legend_27: Segfault at 1
 ./resources/players/carli.filler won
 Score:
-0AGAINST359
+1AGAINST352

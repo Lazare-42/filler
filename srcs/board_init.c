@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 00:17:28 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 01:20:01 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].boundary = 0;
-			board[y][x].possession = 0.5;
+			board[y][x].possession = 0;
 			x++;
 		}
 		y++;
@@ -46,12 +46,19 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 	char	*buf;
 	int		x;
 	int		y;
+	static int first = 0;
 
 	y = 0;
+	if (first)
+		get_next_line(0, &buf);
 	get_next_line(0, &buf);
 	while (y < game_settings.y_max)
 	{
 		get_next_line(0, &buf);
+		/*
+		while (!ft_strstr(buf, "0"))
+			get_next_line(0, &buf);
+			*/
 		x = 0;
 		while (x < game_settings.x_max)
 		{
@@ -63,6 +70,7 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		}
 		y++;
 	}
+	first = 1;
 	return (board);
 }
 
