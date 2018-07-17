@@ -6,12 +6,13 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 00:25:52 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 03:05:04 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include "../libft/includes/libft.h"
+#include <time.h> /* TEST */
 
 t_sqrt	**board_malloc(t_filler game_settings)
 {
@@ -20,6 +21,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 	t_sqrt	**board;
 
 	board = NULL;
+	srand(time(NULL)); /* TEST */
 	if (!(board = (t_sqrt **)malloc(sizeof(t_sqrt *) * game_settings.y_max)))
 		return (0);
 	y = 0;
@@ -31,7 +33,12 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].boundary = 0;
-			board[y][x].possession = 0.5;
+			if (rand()%100 < 3) /* TEST */
+				board[y][x].possession = 1; /* TEST */
+			else if (rand()%100 > 97) /* TEST */
+				board[y][x].possession = 0; /* TEST */
+			else /* TEST */
+				board[y][x].possession = 0.5;
 			x++;
 		}
 		y++;
