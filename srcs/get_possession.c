@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 03:05:09 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 00:14:26 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		position_init(t_point *position, int x, int y)
 	position->y = y;
 }
 
-static int		ft_abs(int x)
+static int		ft_filler_abs(int x)
 {
 	if (x > 0)
 		return (x);
@@ -75,12 +75,12 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 				{
 					if (board[pt.y][pt.x].possession == 1 && distance_p1 == -1)
 					{
-						distance_p1 = (ft_abs(pt.y - o.y) + ft_abs(pt.x - o.x)) * 2 + i_lim / 2;
+						distance_p1 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2 + i_lim / 2;
 						//printf("distance p1: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p1, pt.x, pt.y, o.x, o.y);
 					}
 					else if (board[pt.y][pt.x].possession == 0 && distance_p2 == -1)
 					{
-						distance_p2 = (ft_abs(pt.y - o.y) + ft_abs(pt.x - o.x)) * 2 + i_lim / 2;
+						distance_p2 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2 + i_lim / 2;
 						//printf("distance p2: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p2, pt.x, pt.y, o.x, o.y);
 
 					}

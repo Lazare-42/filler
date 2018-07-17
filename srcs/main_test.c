@@ -6,12 +6,11 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 23:57:11 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 00:13:11 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-#include "../libft//includes/libft.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>

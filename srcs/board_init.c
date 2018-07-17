@@ -6,12 +6,11 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 00:09:05 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 00:17:28 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-#include "../libft/includes/libft.h"
 
 t_sqrt	**board_malloc(t_filler game_settings)
 {
@@ -49,10 +48,10 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 	int		y;
 
 	y = 0;
-	get_next_line(0, &buf, '\n');
+	get_next_line(0, &buf);
 	while (y < game_settings.y_max)
 	{
-		get_next_line(0, &buf, '\n');
+		get_next_line(0, &buf);
 		x = 0;
 		while (x < game_settings.x_max)
 		{
@@ -73,13 +72,13 @@ t_filler	get_game_settings()
 	t_filler	game_settings;
 
 	buf = NULL;
-	get_next_line(0, &buf, '\n');
+	get_next_line(0, &buf);
 	if (ft_strstr(buf, "p2"))
 		game_settings.opponent = 'O';
 	else
 		game_settings.opponent = 'X';
 	while (!(ft_strstr(buf, "Plateau")))
-		get_next_line(0, &buf, '\n');
+		get_next_line(0, &buf);
 	while (*buf && !(ft_isdigit(*buf)))
 		buf++;
 	game_settings.y_max = ft_atoi(buf);
