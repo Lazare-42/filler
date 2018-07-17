@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/17 01:15:30 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/17 02:07:25 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ static void		position_init(t_point *position, int x, int y)
 	position->y = y;
 }
 
+static int		ft_abs(int x)
+{
+	if (x > 0)
+		return (x);
+	else
+		return (-x);
+}
+
 static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 {
 	t_point		pt;
@@ -65,9 +73,15 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
 				{
 					if (board[pt.y][pt.x].possession == 1)
-						distance_p1 = i_lim / 2 + 1;
+					{
+						distance_p1 = ft_abs(pt.y - o.y) + ft_abs(pt.x - o.x);
+						//printf("distqnce p1: %d\n", (int)distance_p1);
+					}
 					else if (board[pt.y][pt.x].possession == 0)
-						distance_p2 = i_lim / 2 + 1;
+					{
+						distance_p2 = ft_abs(pt.y - o.y) + ft_abs(pt.x - o.x);
+						//printf("distance p2: %d\n", (int)distance_p2);
+					}
 				}
 			}
 			direction = (direction + 1) % 4;
@@ -91,6 +105,8 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 			possession = board[pt.y][pt.x].possession;
 			if (possession > 0 && possession < 1)
 				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
+			//print_board(filler.x_max, filler.y_max, board);
+			//getchar();
 			pt.x++;
 		}
 		pt.y++;
