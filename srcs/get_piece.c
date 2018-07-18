@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 18:31:19 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 18:57:45 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,40 +103,9 @@ t_piece norm_piece(t_piece piece)
 	if ((free_lines = check_empty_line(piece)))
 		swap_lines(piece, free_lines);
 	print_piece(piece);
+	piece.x_max -= free_columns;
+	piece.y_max -= free_lines;
 	return (piece);
-}
-
-t_piece	get_piece(t_piece piece)
-{
-	char	*buf;
-	int		i;
-	int		j;
-
-	int fd;
-
-	fd = open("./piece", O_RDONLY);
-
-	i = 0;
-	get_next_line(fd, &buf);
-	piece.y_max = ft_atoi(&buf[5]);
-	get_next_line(fd, &buf);
-	piece.x_max = ft_strlen(buf);
-	if (piece.piece_layout)
-		ft_tabdel((void***)&piece.piece_layout);
-	if (!(piece.piece_layout = malloc(sizeof(int *) * piece.y_max + 1)))
-		return (piece);
-	piece.piece_layout[piece.y_max] = NULL;
-	while (i < piece.y_max)
-	{
-		if (!(piece.piece_layout[i] = malloc(sizeof(int) * ft_strlen(buf))))
-			return (piece);
-		j = -1;
-		while (++j < piece.x_max)
-			piece.piece_layout[i][j] = (buf[j] == '*');
-		i++;
-		get_next_line(fd, &buf);
-	}
-	return ((norm_piece(piece)));
 }
 
 void	print_piece(t_piece piece)
@@ -165,13 +134,4 @@ void	print_piece(t_piece piece)
 	}
 	ft_putchar_fd('\n', fd);
 	close(fd);
-}
-
-int main()
-{
-	t_piece test;
-
-	test.piece_layout = NULL;
-	test = get_piece(test);
-	return (0);
 }

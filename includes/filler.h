@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 14:57:33 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 18:34:49 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ t_filler			get_game_settings(void);
 float				calc_score(t_sqrt **board, t_filler f);
 void				print_piece(t_piece	piece);
 t_piece				get_piece(t_piece piece);
+t_piece 			norm_piece(t_piece piece);
 
 # endif
