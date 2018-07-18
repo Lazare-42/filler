@@ -6,6 +6,7 @@ SOURCES =	main_test.c \
 			board_init.c \
 			calc_score.c \
 			get_piece.c \
+			malloced_structures.c \
 
 LIBDIR = libft
 

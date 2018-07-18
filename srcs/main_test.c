@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 18:39:19 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 19:20:28 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,28 @@
 
 void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 {
-	t_sqrt		**board_tmp;
+	int x;
+	int y;
+	char *location;
 
-	board_tmp = NULL;
-	if (!(board_tmp = board_malloc(game_settings)))
-		return ;
-	board_tmp = board_init(board, game_settings);
-	(void)board;
-	(void)piece;
-	(void)game_settings;
+	x = 0;
+	location = NULL;
+	while (x < game_settings.y_max)
+	{
+		y = 0;
+		while (y < game_settings.x_max)
+		{
+			if (board[x][y].possession == 0)
+			{
+				if (try_insert(piece, board, game_settings, &location))
+				{
+					ft_putstr(location);
+					return ;
+				}
+			}
+			y++;
+		}
+	}
 }
 
 int	main(void)
@@ -45,11 +58,11 @@ int	main(void)
 	while (42)
 	{
 		board = board_init(board, game_settings);
+		//print_board(game_settings.x_max, game_settings.y_max, board);
 		piece = get_piece(piece);
 //		print_piece(piece);
 		put_piece(board, piece, game_settings);
 //		printf("%d %d\n", 3, 3); fflush(stdout);
-//		print_board(game_settings.x_max, game_settings.y_max, board);
 	}
 	//board[1][1].possession = 0;
 	//board[1][2].possession = 0;
