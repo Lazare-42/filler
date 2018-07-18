@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 14:29:43 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 15:55:00 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ t_sqrt	**board_random(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].boundary = 0;
-			if (random()%100 < 2)
+			if (random()%200 < 1)
 				board[y][x].possession = FDF_P1;
-			else if (random()%100 > 98)
+			else if (random()%200 > 198)
 				board[y][x].possession = FDF_P2;
 			else
 				board[y][x].possession = 0;
+			board[y][x].p1_distance = game_settings.y_max + game_settings.x_max;
+			board[y][x].p2_distance = game_settings.y_max + game_settings.x_max;
 			x++;
 		}
 		y++;

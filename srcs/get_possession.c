@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 14:57:30 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 16:15:09 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,30 +106,6 @@ void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, in
 		while (pt.x < filler.x_max)
 		{
 			if (board[pt.y][pt.x].possession != FDF_P1 && board[pt.y][pt.x].possession != FDF_P2)
-				if (player_side < 0 && board[pt.y][pt.x].p1_distance >
-				(distance = ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)))
-					board[pt.y][pt.x].p1_distance = distance;
-				else if (player_side > 0 && board[pt.y][pt.x].p2_distance >
-				(distance = ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)))
-					board[pt.y][pt.x].p2_distance = distance;
-			pt.x++;
-		}
-		pt.y++;
-	}
-}
-
-void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
-{
-	t_point		pt;
-	float		distance;
-
-	pt.y = 0;
-	while (pt.y < filler.y_max)
-	{
-		pt.x = 0;
-		while (pt.x < filler.x_max)
-		{
-			if (board[pt.y][pt.x].possession != FDF_P1 && board[pt.y][pt.x].possession != FDF_P2)
 			{
 				if (player_side < 0 && board[pt.y][pt.x].p1_distance >
 				(distance = ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)))
@@ -144,23 +120,54 @@ void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int 
 	}
 }
 
+void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
+{
+	int			x;
+	int			y;
+	float		distance;
+	float		possession;
+
+	y = 0;
+	while (y < filler.y_max)
+	{
+		x = 0;
+		while (x < filler.x_max)
+		{
+			possession = board[y][x].possession;
+			if (possession != FDF_P1 && possession != FDF_P2)
+			{
+				distance = ft_filler_abs(y - o.y) + ft_filler_abs(x - o.x);
+				if (player_side < 0  && board[y][x].p1_distance > distance)
+					board[y][x].p1_distance = distance;
+				else if (player_side > 0 && board[y][x].p2_distance > distance)
+					board[y][x].p2_distance = distance;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	possession_update(t_sqrt **board, t_filler filler)
 {
-	t_point		pt;
-	float		p1_d;
+	int			x;
+	int			y;
+	float		p2_d;
+	float		possession;
 
-	pt.y = 0;
-	while (pt.y < filler.y_max)
+	y = 0;
+	while (y < filler.y_max)
 	{
-		pt.x = 0;
-		while (pt.x < filler.x_max)
+		x = 0;
+		while (x < filler.x_max)
 		{
-			p1_d = board[pt.y][pt.x].p1_distance;
-			if (board[pt.y][pt.x].possession != FDF_P1 && board[pt.y][pt.x].possession != FDF_P2)
-					board[pt.y][pt.x].possession = p1_d / (p1_d + board[pt.y][pt.x].p2_distance);
-			pt.x++;
+			p2_d = board[y][x].p2_distance;
+			possession = board[y][x].possession;
+			if (possession != FDF_P1 && possession != FDF_P2)
+					board[y][x].possession = p2_d / (p2_d + board[y][x].p1_distance);
+			x++;
 		}
-		pt.y++;
+		y++;
 	}
 }
 
@@ -191,7 +198,6 @@ void		boundary_draw_old(t_sqrt **board, t_filler filler)
 
 void		boundary_draw(t_sqrt **board, t_filler filler)
 {
-	//printf("DRAW IN\n"); fflush(stdout);
 	t_point	pt;
 	float	possession;
 
@@ -202,13 +208,11 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 		while (pt.x < filler.x_max)
 		{
 			possession = board[pt.y][pt.x].possession;
-			//printf("X: %d Y: %d Possession: %.2f\n", pt.x, pt.y, possession); fflush(stdout);
 			if (possession == FDF_P1 || possession == FDF_P2)
-				possession_update_from_point(board, pt, filler, (possession < 0) * 2 - 1);
-			print_board_old(filler.x_max, filler.y_max, board);
-			getchar();
+				distance_update_from_point(board, pt, filler, (possession < 0) * 2 - 1);
 			pt.x++;
 		}
 		pt.y++;
 	}
+	possession_update(board, filler);
 }

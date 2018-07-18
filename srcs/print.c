@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:35:56 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 15:19:09 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_board_old(int x_max, int y_max, t_sqrt **board)
 			else if (possession > 0.5 && possession < 1)
 				printf("\033[36m%03.f%% \033[0m", possession * 100);
 			else
-				printf("%04.f ", possession * 100);
+				printf("%03.f%% ", possession * 100);
 			x++;
 		}
 		printf("\n");
