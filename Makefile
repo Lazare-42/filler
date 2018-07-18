@@ -5,6 +5,7 @@ SOURCES =	main_test.c \
 			get_possession.c \
 			board_init.c \
 			calc_score.c \
+			get_piece.c \
 
 LIBDIR = libft
 

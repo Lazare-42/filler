@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 14:19:49 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:42:38 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(void)
 	{
 		board = board_init(board, game_settings);
 		piece = get_piece(piece);
-		print_piece(piece.piece_layout);
+//		print_piece(piece);
 	//	put_piece(piece, board);
 		printf("%d %d\n", 3, 3); fflush(stdout);
 		print_board(game_settings.x_max, game_settings.y_max, board);
