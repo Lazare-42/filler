@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 14:15:38 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:17:45 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_piece	get_piece(t_piece piece)
 	piece.piece_layout[y_size] = NULL;
 	while (i < y_size)
 	{
-		get_next_line(0, &buf);
 		if (!(piece.piece_layout[i] = malloc(sizeof(int) * ft_strlen(buf))))
 			return (piece);
 		j = -1;
 		while (++j < piece.x_max)
 			piece.piece_layout[i][j] = (buf[j] == '*');
 		i++;
+		get_next_line(0, &buf);
 	}
 	return (piece);
 }

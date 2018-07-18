@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 14:15:37 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:19:49 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	put_piece(t_sqrt **board, int **piece, t_filler game_settings)
 
 	board_tmp = NULL;
 	if (!(board_tmp = board_malloc(game_settings)))
-		return (1);
+		return ;
 	board_tmp = board_init(board, game_settings);
 	(void)board;
 	(void)piece;
@@ -31,22 +31,22 @@ void	put_piece(t_sqrt **board, int **piece, t_filler game_settings)
 int	main(void)
 {
 	t_sqrt		**board;
-	t_piece		**piece;
+	t_piece		piece;
 	t_filler	game_settings;
 
 	board = NULL;
-	piece = NULL;
 	game_settings = get_game_settings();
 	if (!(board = board_malloc(game_settings)))
 		return (1);
 
 //	if (game_settings.opponent == 'X')
 		//printf("debug"); fflush(stdout);
+	piece.piece_layout = NULL;
 	while (42)
 	{
 		board = board_init(board, game_settings);
 		piece = get_piece(piece);
-		print_piece(piece);
+		print_piece(piece.piece_layout);
 	//	put_piece(piece, board);
 		printf("%d %d\n", 3, 3); fflush(stdout);
 		print_board(game_settings.x_max, game_settings.y_max, board);
