@@ -6,12 +6,14 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 01:21:55 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:03:28 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
+
+void		boundary_draw_old(t_sqrt **board, t_filler filler);
 
 int	main(void)
 {
@@ -21,7 +23,7 @@ int	main(void)
 	float		score;
 
 	f.x_max = 20;
-	f.y_max = 20;
+	f.y_max = 1000;
 	board = board_malloc(f);
 
 	board[1][1].possession = FDF_P1;
@@ -37,14 +39,13 @@ int	main(void)
 
 	print_board(f.x_max, f.y_max, board);
 	i = 0;
-	while (i++ < 133)
-		boundary_draw(board, f);
+	boundary_draw(board, f);
 	print_board(f.x_max, f.y_max, board);
 
 	score = calc_score(board, f);
-	if (score > f.x_max * f.y_max / 2)
-		printf("possession totale: \033[32m%.2f / %d\033[37m\n", score, f.x_max * f.y_max);
+	if (score > 0)
+		printf("possession totale: \033[32m%.2f\033[37m\n", score);
 	else
-		printf("possession totale: \033[31m%.2f / %d\033[37m\n", score, f.x_max * f.y_max);
+		printf("possession totale: \033[31m%.2f\033[37m\n", score);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 01:22:51 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:01:52 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define FDF_P1 1000
-# define FDF_P2 -1000
+# define FDF_P1 -2000000
+# define FDF_P2 2000000
 
 typedef enum		e_direction
 {up, right, down, left

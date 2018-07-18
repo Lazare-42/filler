@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 01:21:48 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:03:09 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	print_board(int x_max, int y_max, t_sqrt **board)
 		while (x < x_max)
 		{
 			possession = board[y][x].possession;
-			if (possession == -1000)
+			if (possession == FDF_P1)
 				printf("\033[31m  X  \033[0m");
-			else if (possession == 1000)
+			else if (possession == FDF_P2)
 				printf("\033[34m  O  \033[0m");
 			else if (possession < 0)
 				printf("\033[35m%+04.f \033[0m", possession);
