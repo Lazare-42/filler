@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 01:13:42 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:02:48 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,65 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+int	**get_piece(void)
+{
+	char	*buf;
+	int		y_size;
+	int		**piece;
+	int		i;
+	int		j;
+
+	piece = NULL;
+	y_size = 0;
+	i = 0;
+	get_next_line(0, &buf);
+	y_size = ft_atoi(&buf[5]);
+	if (!(piece = malloc(sizeof(int *) * y_size + 1)))
+		return (0);
+	piece[y_size] = NULL;
+	while (i < y_size)
+	{
+		get_next_line(0, &buf);
+		if (!(piece[i] = malloc(sizeof(int) * ft_strlen(buf) + 1)))
+			return (NULL);
+		j = 0;
+		while (buf[j])
+		{
+			piece[i][j] = (buf[j] == '*');
+			j++;
+		}
+		piece[i][j] = -1;
+		i++;
+	}
+	return (piece);
+}
+
+void	print_piece(int **piece)
+{
+	int i;
+	int j;
+	
+	int fd = open("./coucou", O_RDWR | O_CREAT | O_APPEND);
+	i = 0;
+	while (piece[i])
+	{
+		j = 0;
+		while (piece[i][j] != -1)
+		{
+			ft_putnbr_fd(piece[i][j], fd);
+			ft_putchar_fd(' ', fd);
+			j++;
+		}
+		ft_putchar_fd('\n', fd);
+		i++;
+	}
+	close(fd);
+}
+
 int	main(void)
 {
 	t_sqrt		**board;
+	int			**piece;
 	t_filler	game_settings;
 
 	board = NULL;
@@ -30,6 +86,8 @@ int	main(void)
 	while (42)
 	{
 		board = board_init(board, game_settings);
+		piece = get_piece();
+		print_piece(piece);
 		printf("%d %d\n", 3, 3); fflush(stdout);
 		print_board(game_settings.x_max, game_settings.y_max, board);
 	}

@@ -1,6 +1,5 @@
-seed = 2233
-O: error on input
-./the_legend_27: Segfault at 1
-./resources/players/carli.filler won
+seed = 7448
+X: error on input
+./resources/players/grati.filler won
 Score:
-1AGAINST352
+0AGAINST17
