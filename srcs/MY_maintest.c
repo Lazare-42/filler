@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:12:07 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:44:45 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void		boundary_draw_old(t_sqrt **board, t_filler filler);
 t_sqrt	**board_random(t_filler game_settings);
+void	print_board_old(int x_max, int y_max, t_sqrt **board);
 
 int	main(void)
 {
@@ -23,8 +24,8 @@ int	main(void)
 	int			i;
 	float		score;
 
-	f.x_max = 20;
-	f.y_max = 20;
+	f.x_max = 100;
+	f.y_max = 100;
 	board = board_random(f);
 
 	//board[1][1].possession = FDF_P1;
@@ -40,8 +41,9 @@ int	main(void)
 
 	print_board(f.x_max, f.y_max, board);
 	i = 0;
-	boundary_draw(board, f);
-	print_board(f.x_max, f.y_max, board);
+	while (i++ < 500)
+		boundary_draw_old(board, f);
+	print_board_old(f.x_max, f.y_max, board);
 
 	score = calc_score(board, f);
 	if (score > 0)

@@ -6,14 +6,14 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:29:26 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:41:43 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> //Ne pas oublier d'inclure le fichier time.h
+#include <time.h>
 
 t_sqrt	**board_random(t_filler game_settings)
 {
@@ -21,7 +21,7 @@ t_sqrt	**board_random(t_filler game_settings)
 	int		x;
 	t_sqrt	**board;
 
-	srand(time(0));
+	srand(time(NULL));
 	board = NULL;
 	if (!(board = (t_sqrt **)malloc(sizeof(t_sqrt *) * game_settings.y_max)))
 		return (0);
@@ -34,9 +34,9 @@ t_sqrt	**board_random(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].boundary = 0;
-			if (random()%100 < 3)
+			if (random()%100 < 2)
 				board[y][x].possession = FDF_P1;
-			else if (random()%100 > 97)
+			else if (random()%100 > 98)
 				board[y][x].possession = FDF_P2;
 			else
 				board[y][x].possession = 0;
@@ -97,8 +97,8 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			if (buf[x + 4] != '.' && board[y][x].possession != FDF_P1
-			&& board[y][x].possession != FDF_P2)
+			if (buf[x + 4] != '.' && board[y][x].possession > 0
+			&& board[y][x].possession < 1)
 				board[y][x].possession = (buf[x + 4] == game_settings.opponent
 				|| buf[x + 4] == game_settings.opponent + 32);
 			x++;

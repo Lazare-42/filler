@@ -6,12 +6,14 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:01:31 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:37:06 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
+
+void	print_board_old(int x_max, int y_max, t_sqrt **board);
 
 static void		position_update(t_point *position, t_direction direction)
 {
@@ -73,14 +75,14 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 //				printf("position px %d py %d\n", pt.x, pt.y);
 				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
 				{
-					if (board[pt.y][pt.x].possession == FDF_P2 && distance_p1 == -1)
+					if (board[pt.y][pt.x].possession == FDF_P1 && distance_p1 == -1)
 					{
-						distance_p1 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2 + i_lim / 2;
+						distance_p1 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
 //						printf("distance p1: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p1, pt.x, pt.y, o.x, o.y);
 					}
-					else if (board[pt.y][pt.x].possession == 0 && distance_p2 == -1)
+					else if (board[pt.y][pt.x].possession == FDF_P2 && distance_p2 == -1)
 					{
-						distance_p2 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2 + i_lim / 2;
+						distance_p2 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
 //						printf("distance p2: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p2, pt.x, pt.y, o.x, o.y);
 					}
 				}
@@ -89,7 +91,7 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 		}
 		i_lim++;
 	}
-	return (distance_p2 / (distance_p1 + distance_p2));
+	return (distance_p1 / (distance_p1 + distance_p2));
 }
 
 void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
@@ -126,8 +128,9 @@ void		boundary_draw_old(t_sqrt **board, t_filler filler)
 			//printf("X: %d Y: %d Possession: %.2f\n", pt.x, pt.y, possession); fflush(stdout);
 			if (possession != FDF_P1 && possession != FDF_P2)
 				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
-			//print_board(filler.x_max, filler.y_max, board);
-			//getchar();
+//			printf("Possession: %.2f\n", possession); fflush(stdout);
+//`			print_board_old(filler.x_max, filler.y_max, board);
+//			getchar();
 			pt.x++;
 		}
 		pt.y++;
