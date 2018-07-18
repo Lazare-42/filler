@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:44:45 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 16:17:19 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int	main(void)
 	int			i;
 	float		score;
 
-	f.x_max = 100;
+	f.x_max = 20;
 	f.y_max = 100;
 	board = board_random(f);
-
 	//board[1][1].possession = FDF_P1;
 	//board[1][2].possession = 0;
 	//board[1][3].possession = 0;
@@ -39,10 +38,10 @@ int	main(void)
 	//board[f.y_max - 5][f.x_max - 5].possession = 1;
 	//board[f.y_max - 6][f.x_max - 6].possession = 1;
 
-	print_board(f.x_max, f.y_max, board);
+	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
 	while (i++ < 500)
-		boundary_draw_old(board, f);
+		boundary_draw(board, f);
 	print_board_old(f.x_max, f.y_max, board);
 
 	score = calc_score(board, f);
