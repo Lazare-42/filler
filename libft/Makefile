@@ -6,7 +6,7 @@
 #    By: jboursal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 11:05:26 by jboursal          #+#    #+#              #
-#    Updated: 2018/07/12 16:51:21 by jboursal         ###   ########.fr        #
+#    Updated: 2018/07/18 12:52:23 by lazrossi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ SRCS =	ft_memset.c\
 		ft_exit_error.c\
 		ft_multifree.c\
 		get_next_line.c\
+		ft_tabdel.c \
 
 HEAD = ./
 

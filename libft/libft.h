@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:26:09 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/12 17:19:28 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 12:51:26 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ char			*ft_strndup(const char *s, size_t n);
 void			ft_exit_error(void);
 void			ft_multifree(void *v1, void *v2, void *v3, void *v4);
 int				get_next_line(const int fd, char **line);
+void			ft_tabdel(void ***str);
 
 #endif
