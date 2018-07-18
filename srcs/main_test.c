@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:02:48 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:14:50 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int	**get_piece(void)
+int	**get_piece(int		**piece)
 {
 	char	*buf;
 	int		y_size;
-	int		**piece;
 	int		i;
 	int		j;
 
-	piece = NULL;
 	y_size = 0;
 	i = 0;
 	get_next_line(0, &buf);
@@ -36,12 +34,9 @@ int	**get_piece(void)
 		get_next_line(0, &buf);
 		if (!(piece[i] = malloc(sizeof(int) * ft_strlen(buf) + 1)))
 			return (NULL);
-		j = 0;
-		while (buf[j])
-		{
+		j = -1;
+		while (buf[++j])
 			piece[i][j] = (buf[j] == '*');
-			j++;
-		}
 		piece[i][j] = -1;
 		i++;
 	}
@@ -70,6 +65,13 @@ void	print_piece(int **piece)
 	close(fd);
 }
 
+void	put_piece(t_sqrt **board, int **piece, t_filler game_settings)
+{
+	(void)board;
+	(void)piece;
+	(void)game_settings;
+}
+
 int	main(void)
 {
 	t_sqrt		**board;
@@ -77,6 +79,7 @@ int	main(void)
 	t_filler	game_settings;
 
 	board = NULL;
+	piece = NULL;
 	game_settings = get_game_settings();
 	if (!(board = board_malloc(game_settings)))
 		return (1);
@@ -86,8 +89,9 @@ int	main(void)
 	while (42)
 	{
 		board = board_init(board, game_settings);
-		piece = get_piece();
+		piece = get_piece(piece);
 		print_piece(piece);
+	//	put_piece(piece, board);
 		printf("%d %d\n", 3, 3); fflush(stdout);
 		print_board(game_settings.x_max, game_settings.y_max, board);
 	}

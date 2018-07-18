@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 02:20:43 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/18 02:29:26 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			if (buf[x + 4] != '.' && board[y][x].possession > 0
-			&& board[y][x].possession < 1)
+			if (buf[x + 4] != '.' && board[y][x].possession != FDF_P1
+			&& board[y][x].possession != FDF_P2)
 				board[y][x].possession = (buf[x + 4] == game_settings.opponent
 				|| buf[x + 4] == game_settings.opponent + 32);
 			x++;
