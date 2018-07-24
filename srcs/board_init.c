@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/19 19:27:17 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/24 19:14:36 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_sqrt	**board_random(t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			board[y][x].boundary = 0;
 			if (random()%100 < 2)
 				board[y][x].possession = FDF_P1;
 			else if (random()%100 > 98)
