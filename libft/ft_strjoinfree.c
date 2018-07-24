@@ -3,38 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/18 20:25:10 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/09 20:35:22 by jboursal         ###   ########.fr       */
+/*   Created: 2017/04/25 10:16:39 by lazrossi          #+#    #+#             */
+/*   Updated: 2018/07/19 16:21:53 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strjoinfree(char **s1, const char *s2)
+char	*ft_strjoinfree(char **s1, char **s2, char a)
 {
-	char	*str;
-	size_t	i;
-	size_t	i2;
+	char *str;
 
-	i = 0;
-	i2 = 0;
-	if (!*s1 || !s2)
-		return (0);
-	if (!(str = ft_strnew(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2)))))
-		return (0);
-	while ((*s1)[i])
+	str = ft_strjoin(*s1, *s2);
+	if (a == 'L')
+		ft_memdel((void*)s1);
+	if (a == 'R')
+		ft_memdel((void*)s2);
+	if (a == 'B')
 	{
-		str[i] = (*s1)[i];
-		i++;
+		ft_memdel((void*)s1);
+		ft_memdel((void*)s2);
 	}
-	while (s2[i2])
-	{
-		str[i + i2] = s2[i2];
-		i2++;
-	}
-	str[i + i2] = 0;
-	free(*s1);
 	return (str);
 }

@@ -521,9 +521,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
                 board_cpy_reset(board, board_cpy, game_settings);
                 piece_write(board_cpy, pc, pt);
                 if (score_update(board_cpy, &high_score, game_settings))
-                {
                     memo = pt;
-                }
             }
         }
     }
@@ -548,8 +546,10 @@ int     main(void)
         map[0][5].possession = P2;
         map_print(map);
         map_distance_update_0(&map);
+		// updates just the distance under owned "case"
         map_print(map);
         map_update(&map, game_settings);
+		// 
         map_print(map);
         score = map_score_calc(map, game_settings);
         printf("score = %.2f / %d\n", score, 6 * 6); fflush(stdout);

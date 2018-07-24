@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
+/*   Updated: 2018/07/19 19:24:54 by lazrossi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_test.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:28 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/19 15:57:46 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +27,65 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+int		try_insert(t_piece piece, t_sqrt **board_tmp, char **location, int x, int y)
+{
+	int i;
+	int j;
+	char *tmp;
+
+	i = 0;
+	tmp = NULL;
+	while (i < piece.free_lines)
+	{
+		j = 0;
+		while (j < piece.free_columns)
+		{
+			if (piece.piece_layout[i][i] && board_tmp[x + i][y + j].possession == 0)
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	if (!(tmp = ft_itoa(x - piece.free_columns)))
+		return (0);
+	if (!(*location = ft_strjoinfree(location, &tmp, 'B')))
+		return (0);
+	if (!(tmp = ft_strdup(" ")))
+		return (0);
+	if (!(*location = ft_strjoinfree(location, &tmp, 'B')))
+		return (0);
+	if (!(tmp = ft_itoa(y - piece.free_lines)))
+		return (0);
+	if (!(*location = ft_strjoinfree(location, &tmp, 'B')))
+		return (0);
+	if (!(tmp = ft_strdup("\n")))
+		return (0);
+	if (!(*location = ft_strjoinfree(location, &tmp, 'B')))
+		return (0);
+	return (1);
+}
+
 void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 {
 	int x;
 	int y;
 	char *location;
+	t_sqrt **board_tmp;
 
 	x = 0;
 	location = NULL;
-	while (x < game_settings.y_max)
+	(void)board;
+	if (!(board_tmp = board_malloc(game_settings)))
+		return ;
+	while (x < game_settings.y_max - piece.free_lines)
 	{
 		y = 0;
-		while (y < game_settings.x_max)
+		while (y < game_settings.x_max - piece.free_columns)
 		{
-			if (board[x][y].possession == 0)
+			board_tmp = board_init(board_tmp, game_settings);
+			if (board_tmp[x][y].possession == 0)
 			{
-				if (try_insert(piece, board, game_settings, &location))
+				if (try_insert(piece, board_tmp, &location, x, y))
 				{
 					ft_putstr(location);
 					return ;
@@ -38,6 +93,7 @@ void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 			}
 			y++;
 		}
+		x++;
 	}
 }
 
@@ -55,15 +111,12 @@ int	main(void)
 //	if (game_settings.opponent == 'X')
 		//printf("debug"); fflush(stdout);
 	piece.piece_layout = NULL;
-	while (42)
-	{
 		board = board_init(board, game_settings);
 		//print_board(game_settings.x_max, game_settings.y_max, board);
-		piece = get_piece(piece);
+//		piece = get_piece(piece);
 //		print_piece(piece);
-		put_piece(board, piece, game_settings);
+//		put_piece(board, piece, game_settings);
 //		printf("%d %d\n", 3, 3); fflush(stdout);
-	}
 	//board[1][1].possession = 0;
 	//board[1][2].possession = 0;
 	//board[1][3].possession = 0;

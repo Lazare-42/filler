@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:37 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/19 15:53:55 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,13 @@ void	swap_lines(t_piece piece, int free_lines)
 
 t_piece norm_piece(t_piece piece)
 {
-	int	free_columns;
-	int free_lines;
-
-	free_columns = 0;
-	free_lines = 0;
-	if ((free_columns = check_empty_column(piece)))
-		swap_columns(piece, free_columns);
-	if ((free_lines = check_empty_line(piece)))
-		swap_lines(piece, free_lines);
+	if ((piece.free_columns = check_empty_column(piece)))
+		swap_columns(piece, piece.free_columns);
+	if ((piece.free_lines = check_empty_line(piece)))
+		swap_lines(piece, piece.free_lines);
 	print_piece(piece);
-	piece.x_max -= free_columns;
-	piece.y_max -= free_lines;
+	piece.x_max -= piece.free_columns;
+	piece.y_max -= piece.free_lines;
 	return (piece);
 }
 

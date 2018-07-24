@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 18:32:54 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:36 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/24 18:27:34 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			board[y][x].boundary = 0;
-			board[y][x].possession = 0;
+			board[y][x].possession = 0.5;
 			board[y][x].p1_distance = game_settings.y_max + game_settings.x_max;
 			board[y][x].p2_distance = game_settings.y_max + game_settings.x_max;
 			x++;
@@ -69,5 +68,5 @@ t_piece	get_piece(t_piece piece)
 		i++;
 		get_next_line(0, &buf);
 	}
-	return ((norm_piece(piece)));
+	return (norm_piece(piece));
 }

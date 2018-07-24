@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:34 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/19 19:27:17 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		y++;
 	}
 	first = 1;
+	ft_printf("coucou");
+	print_board_old(game_settings.x_max, game_settings.y_max, board);
 	return (board);
 }
 

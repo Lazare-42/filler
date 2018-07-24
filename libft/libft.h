@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:26:09 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 12:51:26 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/19 16:21:49 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char			*ft_strsubfree(char **s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_nn_strjoin(char const *s1, char const *s2, size_t
 l1, size_t l2);
-char			*ft_strjoinfree(char **s1, char const *s2);
 char			*ft_strjoinfree2(char const *s1, char **s2);
+char			*ft_strjoinfree(char **s1, char **s2, char a);
 char			*ft_strnjoin(char const *s1, char const *s2, size_t n);
 char			*ft_strtrim(char const *s);
 int				strwsplen(char const *s);

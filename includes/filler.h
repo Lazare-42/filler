@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:36 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/24 18:27:29 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum		e_direction
 
 typedef struct		s_sqrt
 {
-	int				boundary;
 	float			possession;
 	float			p1_distance;
 	float			p2_distance;
@@ -46,6 +45,8 @@ typedef struct		s_piece
 	int				**piece_layout;
 	int				x_max;
 	int				y_max;
+	int				free_lines;
+	int				free_columns;
 }					t_piece;
 
 typedef struct		s_point
@@ -63,5 +64,6 @@ float				calc_score(t_sqrt **board, t_filler f);
 void				print_piece(t_piece	piece);
 t_piece				get_piece(t_piece piece);
 t_piece 			norm_piece(t_piece piece);
+void				print_board_old(int x_max, int y_max, t_sqrt **board);
 
 # endif
