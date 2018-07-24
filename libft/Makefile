@@ -6,7 +6,7 @@
 #    By: jboursal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 11:05:26 by jboursal          #+#    #+#              #
-#    Updated: 2018/07/18 12:52:23 by lazrossi         ###   ########.fr        #
+#    Updated: 2018/07/24 19:01:44 by lazrossi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,37 @@ SRCS =	ft_memset.c\
 		ft_multifree.c\
 		get_next_line.c\
 		ft_tabdel.c \
+		ft_printf.c \
+		get_modifiers.c \
+		parsing.c \
+		precision_width.c \
+		base_converter.c \
+		wide_char.c \
+		store_nbr_data.c \
+		store_char_data.c \
+		bonus_colors_formatting.c \
+		get_nbr_len.c \
+		base_converter_len_output.c \
+		fill_str_update_index.c \
+		bonus_fd.c \
+		ft_print_continued.c \
+		get_char_len.c \
+		width.c \
+		ft_str_mins_to_caps.c \
+
+# CC = gcc -Wall -Wextra -Werror -c -g
+
+CC = gcc -Wall -Werror -Wextra -Ofast -c
+
+#DEBUG = ""
+#if ${DEBUG}
+#	CC += ASAN	
+
+ODIR = bin_libft
+
+BDIR = bin_printf
+
+S_LIB_DIR = libft_srcs
 
 HEAD = ./
 
