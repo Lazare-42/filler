@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 17:51:05 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 22:03:26 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_filler
 	int				x_max;
 	int				y_max;
 	int				opponent;
+	float			**mask;
 }					t_filler;
 
 typedef struct		s_piece

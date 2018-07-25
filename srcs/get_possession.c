@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 21:13:28 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 22:31:53 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,18 +585,21 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 		x = pc.free_lines;
 		while (x < pc.x_max)
 		{
-			possession = board[o.y + y][o.x + x].possession;
 			//printf("%.f ", possession); fflush(stdout);
-			if (pc.layout[y][x] == 1)
+			printf("%.f", possession); fflush(stdout);
+			if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 0)
 			{
+				possession = board[o.y + y][o.x + x].possession;
 				if (possession == P1)
 					mixed++;
 				else if (possession == P2)
 					return (0);
 			}
+			else if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 1)
+				return (0);
 			x++;
 		}
-		//printf("\n"); fflush(stdout);
+		printf("\n"); fflush(stdout);
 		y++;
 	}
 	//printf("mixed: %d\n", mixed); fflush(stdout);
@@ -687,12 +690,13 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write(board_cpy, pc, pt);
-				if (score_update(board_cpy, &high_score, gs))
-				{
+				//if (score_update(board_cpy, &high_score, gs))
+				//{
 					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
-				}
+					return (memo);
+				//}
 			}
 		}
 	}

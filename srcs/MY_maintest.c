@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 21:13:13 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 22:30:52 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,71 @@ t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc
 void    board_print(t_sqrt **board, t_filler gs);
 void    piece_write(t_sqrt ***board, t_piece pc, t_point o);
 void    piece_write_for_p2(t_sqrt ***board, t_piece pc, t_point o);
+/*
+static void	mask_init(t_filler gs)
+{
+	int	y;
+	int	x;
+
+	float	model[7][7] = 
+	{
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1}
+	};
+	y = 0;
+	while (y < 7)
+	{
+		x = 0;
+		while (x < 7)
+		{
+				gs.mask[y][x] = model[y][x];
+			x++;
+			printf("%.f ", model[y][x]);
+			//printf("%.f ", gs.mask[y][x]);
+		}
+		printf("\n");
+		y++;
+	}
+}*/
+
+static float	**mask_init(void)
+{
+	int	y;
+	int	x;
+	float	**ret;
+	float	model[7][7] = 
+	{
+		{0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0},
+		{1,0,0,0,0,0,0},
+		{1,1,0,0,0,0,0}
+	};
+
+	y = 0;
+	ret = (float **)malloc(sizeof(float *) * 7);
+	while (y < 7)
+	{
+		ret[y] = (float *)malloc(sizeof(float) * 7);
+		x = 0;
+		while (x < 7)
+		{
+			ret[y][x] = model[y][x];
+			printf("%.f ", ret[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+	return (ret);
+}
 
 static int **layout_init(char layout[3][3])
 {
@@ -69,6 +134,7 @@ int	main(void)
 	};
 
 	pc.layout = layout_init(pc_layout);
+	f.mask = mask_init();
 	pc.x_max = 2;
 	pc.y_max = 2;
 	pc.free_columns = 0;
@@ -92,9 +158,9 @@ int	main(void)
 	print_board_old(f.x_max, f.y_max, board_cpy);*/
 	//printf("is_placeable = %d\n", is_placeable(board, pc, point, f)); fflush(stdout);
 
-	board[0][0].possession = P1;
-	board[0][0].p1_distance = 0;
-	board[0][0].p2_distance = 500;
+	//board[0][0].possession = P2;
+	//board[0][0].p1_distance = 500;
+	//board[0][0].p2_distance = 0;
 	/*board[5][0].possession = P1;
 	board[5][0].p1_distance = 0;
 	board[5][0].p2_distance = 500;
@@ -129,9 +195,18 @@ int	main(void)
 	board[3][12].possession = P2;
 	board[3][12].p1_distance = 500;
 	board[3][12].p2_distance = 0;*/
-	board[15][15].possession = P2;
-	board[15][15].p1_distance = 500;
-	board[15][15].p2_distance = 0;
+	board[15][15].possession = P1;
+	board[15][15].p1_distance = 0;
+	board[15][15].p2_distance = 500;
+	board[19][19].possession = P1;
+	board[19][19].p1_distance = 0;
+	board[19][19].p2_distance = 500;
+	board[0][15].possession = P1;
+	board[0][15].p1_distance = 0;
+	board[0][15].p2_distance = 500;
+	board[15][0].possession = P1;
+	board[15][0].p1_distance = 0;
+	board[15][0].p2_distance = 500;
 
 	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
@@ -147,11 +222,11 @@ int	main(void)
 	//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
 			piece_write(&board, pc, best_position);
 		}
-		else
+		/*else
 		{
 			best_position = get_best_position_for_p2(board, &board_cpy, pc, f);
 			piece_write_for_p2(&board, pc, best_position);
-		}
+		}*/
 		printf("score = %.2f / %d\n", board_score_calc(board, f), f.x_max * f.y_max); fflush(stdout);
 	}
 	return (0);
