@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 22:33:49 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 00:22:28 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static float	**mask_init(void)
 		{0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0},
 		{0,0,1,1,1,0,0},
-		{0,0,0,1,1,0,0},
+		{0,0,1,1,1,0,0},
 		{0,0,1,1,1,0,0},
 		{0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0}
@@ -191,22 +191,22 @@ int	main(void)
 	board[8][8].p2_distance = 0;
 	board[0][15].possession = P2;
 	board[0][15].p1_distance = 500;
-	board[0][15].p2_distance = 0;
-	board[3][12].possession = P2;
+	board[0][15].p2_distance = 0;*/
+	/*board[3][12].possession = P2;
 	board[3][12].p1_distance = 500;
 	board[3][12].p2_distance = 0;*/
 	board[15][15].possession = P1;
 	board[15][15].p1_distance = 0;
 	board[15][15].p2_distance = 500;
-	board[19][19].possession = P1;
+	/*board[19][19].possession = P1;
 	board[19][19].p1_distance = 0;
-	board[19][19].p2_distance = 500;
-	board[0][15].possession = P1;
+	board[19][19].p2_distance = 500;*/
+	/*board[0][15].possession = P1;
 	board[0][15].p1_distance = 0;
 	board[0][15].p2_distance = 500;
 	board[15][0].possession = P1;
 	board[15][0].p1_distance = 0;
-	board[15][0].p2_distance = 500;
+	board[15][0].p2_distance = 500;*/
 
 	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
@@ -219,10 +219,10 @@ int	main(void)
 		if (i % 2)
 		{
 			best_position = get_best_position(board, &board_cpy, pc, f);
-	//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
+			//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
 			piece_write(&board, pc, best_position);
-		}
-		/*else
+		}/*
+		else
 		{
 			best_position = get_best_position_for_p2(board, &board_cpy, pc, f);
 			piece_write_for_p2(&board, pc, best_position);
