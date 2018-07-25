@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 17:15:15 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:19:30 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	boundary_draw_new(t_sqrt **board, t_filler f);
 void    board_cpy_reset(t_sqrt **board, t_sqrt ***board_cpy, t_filler game_settings);
 int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs);
 float   board_score_calc(t_sqrt **board, t_filler gs);
+t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs);
 
 static int **layout_init(char layout[3][3])
 {
@@ -72,7 +73,7 @@ int	main(void)
 
 	f.x_max = 10;
 	f.y_max = 10;
-	board = board_random(f, 2);
+	board = board_random(f, 0);
 	//board_cpy = board_random(f, 0);
 
 	//printf("BOARD\n"); fflush(stdout);
@@ -86,9 +87,9 @@ int	main(void)
 	print_board_old(f.x_max, f.y_max, board_cpy);*/
 	//printf("is_placeable = %d\n", is_placeable(board, pc, point, f)); fflush(stdout);
 
-	/*board[7][0].possession = P1;
-	board[7][1].possession = P1;
-	board[6][3].possession = P2;
+	board[0][0].possession = P1;
+	board[9][9].possession = P2;
+/*	board[6][3].possession = P2;
 	board[7][2].possession = P1;
 	board[8][2].possession = P1;
 	board[9][2].possession = P1;
