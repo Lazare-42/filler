@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 21:03:47 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 21:13:28 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -714,12 +714,12 @@ t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc
 		{
 			if (is_placeable_for_p2(board, pc, pt, gs))
 			{
-				printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
+				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write_for_p2(board_cpy, pc, pt);
 				if (score_update_for_p2(board_cpy, &high_score, gs))
 				{
-					printf("new best position - score: %.2f\n", high_score); fflush(stdout);
+					//printf("new best position - score: %.2f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
 				}

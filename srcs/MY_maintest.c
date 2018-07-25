@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 19:15:19 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 21:13:13 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(void)
 	point.y = 6;
 
 	f.x_max = 20;
-	f.y_max = 20;
+	f.y_max = 70;
 	board = board_random(f, 0);
 	board_cpy = board_random(f, 0);
 
