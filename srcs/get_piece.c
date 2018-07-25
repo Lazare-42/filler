@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/19 15:53:55 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 16:23:17 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_empty_column(t_piece piece)
 	{
 		i = -1;
 		while (++i < piece.y_max)
-			if (piece.piece_layout[i][free_columns] == 1)
+			if (piece.layout[i][free_columns] == 1)
 				return (free_columns);
 		free_columns++;
 	}
@@ -41,11 +41,11 @@ void	swap_columns(t_piece piece, int free_columns)
 			j = 0;
 			while (j + free_columns < piece.x_max)
 			{
-				piece.piece_layout[i][j] =
-				piece.piece_layout[i][j + free_columns];
-				piece.piece_layout[i][j + free_columns] =
+				piece.layout[i][j] =
+				piece.layout[i][j + free_columns];
+				piece.layout[i][j + free_columns] =
 				(j + free_columns * 2  < piece.x_max) ?
-				piece.piece_layout[i][j + free_columns * 2] : 0;
+				piece.layout[i][j + free_columns * 2] : 0;
 				j++;
 			}
 			i++;
@@ -62,7 +62,7 @@ int check_empty_line(t_piece piece)
 	{
 		i = -1;
 		while (++i < piece.x_max)
-			if (piece.piece_layout[free_lines][i] == 1)
+			if (piece.layout[free_lines][i] == 1)
 				return (free_lines);
 		free_lines++;
 	}
@@ -80,11 +80,11 @@ void	swap_lines(t_piece piece, int free_lines)
 		j = 0;
 		while (j + free_lines < piece.y_max)
 		{
-			piece.piece_layout[j][i] =
-			piece.piece_layout[j + free_lines][i];
-			piece.piece_layout[j + free_lines][i] =
+			piece.layout[j][i] =
+			piece.layout[j + free_lines][i];
+			piece.layout[j + free_lines][i] =
 			(j + free_lines * 2  < piece.y_max) ? 
-			piece.piece_layout[j + free_lines * 2][i] : 0;
+			piece.layout[j + free_lines * 2][i] : 0;
 			j++;
 		}
 		i++;
@@ -120,7 +120,7 @@ void	print_piece(t_piece piece)
 		j = 0;
 		while (j < piece.x_max)
 		{
-			ft_putnbr_fd(piece.piece_layout[i][j], fd);
+			ft_putnbr_fd(piece.layout[i][j], fd);
 			ft_putchar_fd(' ', fd);
 			j++;
 		}

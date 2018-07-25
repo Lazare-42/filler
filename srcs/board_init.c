@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 11:26:54 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 16:08:28 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-t_sqrt	**board_random(t_filler game_settings)
+t_sqrt	**board_random(t_filler game_settings, int nb)
 {
 	int		y;
 	int		x;
@@ -33,12 +33,20 @@ t_sqrt	**board_random(t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			if (random()%100 < 2)
+			board[y][x].p1_distance = 1000;
+			board[y][x].p2_distance = 1000;
+			if (random()%100 < nb)
+			{
+				board[y][x].p1_distance = 0;
 				board[y][x].possession = P1;
-			else if (random()%100 > 98)
+			}
+			else if (random()%100 > 100 - nb)
+			{
+				board[y][x].p2_distance = 0;
 				board[y][x].possession = P2;
+			}
 			else
-				board[y][x].possession = 0;
+				board[y][x].possession = 0.5;
 			x++;
 		}
 		y++;

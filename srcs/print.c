@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 10:51:03 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:16:03 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,22 @@ void	print_board_old(int x_max, int y_max, t_sqrt **board)
 		while (x < x_max)
 		{
 			possession = board[y][x].possession;
-			if (possession == P1)
-				ft_printf("[[red]]X");
-			else if (possession == P2)
-				ft_printf("[[blue]]O");
+			if (possession == P2)
+				ft_printf("[[red]]  X  [[end]]");
+			else if (possession == P1)
+				ft_printf("[[blue]]  O  [[end]]");
 			else if (possession < 0.5 && possession > 0)
-				printf("\033[35m%03.f%% \033[0m", possession * 100);
+			{
+				printf("\033[35m%03.f%% \033[0m", possession * 100); fflush(stdout);
+			}
 			else if (possession > 0.5 && possession < 1)
-				printf("\033[36m%03.f%% \033[0m", possession * 100);
+			{
+				printf("\033[36m%03.f%% \033[0m", possession * 100); fflush(stdout);
+			}
 			else
-				printf("%03.f%% ", possession * 100);
+			{
+				printf("%03.f%% ", possession * 100); fflush(stdout);
+			}
 			x++;
 		}
 		printf("\n");

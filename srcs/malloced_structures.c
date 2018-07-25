@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 18:32:54 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/24 18:27:34 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 16:33:49 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ t_piece	get_piece(t_piece piece)
 	piece.y_max = ft_atoi(&buf[5]);
 	get_next_line(0, &buf);
 	piece.x_max = ft_strlen(buf);
-	if (piece.piece_layout)
-		ft_tabdel((void***)&piece.piece_layout);
-	if (!(piece.piece_layout = malloc(sizeof(int *) * piece.y_max + 1)))
+	if (piece.layout)
+		ft_tabdel((void***)&piece.layout);
+	if (!(piece.layout = malloc(sizeof(int *) * piece.y_max + 1)))
 		return (piece);
-	piece.piece_layout[piece.y_max] = NULL;
+	piece.layout[piece.y_max] = NULL;
 	while (i < piece.y_max)
 	{
-		if (!(piece.piece_layout[i] = malloc(sizeof(int) * ft_strlen(buf))))
+		if (!(piece.layout[i] = malloc(sizeof(int) * ft_strlen(buf))))
 			return (piece);
 		j = -1;
 		while (++j < piece.x_max)
-			piece.piece_layout[i][j] = (buf[j] == '*');
+			piece.layout[i][j] = (buf[j] == '*');
 		i++;
 		get_next_line(0, &buf);
 	}

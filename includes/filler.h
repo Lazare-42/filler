@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 11:18:51 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:03:11 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define P1 -2000000
-# define P2 2000000
+# define P1 1
+# define P2 0
 # define P1_NEW FDF_P1 + 1
 # define P2_NEW FDF_P2 - 1
 
@@ -42,7 +42,7 @@ typedef struct		s_filler
 
 typedef struct		s_piece
 {
-	int				**piece_layout;
+	int				**layout;
 	int				x_max;
 	int				y_max;
 	int				free_lines;
