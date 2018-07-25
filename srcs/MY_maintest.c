@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 22:33:49 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 23:33:29 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static float	**mask_init(void)
 	float	model[7][7] = 
 	{
 		{0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0},
+		{0,1,1,0,1,1,0},
+		{0,1,1,1,1,1,0},
+		{0,1,1,1,1,1,0},
 		{0,0,1,1,1,0,0},
-		{0,0,0,1,1,0,0},
-		{0,0,1,1,1,0,0},
-		{0,0,0,0,0,0,0},
+		{0,0,0,1,0,0,0},
 		{0,0,0,0,0,0,0}
 	};
 
@@ -191,10 +191,10 @@ int	main(void)
 	board[8][8].p2_distance = 0;
 	board[0][15].possession = P2;
 	board[0][15].p1_distance = 500;
-	board[0][15].p2_distance = 0;
+	board[0][15].p2_distance = 0;*/
 	board[3][12].possession = P2;
 	board[3][12].p1_distance = 500;
-	board[3][12].p2_distance = 0;*/
+	board[3][12].p2_distance = 0;
 	board[15][15].possession = P1;
 	board[15][15].p1_distance = 0;
 	board[15][15].p2_distance = 500;
@@ -222,11 +222,11 @@ int	main(void)
 	//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
 			piece_write(&board, pc, best_position);
 		}
-		/*else
+		else
 		{
 			best_position = get_best_position_for_p2(board, &board_cpy, pc, f);
 			piece_write_for_p2(&board, pc, best_position);
-		}*/
+		}
 		printf("score = %.2f / %d\n", board_score_calc(board, f), f.x_max * f.y_max); fflush(stdout);
 	}
 	return (0);

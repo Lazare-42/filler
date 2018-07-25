@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 23:33:34 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 23:34:38 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,10 +545,10 @@ int     is_placeable_for_p2(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 	mixed = 0;
 	if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
 		return (0);
-	y = 0;
+	y = pc.free_columns;
 	while (y < pc.y_max)
 	{
-		x = 0;
+		x = pc.free_lines;
 		while (x < pc.x_max)
 		{
 			possession = board[o.y + y][o.x + x].possession;
@@ -577,29 +577,29 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 	int		mixed;
 
 	mixed = 0;
-	(void)gs;
-	/*
 	if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
 		return (0);
-		*/
-	y = 1;
+	y = pc.free_columns;
 	while (y < pc.y_max)
 	{
-		x = 1;
+		x = pc.free_lines;
 		while (x < pc.x_max)
 		{
-			possession = board[o.y + y][o.x + x].possession;
 			//printf("%.f ", possession); fflush(stdout);
-			if (pc.layout[y][x] == 1)
+			printf("%.f", possession); fflush(stdout);
+			if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 0)
 			{
+				possession = board[o.y + y][o.x + x].possession;
 				if (possession == P1)
 					mixed++;
 				else if (possession == P2)
 					return (0);
 			}
+			else if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 1)
+				return (0);
 			x++;
 		}
-		//printf("\n"); fflush(stdout);
+		printf("\n"); fflush(stdout);
 		y++;
 	}
 	//printf("mixed: %d\n", mixed); fflush(stdout);
@@ -680,8 +680,6 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 
 	pt.y = -1;
 	high_score = 0;
-	memo.x = 0;
-	memo.y = 0;
 	while (++pt.y < gs.y_max)
 	{
 		pt.x = -1;
@@ -689,8 +687,6 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 		{
 			if (is_placeable(board, pc, pt, gs))
 			{
-
-				ft_printf("[[~/Documents/42/filler/piece.txt]]\nPLACED");
 				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write(board_cpy, pc, pt);
@@ -699,6 +695,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
+					return (memo);
 				}
 			}
 		}
@@ -721,12 +718,12 @@ t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc
 		{
 			if (is_placeable_for_p2(board, pc, pt, gs))
 			{
-				printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
+				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write_for_p2(board_cpy, pc, pt);
 				if (score_update_for_p2(board_cpy, &high_score, gs))
 				{
-					printf("new best position - score: %.2f\n", high_score); fflush(stdout);
+					//printf("new best position - score: %.2f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
 				}
