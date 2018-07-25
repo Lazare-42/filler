@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/19 19:24:54 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 11:27:14 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+/*
 
 int		try_insert(t_piece piece, t_sqrt **board_tmp, char **location, int x, int y)
 {
@@ -96,22 +97,22 @@ void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 		x++;
 	}
 }
+*/
 
 int	main(void)
 {
 	t_sqrt		**board;
-	t_piece		piece;
 	t_filler	game_settings;
 
 	board = NULL;
 	game_settings = get_game_settings();
+	
 	if (!(board = board_malloc(game_settings)))
 		return (1);
 
 //	if (game_settings.opponent == 'X')
 		//printf("debug"); fflush(stdout);
-	piece.piece_layout = NULL;
-		board = board_init(board, game_settings);
+//		board = board_init(board, game_settings);
 		//print_board(game_settings.x_max, game_settings.y_max, board);
 //		piece = get_piece(piece);
 //		print_piece(piece);

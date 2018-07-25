@@ -1,0 +1,9 @@
+ this is buf $$$ exec p2 : [./the_legend_27]
+ this is buf $$$ exec p2 : [./the_legend_27]
+, x_max : 40
+ y_max : 24
+ opponent -2000000
+ this is buf $$$ exec p1 : [./the_legend_27]
+, x_max : 40
+ y_max : 24
+ opponent 2000000

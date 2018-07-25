@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/18 19:20:35 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 10:51:03 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	print_board_old(int x_max, int y_max, t_sqrt **board)
 		while (x < x_max)
 		{
 			possession = board[y][x].possession;
-			if (possession == FDF_P1)
-				printf("\033[31m  X  \033[0m");
-			else if (possession == FDF_P2)
-				printf("\033[34m  O  \033[0m");
+			if (possession == P1)
+				ft_printf("[[red]]X");
+			else if (possession == P2)
+				ft_printf("[[blue]]O");
 			else if (possession < 0.5 && possession > 0)
 				printf("\033[35m%03.f%% \033[0m", possession * 100);
 			else if (possession > 0.5 && possession < 1)
@@ -57,9 +57,9 @@ void	print_board(int x_max, int y_max, t_sqrt **board)
 		while (x < x_max)
 		{
 			possession = board[y][x].possession;
-			if (possession == FDF_P1)
+			if (possession == P1)
 				printf("\033[31m  X  \033[0m");
-			else if (possession == FDF_P2)
+			else if (possession == P2)
 				printf("\033[34m  O  \033[0m");
 			else if (possession < 0)
 				printf("\033[35m%+04.f \033[0m", possession);
