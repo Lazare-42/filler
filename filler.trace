@@ -1,5 +1,8 @@
-seed = 7441
+seed = 7051
 O: error on input
-./resources/players/abanlin.filler won
+./the_legend_27: Segfault at 0
+X: error on input
+./the_legend_27: Segfault at 0
+./the_legend_27 won
 Score:
-0AGAINST29
+0AGAINST0

@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 22:03:29 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 23:11:08 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,31 @@ t_sqrt	**board_random(t_filler game_settings, int nb)
 #include <fcntl.h>
 #include <unistd.h>
 
-/*
+t_sqrt tile_init(t_filler game_settings, char position)
+{
+	t_sqrt tile;
+
+	if (((position == 'O' || position == 'o') && game_settings.opponent == P1)
+		|| (position == 'X' | position == 'x' && game_settings.opponent == P2))
+	{
+		tile.possession = P2;
+		tile.p2_distance = 0;
+	}
+	else
+	{
+		tile.possession = P1;
+		tile.p1_distance = 0;
+	}
+	return (tile);
+}
+
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
 	char	*buf;
 	int		x;
 	int		y;
-	static int first = 0;
 
 	y = 0;
-	if (first)
-		get_next_line(0, &buf);
 	get_next_line(0, &buf);
 	while (y < game_settings.y_max)
 	{
@@ -77,27 +91,14 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			if (buf[x + 4] != '.' && board[y][x].possession > 0
-			&& board[y][x].possession < 1)
-			{
-				if (buf[x][y] = game_settings.opponent + 32)
-					board[x][y] = P1;
-				else if (buf[x][y] = game_settings.opponent)
-					board[x][y] = P1_NEW;
-				else if (buf[x][y] = game_settings.opponent)
-					board[x][y] = P1_NEW;
-			}
-				board[x][y] = 
-				board[y][x].possession = (buf[x + 4] == game_settings.opponent
-				|| buf[x + 4] == game_settings.opponent + 32);
+					&& board[y][x].possession < 1)
+				board[y][x] = tile_init(game_settings, buf[x + 4]);
 			x++;
 		}
 		y++;
 	}
-	first = 1;
-	print_board_old(game_settings.x_max, game_settings.y_max, board);
 	return (board);
 }
-*/
 
 t_filler	get_game_settings()
 {

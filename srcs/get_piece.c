@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 16:23:17 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 22:21:27 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ t_piece norm_piece(t_piece piece)
 		swap_columns(piece, piece.free_columns);
 	if ((piece.free_lines = check_empty_line(piece)))
 		swap_lines(piece, piece.free_lines);
-	print_piece(piece);
 	piece.x_max -= piece.free_columns;
 	piece.y_max -= piece.free_lines;
 	return (piece);
@@ -108,25 +107,19 @@ void	print_piece(t_piece piece)
 	int i;
 	int j;
 
-	int fd = open("./coucou", O_RDWR | O_CREAT | O_APPEND);
-	ft_putstr_fd("\nthis is piece.y_max : ", fd);
-	ft_putnbr_fd(piece.y_max, fd);
-	ft_putstr_fd("\nthis is piece.x_max : ", fd);
-	ft_putnbr_fd(piece.x_max, fd);
-	ft_putstr_fd("\n", fd);
+//	ft_printf("[[~/Documents/42/filler/debug.txt]]\nDEBUG");
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\nthis is piece.y_max : %d\nthis is piece.x_max : %d\n", piece.y_max, piece.x_max);
 	i = 0;
 	while (i < piece.y_max)
 	{
 		j = 0;
 		while (j < piece.x_max)
 		{
-			ft_putnbr_fd(piece.layout[i][j], fd);
-			ft_putchar_fd(' ', fd);
+			ft_printf("[[~/Documents/42/filler/piece.txt]]%d", piece.layout[i][j]);
 			j++;
 		}
-		ft_putchar_fd('\n', fd);
+			ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
 		i++;
 	}
-	ft_putchar_fd('\n', fd);
-	close(fd);
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
 }

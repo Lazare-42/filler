@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 22:03:26 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 22:58:04 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ void				print_piece(t_piece	piece);
 t_piece				get_piece(t_piece piece);
 t_piece 			norm_piece(t_piece piece);
 void				print_board_old(int x_max, int y_max, t_sqrt **board);
+void    			board_update(t_sqrt **board, t_filler gs);
+t_point 			get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs);
 
 # endif

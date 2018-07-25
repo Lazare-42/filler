@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 11:27:14 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/07/25 23:23:32 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 				{
 					ft_putstr(location);
 					return ;
-				}
+				 l
 			}
 			y++;
 		}
@@ -102,19 +102,29 @@ void	put_piece(t_sqrt **board,t_piece piece, t_filler game_settings)
 int	main(void)
 {
 	t_sqrt		**board;
+	t_sqrt		**board_cpy;
 	t_filler	game_settings;
+	t_piece		piece;
+	t_point		best_position;
 
 	board = NULL;
+	board_cpy = NULL;
+	piece.layout = NULL;
 	game_settings = get_game_settings();
-	
+	ft_printf("[[~/Documents/42/filler/debug.txt]]game_settings.x_max %d ; game_settings.y_max %d", game_settings.x_max, game_settings.y_max);
 	if (!(board = board_malloc(game_settings)))
 		return (1);
-
-//	if (game_settings.opponent == 'X')
-		//printf("debug"); fflush(stdout);
-//		board = board_init(board, game_settings);
-		//print_board(game_settings.x_max, game_settings.y_max, board);
-//		piece = get_piece(piece);
+	if (!(board_cpy = board_malloc(game_settings)))
+		return (1);
+		board = board_init(board, game_settings);
+		piece = get_piece(piece);
+		print_piece(piece);
+		board_update(board, game_settings);
+		best_position = get_best_position(board, &board_cpy, piece, game_settings);
+		ft_printf("[[~/Documents/42/filler/piece.txt]]\n%d %d\n", best_position.x, best_position.y);
+		ft_printf("%d %d\n", best_position.x, best_position.y);
+	//	ft_printf("%d %d\n", 3, 2);
+//	piece = get_piece();
 //		print_piece(piece);
 //		put_piece(board, piece, game_settings);
 //		printf("%d %d\n", 3, 3); fflush(stdout);

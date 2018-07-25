@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:58:32 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 17:16:03 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 23:11:12 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_board_old(int x_max, int y_max, t_sqrt **board)
 {
 	int		y;
 	int		x;
-	float	possession;
 
 	y = 0;
 	while (y < y_max)
@@ -25,29 +24,18 @@ void	print_board_old(int x_max, int y_max, t_sqrt **board)
 		x = 0;
 		while (x < x_max)
 		{
-			possession = board[y][x].possession;
-			if (possession == P2)
-				ft_printf("[[red]]  X  [[end]]");
-			else if (possession == P1)
-				ft_printf("[[blue]]  O  [[end]]");
-			else if (possession < 0.5 && possession > 0)
-			{
-				printf("\033[35m%03.f%% \033[0m", possession * 100); fflush(stdout);
-			}
-			else if (possession > 0.5 && possession < 1)
-			{
-				printf("\033[36m%03.f%% \033[0m", possession * 100); fflush(stdout);
-			}
+			if (board[y][x].possession == P1)
+				ft_printf("[[~/Documents/42/filler/test_map.txt]][[swapp]][[red]] ");
+			else if (board[y][x].possession == P2)
+				ft_printf("[[~/Documents/42/filler/test_map.txt]][[end]][[swapp]][[blue]] ");
 			else
-			{
-				printf("%03.f%% ", possession * 100); fflush(stdout);
-			}
+				ft_printf("[[~/Documents/42/filler/test_map.txt]][[end]] ");
 			x++;
 		}
-		printf("\n");
+		ft_printf("[[~/Documents/42/filler/test_map.txt]]\n");
 		y++;
 	}
-	printf("\n");
+	ft_printf("[[~/Documents/42/filler/test_map.txt]]\n");
 }
 
 void	print_board(int x_max, int y_max, t_sqrt **board)
