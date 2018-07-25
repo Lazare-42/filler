@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/25 19:03:43 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 21:03:47 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,25 +419,6 @@ void    board_possession_update(t_sqrt **board, t_filler gs)
 	}
 }
 
-
-void    board_update(t_sqrt **board, t_filler gs)
-{
-	int i;
-	i = 0;
-	while (i++ < 2)
-	{
-		board_distance_update_1(board, gs);
-		board_distance_update_2(board, gs);
-		board_distance_update_3(board, gs);
-		board_distance_update_4(board, gs);
-		board_distance_update_5(board, gs);
-		board_distance_update_6(board, gs);
-		board_distance_update_7(board, gs);
-		board_distance_update_8(board, gs);
-	}
-	board_possession_update(board, gs);
-}
-
 void    board_distance_reset(t_sqrt **board, t_filler gs)
 {
 	int		x;
@@ -453,13 +434,32 @@ void    board_distance_reset(t_sqrt **board, t_filler gs)
 			possession = board[y][x].possession;
 			if (possession != P1 && possession != P2)
 			{
-				board[y][x].p1_distance = 1000;
-				board[y][x].p2_distance = 1000;
+				board[y][x].p1_distance = 100000;
+				board[y][x].p2_distance = 100000;
 			}
 			x++;
 		}
 		y++;
 	}
+}
+
+void    board_update(t_sqrt **board, t_filler gs)
+{
+	int i;
+	i = 0;
+	board_distance_reset(board, gs);
+	while (i++ < 2)
+	{
+		board_distance_update_1(board, gs);
+		board_distance_update_2(board, gs);
+		board_distance_update_3(board, gs);
+		board_distance_update_4(board, gs);
+		board_distance_update_5(board, gs);
+		board_distance_update_6(board, gs);
+		board_distance_update_7(board, gs);
+		board_distance_update_8(board, gs);
+	}
+	board_possession_update(board, gs);
 }
 
 void    board_print(t_sqrt **board, t_filler gs)
@@ -617,7 +617,7 @@ void     piece_write_for_p2(t_sqrt ***board_cpy, t_piece pc, t_point o)
 			if (pc.layout[y][x] == 1)
 			{
 				(*board_cpy)[o.y + y][o.x + x].possession = 0;
-				(*board_cpy)[o.y + y][o.x + x].p1_distance = 500;
+				(*board_cpy)[o.y + y][o.x + x].p1_distance = 99999;
 				(*board_cpy)[o.y + y][o.x + x].p2_distance = 0;
 			}
 			x++;
@@ -641,7 +641,7 @@ void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 			{
 				(*board_cpy)[o.y + y][o.x + x].possession = 1;
 				(*board_cpy)[o.y + y][o.x + x].p1_distance = 0;
-				(*board_cpy)[o.y + y][o.x + x].p2_distance = 500;
+				(*board_cpy)[o.y + y][o.x + x].p2_distance = 99999;
 			}
 			x++;
 		};
@@ -714,12 +714,12 @@ t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc
 		{
 			if (is_placeable_for_p2(board, pc, pt, gs))
 			{
-				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
+				printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write_for_p2(board_cpy, pc, pt);
 				if (score_update_for_p2(board_cpy, &high_score, gs))
 				{
-					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
+					printf("new best position - score: %.2f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
 				}
@@ -778,7 +778,6 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 void		boundary_draw_new(t_sqrt **board, t_filler f)
 {
 	//board_print(*board, f);
-	board_distance_reset(board, f);
 	//board_print(*board, f);
 	board_update(board, f);
 	//board_print(*board, f);
