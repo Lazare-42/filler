@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 17:03:11 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/25 17:51:05 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct		s_piece
 	int				free_lines;
 	int				free_columns;
 }					t_piece;
+
+typedef struct		s_fpoint
+{
+	float			x;
+	float			y;
+}					t_fpoint;
 
 typedef struct		s_point
 {
