@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 04:57:41 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 04:59:16 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -739,8 +739,11 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 					memo.x = pt.x;
 					memo.y = pt.y;
 					printf("last %d hight_score %d\n", last_score, (int)high_score); fflush(stdout);
-					if (last_score == (int)high_score)
-						return (memo);
+					if (last_score == high_score)
+					{
+						printf("plop\n"); fflush(stdout);
+					}
+						//return (memo);
 					last_score = (int)high_score;
 				}
 			}
