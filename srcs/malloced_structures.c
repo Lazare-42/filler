@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 18:32:54 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/25 16:33:49 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 03:54:50 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		while (x < game_settings.x_max)
 		{
 			board[y][x].possession = 0.5;
-			board[y][x].p1_distance = game_settings.y_max + game_settings.x_max;
-			board[y][x].p2_distance = game_settings.y_max + game_settings.x_max;
+			board[y][x].p1_distance = game_settings.y_max * game_settings.x_max;
+			board[y][x].p2_distance = game_settings.y_max  *game_settings.x_max;
 			x++;
 		}
 		y++;
@@ -42,31 +42,37 @@ t_sqrt	**board_malloc(t_filler game_settings)
 	return (board);
 }
 
-t_piece	get_piece(t_piece piece)
+void	get_piece(t_piece *piece)
 {
 	char	*buf;
-	int		i;
-	int		j;
+	int		x;
+	int		y;
 
-	i = 0;
-	get_next_line(0, &buf);
-	piece.y_max = ft_atoi(&buf[5]);
-	get_next_line(0, &buf);
-	piece.x_max = ft_strlen(buf);
-	if (piece.layout)
-		ft_tabdel((void***)&piece.layout);
-	if (!(piece.layout = malloc(sizeof(int *) * piece.y_max + 1)))
-		return (piece);
-	piece.layout[piece.y_max] = NULL;
-	while (i < piece.y_max)
+	int		ret;
+
+	y = -1;
+	ret = get_next_line(0, &buf);
+	ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+	piece->y_max = ft_atoi(&buf[5]);
+	ret = get_next_line(0, &buf);
+	ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+	piece->x_max = ft_strlen(buf);
+	if (piece->layout)
+		ft_tabdel((void***)&piece->layout);
+	if (!(piece->layout = (int**)malloc(sizeof(int *) * (piece->y_max + 1))))
+		return ;
+	piece->layout[piece->y_max] = NULL;
+	while (++y < piece->y_max)
 	{
-		if (!(piece.layout[i] = malloc(sizeof(int) * ft_strlen(buf))))
-			return (piece);
-		j = -1;
-		while (++j < piece.x_max)
-			piece.layout[i][j] = (buf[j] == '*');
-		i++;
-		get_next_line(0, &buf);
+		if (!(piece->layout[y] = (int *)malloc(sizeof(int) * (piece->x_max + 1))))
+			return ;
+		x = -1;
+		while (++x < piece->x_max)
+			piece->layout[y][x] = (buf[x] == '*');
+		if (y < piece->y_max - 1)
+		{
+			ret = get_next_line(0, &buf);
+			ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+		}
 	}
-	return (norm_piece(piece));
 }

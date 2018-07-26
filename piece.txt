@@ -1,0 +1,203 @@
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+
+
+this is piece.y_max : 3
+this is piece.x_max : 3
+001
+001
+001
+

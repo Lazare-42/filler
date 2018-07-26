@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 00:22:28 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 02:06:29 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,12 @@ int	main(void)
 		getchar();
 		if (i % 2)
 		{
+			//pc = get_piece(pc);
 			best_position = get_best_position(board, &board_cpy, pc, f);
 			//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
 			piece_write(&board, pc, best_position);
-		}/*
-		else
+		}
+		/*else
 		{
 			best_position = get_best_position_for_p2(board, &board_cpy, pc, f);
 			piece_write_for_p2(&board, pc, best_position);

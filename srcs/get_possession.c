@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 00:22:57 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 04:57:41 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,6 +467,7 @@ void    board_print(t_sqrt **board, t_filler gs)
 	printf("BOARD_PRINT\n"); fflush(stdout);
 	int x;
 	int y;
+	float possession;
 
 	y = 0;
 	while (y < gs.y_max)
@@ -474,8 +475,14 @@ void    board_print(t_sqrt **board, t_filler gs)
 		x = 0;
 		while (x < gs.x_max)
 		{
-			printf("%4.f ", board[y][x].p2_distance);
-			//printf("%3.f%% ", board[y][x].possession * 100);
+		//	printf("%3.f ", board[y][x].p2_distance);
+		possession = board[y][x].possession;
+		if (possession == P1)
+			printf("  O  ");
+		else if (possession == P2)
+			printf("  X  ");
+		else
+			printf("%3.f%% ", possession * 100);
 			x++;
 		}
 		printf("\n");
@@ -708,12 +715,14 @@ void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs)
 {
-	t_point pt;
-	t_point memo;
-	float   high_score;
+	t_point			pt;
+	t_point			memo;
+	float			high_score;
+	static int		last_score;
 
 	pt.y = -1;
 	high_score = 0;
+	last_score = 0;
 	while (++pt.y < gs.y_max)
 	{
 		pt.x = -1;
@@ -721,15 +730,18 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 		{
 			if (is_placeable(board, pc, pt, gs))
 			{
-				printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
+				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, gs);
 				piece_write(board_cpy, pc, pt);
 				if (score_update(board_cpy, &high_score, gs))
 				{
-					printf("new best position - score: %.f\n", high_score); fflush(stdout);
+					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
-					return (memo);
+					printf("last %d hight_score %d\n", last_score, (int)high_score); fflush(stdout);
+					if (last_score == (int)high_score)
+						return (memo);
+					last_score = (int)high_score;
 				}
 			}
 		}
