@@ -7,6 +7,7 @@ SOURCES =	main_test.c \
 			calc_score.c \
 			get_piece.c \
 			malloced_structures.c \
+			fast_gnl.c \
 
 LIBDIR = libft
 
@@ -14,7 +15,7 @@ SDIR = srcs
 
 ODIR = bin
 
-CFLAGS = -Werror -fsanitize=address,undefined
+CFLAGS = -Werror -fsanitize=address,undefined -Wall -Wextra
 
 INCDIR = includes
 

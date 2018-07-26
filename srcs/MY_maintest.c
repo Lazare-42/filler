@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 05:51:07 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 08:27:36 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 void	boundary_draw_old(t_sqrt **board, t_filler filler);
 t_sqrt	**board_random(t_filler game_settings, int nb);
 void	print_board_old(int x_max, int y_max, t_sqrt **board);
-void	boundary_draw_new(t_sqrt **board, t_filler f);
+void	boundary_draw_new(t_sqrt **board, t_filler *f);
 void    board_cpy_reset(t_sqrt **board, t_sqrt ***board_cpy, t_filler game_settings);
 int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs);
 float   board_score_calc(t_sqrt **board, t_filler gs);
-t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs);
-t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs);
+t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs);
+t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs);
 void    board_print(t_sqrt **board, t_filler gs);
 void    piece_write(t_sqrt ***board, t_piece pc, t_point o);
 void    piece_write_for_p2(t_sqrt ***board, t_piece pc, t_point o);
@@ -143,7 +143,7 @@ int	main(void)
 	point.y = 6;
 
 	f.x_max = 20;
-	f.y_max = 500;
+	f.y_max = 20;
 	board = board_random(f, 0);
 	board_cpy = board_random(f, 0);
 
@@ -192,12 +192,12 @@ int	main(void)
 	board[0][15].possession = P2;
 	board[0][15].p1_distance = 500;
 	board[0][15].p2_distance = 0;*/
-	/*board[3][12].possession = P2;
-	board[3][12].p1_distance = 500;
-	board[3][12].p2_distance = 0;*/
-	board[15][15].possession = P1;
-	board[15][15].p1_distance = 0;
-	board[15][15].p2_distance = 500;
+	board[0][0].possession = P2;
+	board[0][0].p1_distance = 500;
+	board[0][0].p2_distance = 0;
+	board[19][19].possession = P1;
+	board[19][19].p1_distance = 0;
+	board[19][19].p2_distance = 500;
 	/*board[19][19].possession = P1;
 	board[19][19].p1_distance = 0;
 	board[19][19].p2_distance = 500;*/
@@ -210,24 +210,24 @@ int	main(void)
 
 	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
-	while (i++ < 500)
+	while (i++ < 5500)
 	  {
-		boundary_draw_new(board, f);
-		//print_board_old(f.x_max, f.y_max, board);
+		boundary_draw_new(board, &f);
+		print_board_old(f.x_max, f.y_max, board);
 		//board_print(board, f);
-		//getchar();
+		getchar();
 		if (i % 2)
 		{
 			//pc = get_piece(pc);
-			best_position = get_best_position(board, &board_cpy, pc, f);
+			best_position = get_best_position(board, &board_cpy, pc, &f);
 			//printf("best_position - x: %d, y: %d\n", best_position.x, best_position.y);
 			piece_write(&board, pc, best_position);
 		}
-		/*else
+		else
 		{
-			best_position = get_best_position_for_p2(board, &board_cpy, pc, f);
+			best_position = get_best_position_for_p2(board, &board_cpy, pc, &f);
 			piece_write_for_p2(&board, pc, best_position);
-		}*/
+		}
 		//printf("score = %.2f / %d\n", board_score_calc(board, f), f.x_max * f.y_max); fflush(stdout);
 	}
 	return (0);

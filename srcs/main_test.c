@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/26 04:24:14 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 08:37:37 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ int	main(void)
 	//ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
 
 	//print_piece(piece);
-	board_update(board, game_settings);
+	board_update(board, &game_settings);
 	//board_print(board, game_settings);
 	//print_board_old(game_settings.x_max, game_settings.y_max, board);
-	best_position = get_best_position(board, &board_cpy, piece, game_settings);
+	best_position = get_best_position(board, &board_cpy, piece, &game_settings);
 	//ft_printf("[[~/Documents/42/filler/test.txt]] %d %d \n", best_position.x, best_position.y);
 	//print_board_old(game_settings.x_max, game_settings.y_max, board);
 	//printf("\nx_max = %d y_max = %d\n", game_settings.x_max, game_settings.y_max); fflush(stdout);

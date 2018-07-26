@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 05:29:54 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 08:37:15 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,21 +398,30 @@ void    board_distance_update_8(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_possession_update(t_sqrt **board, t_filler gs)
+void    board_possession_update(t_sqrt **board, t_filler *gs)
 {
-	int x;
-	int y;
-	int p2_d_tmp;
+	int		x;
+	int		y;
+	int		p2_d_tmp;
+	float	possession;
+	int		time;
 
+	time = 0;
 	y = 0;
-	while (y < gs.y_max)
+	gs->fill_mode = 1;
+	while (y < gs->y_max)
 	{
 		x = 0;
-		while (x < gs.x_max)
+		while (x < gs->x_max)
 		{
 			p2_d_tmp = board[y][x].p2_distance;
-			board[y][x].possession = (float)((float)p2_d_tmp
-					/ (float)((float)p2_d_tmp + (float)board[y][x].p1_distance));
+			possession = (float)((float)p2_d_tmp / (float)((float)p2_d_tmp
+				+ (float)board[y][x].p1_distance));
+			board[y][x].possession = possession;
+			if (possession < 0.9 && possession > 0.1)
+				time++;
+			if (time > (gs->x_max * gs->y_max) / 100)
+				gs->fill_mode = 0;
 			x++;
 		}
 		y++;
@@ -443,21 +452,21 @@ void    board_distance_reset(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_update(t_sqrt **board, t_filler gs)
+void    board_update(t_sqrt **board, t_filler *gs)
 {
 	int i;
 	i = 0;
-	board_distance_reset(board, gs);
+	board_distance_reset(board, *gs);
 	while (i++ < 2)
 	{
-		board_distance_update_1(board, gs);
-		board_distance_update_2(board, gs);
-		board_distance_update_3(board, gs);
-		board_distance_update_4(board, gs);
-		board_distance_update_5(board, gs);
-		board_distance_update_6(board, gs);
-		board_distance_update_7(board, gs);
-		board_distance_update_8(board, gs);
+		board_distance_update_1(board, *gs);
+		board_distance_update_2(board, *gs);
+		board_distance_update_3(board, *gs);
+		board_distance_update_4(board, *gs);
+		board_distance_update_5(board, *gs);
+		board_distance_update_6(board, *gs);
+		board_distance_update_7(board, *gs);
+		board_distance_update_8(board, *gs);
 	}
 	board_possession_update(board, gs);
 }
@@ -512,12 +521,12 @@ float   board_score_calc(t_sqrt **board, t_filler gs)
     return (score);
 }
 
-float   score_update_for_p2(t_sqrt ***board_cpy, float *high_score, t_filler gs)
+float   score_update_for_p2(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 {
 	float score;
 
 	board_update(*board_cpy, gs);
-	score = board_score_calc(*board_cpy, gs);
+	score = board_score_calc(*board_cpy, *gs);
 	//printf("score = %.f hscore = %.f\n", score, *high_score); fflush(stdout);
 	if (score < *high_score)
 	{
@@ -527,12 +536,12 @@ float   score_update_for_p2(t_sqrt ***board_cpy, float *high_score, t_filler gs)
 	return (0);
 }
 
-float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler gs)
+float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 {
 	float score;
 
 	board_update(*board_cpy, gs);
-	score = board_score_calc(*board_cpy, gs);
+	score = board_score_calc(*board_cpy, *gs);
 	//printf("score = %.f hscore = %.f\n", score, *high_score); fflush(stdout);
 	if (score > *high_score)
 	{
@@ -713,39 +722,39 @@ void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 	}
 }
 
-t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs)
+t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
 	t_point			memo;
 	float			high_score;
-	static int		last_score = 0;
-	static int		fill_mode = 0;
+	//static int		last_score = 0;
+	//static int		fill_mode = 0;
 
 	pt.y = -1;
 	high_score = 0;
 	memo.x = 0;
 	memo.y = 0;
-	while (++pt.y < gs.y_max)
+	while (++pt.y < gs->y_max)
 	{
 		pt.x = -1;
-		while (++pt.x < gs.x_max)
+		while (++pt.x < gs->x_max)
 		{
-			if (is_placeable(board, pc, pt, gs))
+			if (is_placeable(board, pc, pt, *gs))
 			{
 				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
-				board_to_board(board, board_cpy, gs);
+				board_to_board(board, board_cpy, *gs);
 				piece_write(board_cpy, pc, pt);
 				if (score_update(board_cpy, &high_score, gs))
 				{
-					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
+					//printf(/*new best position - score: %.f\n */"MODE: %d\n", /*high_score, */gs->fill_mode); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
-					if (fill_mode == 1)
+					if (gs->fill_mode == 1)
 						return (memo);
-					/*printf("last %d hight_score %d\n", last_score, (int)high_score); fflush(stdout);
-					if (last_score == (int)high_score)
+					//printf("last %d hight_score %d\n", last_score * 100, (int)high_score * 100); fflush(stdout);
+					/*if (last_score == (int)high_score)
 					{
-						printf("plop\n"); fflush(stdout);
+						//printf("plop\n"); fflush(stdout);
 						return (memo);
 					}
 						printf("plop2\n"); fflush(stdout);
@@ -755,29 +764,29 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 			}
 		}
 	}
-	if (last_score == (int)high_score)
+	/*if (last_score * 100 == (int)high_score * 100)
 		fill_mode = 1;
-	last_score = (int)high_score;
+	last_score = (int)high_score;*/
 	return (memo);
 }
 
-t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs)
+t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point pt;
 	t_point memo;
 	float   high_score;
 
 	pt.y = -1;
-	high_score = gs.x_max * gs.y_max;
-	while (++pt.y < gs.y_max)
+	high_score = gs->x_max * gs->y_max;
+	while (++pt.y < gs->y_max)
 	{
 		pt.x = -1;
-		while (++pt.x < gs.x_max)
+		while (++pt.x < gs->x_max)
 		{
-			if (is_placeable_for_p2(board, pc, pt, gs))
+			if (is_placeable_for_p2(board, pc, pt, *gs))
 			{
 				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
-				board_to_board(board, board_cpy, gs);
+				board_to_board(board, board_cpy, *gs);
 				piece_write_for_p2(board_cpy, pc, pt);
 				if (score_update_for_p2(board_cpy, &high_score, gs))
 				{
@@ -837,7 +846,7 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 	possession_update(board, filler);
 }
 
-void		boundary_draw_new(t_sqrt **board, t_filler f)
+void		boundary_draw_new(t_sqrt **board, t_filler *f)
 {
 	//board_print(*board, f);
 	//board_print(*board, f);

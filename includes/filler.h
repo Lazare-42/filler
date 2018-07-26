@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/26 04:19:46 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 08:59:24 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_filler
 	int				y_max;
 	int				opponent;
 	float			**mask;
+	int				fill_mode;
 }					t_filler;
 
 typedef struct		s_piece
@@ -72,8 +73,9 @@ void				print_piece(t_piece	piece);
 void				get_piece(t_piece *piece);
 t_piece 			norm_piece(t_piece piece);
 void				print_board_old(int x_max, int y_max, t_sqrt **board);
-t_point				get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler gs);
-void				board_update(t_sqrt **board, t_filler gs);
+t_point				get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs);
+void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
+int					fast_gnl(int fd, char (*line)[4096]);
 
 # endif
