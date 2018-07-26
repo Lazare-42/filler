@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 05:00:02 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/26 05:29:54 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -718,11 +718,13 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	t_point			pt;
 	t_point			memo;
 	float			high_score;
-	static int		last_score;
+	static int		last_score = 0;
+	static int		fill_mode = 0;
 
 	pt.y = -1;
 	high_score = 0;
-	last_score = 0;
+	memo.x = 0;
+	memo.y = 0;
 	while (++pt.y < gs.y_max)
 	{
 		pt.x = -1;
@@ -738,17 +740,24 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 					//printf("new best position - score: %.f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
-					printf("last %d hight_score %d\n", last_score, (int)high_score); fflush(stdout);
+					if (fill_mode == 1)
+						return (memo);
+					/*printf("last %d hight_score %d\n", last_score, (int)high_score); fflush(stdout);
 					if (last_score == (int)high_score)
 					{
 						printf("plop\n"); fflush(stdout);
+						return (memo);
 					}
-						//return (memo);
+						printf("plop2\n"); fflush(stdout);
 					last_score = (int)high_score;
+					//return (memo);*/
 				}
 			}
 		}
 	}
+	if (last_score == (int)high_score)
+		fill_mode = 1;
+	last_score = (int)high_score;
 	return (memo);
 }
 
