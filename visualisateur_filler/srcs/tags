@@ -1,0 +1,36 @@
+Mmain_test	main_test.c	/^int	main(void)$/
+Msignal	signal.c	/^int  main()$/
+add_percentage	image_handler.c	/^void	add_percentage(t_mlx mlx, t_filler game_setti/
+board_distance_reset	get_possession.c	/^void    board_distance_reset(t_sqrt **board, t_fil/
+board_distance_update_1	board_update.c	/^void    board_distance_update_1(t_sqrt **board, t_/
+board_distance_update_2	board_update.c	/^void    board_distance_update_2(t_sqrt **board, t_/
+board_distance_update_3	board_update.c	/^void    board_distance_update_3(t_sqrt **board, t_/
+board_distance_update_4	board_update.c	/^void    board_distance_update_4(t_sqrt **board, t_/
+board_distance_update_5	board_update.c	/^void    board_distance_update_5(t_sqrt **board, t_/
+board_distance_update_6	board_update.c	/^void    board_distance_update_6(t_sqrt **board, t_/
+board_distance_update_7	board_update.c	/^void    board_distance_update_7(t_sqrt **board, t_/
+board_distance_update_8	board_update.c	/^void    board_distance_update_8(t_sqrt **board, t_/
+board_img_handler	image_handler.c	/^void	board_img_handler(void)$/
+board_init	board_init.c	/^t_sqrt **board_init(t_sqrt **board, t_filler game_/
+board_malloc	malloced_structures.c	/^t_sqrt	**board_malloc(t_filler game_settings)$/
+board_possession_update	get_possession.c	/^void    board_possession_update(t_sqrt **board, t_/
+board_score_calc	get_possession.c	/^float   board_score_calc(t_sqrt **board, t_filler /
+board_to_board	get_possession.c	/^void    board_to_board(t_sqrt **src, t_sqrt ***des/
+board_update	board_update.c	/^void    board_update(t_sqrt **board, t_filler *gs)/
+calc_score	calc_score.c	/^float	calc_score(t_sqrt **board, t_filler f)$/
+display_pieces	image_handler.c	/^void	display_pieces(t_filler game_settings, t_sqrt/
+draw	image_handler.c	/^int		draw(void)$/
+fast_gnl	fast_gnl.c	/^int	fast_gnl(int fd, char (*line)[4096])$/
+get_game_settings	board_init.c	/^t_filler	get_game_settings()$/
+get_total_possession	board_update.c	/^void	get_total_possession(t_sqrt **board, t_filler/
+loop_fractal	image_handler.c	/^int		loop_fractal(int necessary)$/
+my_mlx_init	image_handler.c	/^static	t_mlx	my_mlx_init(void)$/
+possession_update	board_update.c	/^void	possession_update(t_sqrt **board, t_filler fi/
+put_player_info	image_handler.c	/^void	put_player_info(t_mlx mlx, t_filler gs, int p/
+put_sentence	board_init.c	/^void	put_sentence(t_filler * gs, int player)$/
+score_update	get_possession.c	/^float   score_update(t_sqrt ***board_cpy, float *h/
+screen_fill	image_handler.c	/^void	screen_fill(int **screen, int player, int whe/
+set_get_mlx	image_handler.c	/^t_mlx	set_get_mlx(t_mlx *mlx)$/
+set_player_info	board_init.c	/^void	set_player_info(char *buf, t_filler *gs, int /
+sig_handler	signal.c	/^void	sig_handler(int i)$/
+tile_init	board_init.c	/^t_sqrt tile_init(char position)$/
