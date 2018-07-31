@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 08:27:36 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/07/31 20:56:01 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ int	main(void)
 	point.x = 2;
 	point.y = 6;
 
-	f.x_max = 20;
-	f.y_max = 20;
+	f.x_max = 50;
+	f.y_max = 100;
 	board = board_random(f, 0);
 	board_cpy = board_random(f, 0);
 
@@ -195,9 +195,9 @@ int	main(void)
 	board[0][0].possession = P2;
 	board[0][0].p1_distance = 500;
 	board[0][0].p2_distance = 0;
-	board[19][19].possession = P1;
-	board[19][19].p1_distance = 0;
-	board[19][19].p2_distance = 500;
+	board[99][49].possession = P1;
+	board[99][49].p1_distance = 0;
+	board[99][49].p2_distance = 500;
 	/*board[19][19].possession = P1;
 	board[19][19].p1_distance = 0;
 	board[19][19].p2_distance = 500;*/
@@ -210,12 +210,12 @@ int	main(void)
 
 	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
-	while (i++ < 5500)
-	  {
+	while (i++ < 1000)
+	{
 		boundary_draw_new(board, &f);
-		print_board_old(f.x_max, f.y_max, board);
+		//print_board_old(f.x_max, f.y_max, board);
 		//board_print(board, f);
-		getchar();
+		//getchar();
 		if (i % 2)
 		{
 			//pc = get_piece(pc);
@@ -228,7 +228,8 @@ int	main(void)
 			best_position = get_best_position_for_p2(board, &board_cpy, pc, &f);
 			piece_write_for_p2(&board, pc, best_position);
 		}
-		//printf("score = %.2f / %d\n", board_score_calc(board, f), f.x_max * f.y_max); fflush(stdout);
 	}
+	printf("score = %.2f / %d\n", board_score_calc(board, f), f.x_max * f.y_max); fflush(stdout);
+	print_board_old(f.x_max, f.y_max, board);
 	return (0);
 }
