@@ -86,7 +86,10 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings, int time)
 
 	y = 0;
 	if (time)
+	{
 		get_next_line(0, &buf);
+		ft_printf("[[~/Documents/42/filler/test.txt]]%s\n", buf);
+	}
 	get_next_line(0, &buf);
 	
 	while (y < game_settings.y_max)
