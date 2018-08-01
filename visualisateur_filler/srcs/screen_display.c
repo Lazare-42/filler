@@ -26,6 +26,53 @@ void	screen_fill(int **screen, int player, int where_to, t_filler game_settings)
 		y++;
 	}
 }
+struct s_color_compound {
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+};
+
+struct s_color_compound	decompose_color(int color)
+{
+	struct s_color_compound c;
+	c.red = (char)(color >> 16);
+	c.green = (char)((color & 0x00ff00) >> 8);
+	c.blue = (char)(color & 0x0000ff);
+	return c;
+}
+
+void	screen_fill_possession(int **screen, t_sqrt tile, int where_to, t_filler game_settings)
+{
+	int x;
+	int y;
+	int space;
+	float possession;
+	int red;
+	int green;
+	int blue;
+	struct s_color_compound violet = decompose_color(0x9370DB);
+
+	int color;
+	y = 0;
+	possession = (float)(tile.p2_distance / (tile.p2_distance + tile.p1_distance));
+	while (y < (Y_SIZE - BOARD) / game_settings.y_max - 1)
+	{
+		x = 0;
+		while (x  < X_SIZE / game_settings.x_max - 1)
+		{
+			//			printf("%f\n", possession);
+			red = (int)((float)violet.red * possession);
+			green = (int)((float)violet.green * possession);
+			blue = (int)((float)violet.blue * possession);
+			color = red << 16 | green << 8 | blue;
+			(*screen)[where_to + x] = color; 
+			x++;
+		}
+		space = -1;
+		where_to += X_SIZE;
+		y++;
+	}
+}
 
 void	display_pieces(t_filler game_settings, t_sqrt **board, int **screen)
 {
@@ -48,7 +95,7 @@ void	display_pieces(t_filler game_settings, t_sqrt **board, int **screen)
 			else if (board[y][x].possession == P2)
 				screen_fill(screen, P2, tmp, game_settings);
 			else
-				screen_fill(screen, BOARD, tmp, game_settings);
+				screen_fill_possession(screen, board[y][x], tmp, game_settings);
 			tmp += X_SIZE / game_settings.x_max;
 		}
 		where_to += (Y_SIZE - BOARD) / game_settings.y_max * X_SIZE;
