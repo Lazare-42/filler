@@ -18,6 +18,7 @@
 
 # define P1 1
 # define P2 0
+# define BUFF_GNL 12288
 # define P1_NEW FDF_P1 + 1
 # define P2_NEW FDF_P2 - 1
 # define VAR 1
