@@ -60,10 +60,9 @@ void	screen_fill_possession(int **screen, t_sqrt tile, int where_to, t_filler ga
 		x = 0;
 		while (x  < X_SIZE / game_settings.x_max - 1)
 		{
-			//			printf("%f\n", possession);
-			red = (int)((float)violet.red * possession);
-			green = (int)((float)violet.green * possession);
-			blue = (int)((float)violet.blue * possession);
+			red = (int)((float)violet.red * possession) / 2;
+			green = (int)((float)violet.green * possession) / 2;
+			blue = (int)((float)violet.blue * possession) / 2;
 			color = red << 16 | green << 8 | blue;
 			(*screen)[where_to + x] = color; 
 			x++;
