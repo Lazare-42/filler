@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 16:32:25 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 18:28:41 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,6 +486,30 @@ void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 	}
 }
 
+float     piece_get_score(t_sqrt **board, t_piece pc, t_point o, float lowest_score)
+{
+	int     x;
+	int     y;
+	float	score;
+
+	score = 0;
+	y = 0;
+	while (y < pc.y_max && score < lowest_score)
+	{
+		x = 0;
+		while (x < pc.x_max && score < lowest_score)
+		{
+			if (pc.layout[y][x] == 1)
+			{
+				score += board[o.y + y][o.x + x].possession;
+			}
+			x++;
+		};
+		y++;
+	}
+	return (score);
+}
+
 void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 {
 	int     x;
@@ -594,7 +618,40 @@ t_point get_best_position_std(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t
 	}
 	return (memo);
 }
+/*
+t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
+{
+	t_point			pt;
+	t_point			memo;
+	float			lowest_score;
+	float			score;
 
+	(void)board_cpy;
+	memo = t_point_init(0, 0);
+	score = 0;
+	lowest_score = gs->x_max * gs->y_max;
+	pt.y = -1;
+	while (++pt.y < gs->y_max)
+	{
+		pt.x = -1;
+		while (++pt.x < gs->x_max)
+		{
+			if (is_placeable(board, pc, pt, *gs))
+			{
+				//if (gs->fill_mode == 1)
+				//	return (pt);
+				score = piece_get_score(board, pc, pt, lowest_score);
+				if (score < lowest_score)
+				{
+					lowest_score = score;
+					memo = t_point_init(pt.x, pt.y);
+				}
+			}
+		}
+	}
+	return (memo);
+}
+*/
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			memo;
