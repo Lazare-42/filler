@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/01 18:28:53 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 21:42:38 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define P1 1
 # define P2 0
-# define BUFF_GNL 12288
+# define BUFF_GNL 4096
 # define P1_NEW FDF_P1 + 1
 # define P2_NEW FDF_P2 - 1
 # define VAR 1
