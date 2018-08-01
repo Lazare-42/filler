@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 19:46:01 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 22:16:16 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -590,7 +590,7 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 	}
 	return (memo);
 }
-
+/*
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
@@ -618,7 +618,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	return (memo);
 }
-/*
+*/
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
@@ -651,7 +651,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	return (memo);
 }
-*/
+
 /*
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
