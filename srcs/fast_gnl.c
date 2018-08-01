@@ -15,34 +15,55 @@
 
 int	fast_gnl(int fd, char (*line)[4096])
 {
-	 int						rd;
 	static char					buf[4096];
-	char						*n_index;
+	int							i;
+	int							rd;
 
-	buf[4095] = 0;
-	n_index = 0;
 	rd = 0;
-	if (!line || fd < 0 || read(fd, NULL, 0) < 0)
-		return (-1);
+	i = 0;
 	if (!(ft_strchr(buf, '\n')))
 		if ((rd = read(fd, buf, 4095) == -1))
 			return (-1);
-	n_index = ft_strchrnul(buf, '\n');
-	ft_memcpy(*line, buf, n_index - buf);
-	(*line)[n_index - buf] = '\0';
-	ft_memcpy(buf, n_index + 1, 4095 - ft_strlen(*line));
-	return (rd > 0 || ft_strlen(*line) > 0);
+	while (buf[i] && buf[i] != '\n')
+		i++;
+	ft_memcpy((*line), buf, i);
+	if (buf[i] && i == 0 && buf[i] == '\n')
+		(*line)[2] = 0;
+	else
+		(*line)[i] = 0;
+	ft_memcpy(buf, buf + i + 1, 4096 - i - 1);
+	return (ft_strlen(*line));
 }
-/*
-int main(int argc, char *argv[])
-{
-	char	line[4096];
-	int		ret;
-	int		fd = open(argv[1], O_RDONLY);
 
-	while ((ret = fast_gnl(fd, &line)))
-		printf("ret = %d - line = \'%s\'\n", ret, line);
-	printf("ret = %d - line = \'%s\'\n", ret, line);
+/*
+
+int main(int argc, char **argv)
+{
+	char	*line;
+	char	buf[4096];
+	int		ret;
+	int		fd = open("/Users/lazrossi/Documents/42/filler/Makefile", O_RDONLY);
+
+	(void)argv;
+	ret = 1;
+	if (argc == 2)
+	{
+		while ((ret))
+		{
+			ret = fast_gnl(fd, &buf);
+			printf("%s\n", buf);
+		}
+		printf("%s\n", "we were in fast_gnl");
+	}
+	else 
+	{
+		while ((ret))
+		{
+			ret = get_next_line(fd, &line);
+			printf("%s\n", line);
+		}
+	}
 	close(fd);
 	return (0);
-}*/
+}
+*/

@@ -80,42 +80,23 @@ t_sqrt tile_init(t_filler game_settings, char position)
 
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings, int time)
 {
-	char	*buf;
+	char	buf[4096];
 	int		x;
 	int		y;
 
 	y = 0;
 	if (time)
-	{
-		get_next_line(0, &buf);
-		ft_printf("[[~/Documents/42/filler/test.txt]]%s\n", buf);
-	}
-	get_next_line(0, &buf);
-	
+		fast_gnl(0, &buf);
+	fast_gnl(0, &buf);
 	while (y < game_settings.y_max)
 	{
-		get_next_line(0, &buf);
+		fast_gnl(0, &buf);
 		x = 0;
 		while (x < game_settings.x_max)
 		{
 			if (buf[x + 4] != '.' && board[y][x].possession > 0
 							&& board[y][x].possession < 1)
-			{
-				board[y][x].p1_distance = /*game_settings.x_max * game_settings.y_max*/ 100000;
-				board[y][x].p2_distance = /*game_settings.x_max * game_settings.y_max*/ 100000;
-				if (((buf[x + 4] == 'O' || buf[x + 4] == 'o') && game_settings.opponent == P1)
-						|| (buf[x + 4] == 'X' | buf[x + 4] == 'x' && game_settings.opponent == P2))
-				{
-					board[y][x].possession = P2;
-					board[y][x].p2_distance = 0;
-				}
-				else
-				{
-					board[y][x].possession = P1;
-					board[y][x].p1_distance = 0;
-				}
-			}
-			//board[y][x] = tile_init(game_settings, buf[x + 4]);
+				board[y][x] = tile_init(game_settings, buf[x + 4]);
 			x++;
 		}
 		y++;
@@ -125,22 +106,23 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings, int time)
 
 t_filler	get_game_settings()
 {
-	char		*buf;
+	char		buf[4096];
 	t_filler	game_settings;
+	int			i;
 
-	buf = NULL;
-	get_next_line(0, &buf);
+	i = 0;
+	fast_gnl(0, &buf);
 	if (ft_strstr(buf, "p1"))
 		game_settings.opponent = P2;
 	else
 		game_settings.opponent = P1;
 	while (!(ft_strstr(buf, "Plateau")))
-		get_next_line(0, &buf);
-	while (*buf && !(ft_isdigit(*buf)))
-		buf++;
-	game_settings.y_max = ft_atoi(buf);
-	while (*buf && (ft_isdigit(*buf)))
-		buf++;
-	game_settings.x_max = ft_atoi(buf);
+		fast_gnl(0, &buf);
+	while (buf[i] && !(ft_isdigit(buf[i])))
+		i++;
+	game_settings.y_max = ft_atoi(&buf[i]);
+	while (buf[i] && (ft_isdigit(buf[i])))
+		i++;
+	game_settings.x_max = ft_atoi(&buf[i]);
 	return (game_settings);
 }

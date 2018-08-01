@@ -44,18 +44,21 @@ t_sqrt	**board_malloc(t_filler game_settings)
 
 void	get_piece(t_piece *piece)
 {
-	char	*buf;
+	char	buf[4096];
 	int		x;
 	int		y;
 
 	int		ret;
 
 	y = -1;
-	ret = get_next_line(0, &buf);
-	ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+	while (!ft_strstr(buf, "Piece"))
+	{
+		ret = fast_gnl(0, &buf);
+		ft_printf("[[~/Documents/42/filler/test.txt]] '%s'", buf);
+	}
 	piece->y_max = ft_atoi(&buf[5]);
-	ret = get_next_line(0, &buf);
-	ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+	ret = fast_gnl(0, &buf);
+	ft_printf("[[~/Documents/42/filler/test.txt]] '%s'", buf);
 	piece->x_max = ft_strlen(buf);
 	if (piece->layout)
 		ft_tabdel((void***)&piece->layout);
@@ -71,8 +74,8 @@ void	get_piece(t_piece *piece)
 			piece->layout[y][x] = (buf[x] == '*');
 		if (y < piece->y_max - 1)
 		{
-			ret = get_next_line(0, &buf);
-			ft_printf("[[~/Documents/42/filler/test.txt]] '%s' ret = %d\n", buf, ret);
+			ret = fast_gnl(0, &buf);
+			ft_printf("[[~/Documents/42/filler/test.txt]] '%s'", buf);
 		}
 	}
 }

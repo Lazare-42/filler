@@ -1,0 +1,54 @@
+MMY_maintest	MY_maintest.c	/^int	main(void)$/
+Mmain_test	main_test.c	/^int	main(void)$/
+board_distance_reset	get_possession.c	/^void    board_distance_reset(t_sqrt **board, t_fil/
+board_distance_update_1	board_distance_1.c	/^void    board_distance_update_1(t_sqrt **board, t_/
+board_distance_update_2	board_distance_1.c	/^void    board_distance_update_2(t_sqrt **board, t_/
+board_distance_update_3	board_distance_1.c	/^void    board_distance_update_3(t_sqrt **board, t_/
+board_distance_update_4	board_distance_1.c	/^void    board_distance_update_4(t_sqrt **board, t_/
+board_distance_update_5	board_distance_2.c	/^void    board_distance_update_5(t_sqrt **board, t_/
+board_distance_update_6	board_distance_2.c	/^void    board_distance_update_6(t_sqrt **board, t_/
+board_distance_update_7	board_distance_2.c	/^void    board_distance_update_7(t_sqrt **board, t_/
+board_distance_update_8	board_distance_2.c	/^void    board_distance_update_8(t_sqrt **board, t_/
+board_init	board_init.c	/^t_sqrt **board_init(t_sqrt **board, t_filler game_/
+board_malloc	malloced_structures.c	/^t_sqrt	**board_malloc(t_filler game_settings)$/
+board_possession_update	get_possession.c	/^void    board_possession_update(t_sqrt **board, t_/
+board_print	board_print.c	/^void    board_print(t_sqrt **board, t_filler gs)$/
+board_random	board_init.c	/^t_sqrt	**board_random(t_filler game_settings, int /
+board_score_calc	get_possession.c	/^float   board_score_calc(t_sqrt **board, t_filler /
+board_to_board	get_possession.c	/^void    board_to_board(t_sqrt **src, t_sqrt ***des/
+board_update	get_possession.c	/^void    board_update(t_sqrt **board, t_filler *gs)/
+boundary_draw	get_possession.c	/^void		boundary_draw(t_sqrt **board, t_filler fille/
+boundary_draw_new	get_possession.c	/^void		boundary_draw_new(t_sqrt **board, t_filler */
+boundary_draw_old	get_possession.c	/^void		boundary_draw_old(t_sqrt **board, t_filler f/
+calc_score	calc_score.c	/^float	calc_score(t_sqrt **board, t_filler f)$/
+check_empty_column	get_piece.c	/^int	check_empty_column(t_piece piece)$/
+check_empty_line	get_piece.c	/^int check_empty_line(t_piece piece)$/
+distance_update_from_point	get_possession.c	/^void	distance_update_from_point(t_sqrt **board, t_/
+fast_gnl	fast_gnl.c	/^int	fast_gnl(int fd, char (*line)[4096])$/
+ft_filler_abs	get_possession.c	/^static int		ft_filler_abs(int x)$/
+get_best_position	get_possession.c	/^t_point get_best_position(t_sqrt **board, t_sqrt */
+get_best_position_for_p2	get_possession.c	/^t_point get_best_position_for_p2(t_sqrt **board, t/
+get_best_position_from_zone	get_possession.c	/^t_point get_best_position_from_zone(t_sqrt **board/
+get_best_zone	get_possession.c	/^t_point get_best_zone(t_sqrt **board, t_sqrt ***bo/
+get_game_settings	board_init.c	/^t_filler	get_game_settings()$/
+get_piece	malloced_structures.c	/^void	get_piece(t_piece *piece)$/
+get_possession	get_possession.c	/^static float	get_possession(t_sqrt **board, t_poin/
+is_placeable	get_possession.c	/^int     is_placeable(t_sqrt **board, t_piece pc, t/
+is_placeable_for_p2	get_possession.c	/^int     is_placeable_for_p2(t_sqrt **board, t_piec/
+layout_init	MY_maintest.c	/^static int **layout_init(char layout[3][3])$/
+mask_init	MY_maintest.c	/^static float	**mask_init(void)$/
+norm_piece	get_piece.c	/^t_piece norm_piece(t_piece piece)$/
+piece_write	get_possession.c	/^void     piece_write(t_sqrt ***board_cpy, t_piece /
+piece_write_for_p2	get_possession.c	/^void     piece_write_for_p2(t_sqrt ***board_cpy, t/
+position_init	get_possession.c	/^static void		position_init(t_point *position, int /
+position_update	get_possession.c	/^static void		position_update(t_point *position, t_/
+possession_update	get_possession.c	/^void	possession_update(t_sqrt **board, t_filler fi/
+possession_update_from_point	get_possession.c	/^void	possession_update_from_point(t_sqrt **board, /
+print_board	print.c	/^void	print_board(int x_max, int y_max, t_sqrt **bo/
+print_board_old	print.c	/^void	print_board_old(int x_max, int y_max, t_sqrt /
+print_piece	get_piece.c	/^void	print_piece(t_piece piece)$/
+score_update	get_possession.c	/^float   score_update(t_sqrt ***board_cpy, float *h/
+score_update_for_p2	get_possession.c	/^float   score_update_for_p2(t_sqrt ***board_cpy, f/
+swap_columns	get_piece.c	/^void	swap_columns(t_piece piece, int free_columns)/
+swap_lines	get_piece.c	/^void	swap_lines(t_piece piece, int free_lines)$/
+tile_init	board_init.c	/^t_sqrt tile_init(t_filler game_settings, char posi/
