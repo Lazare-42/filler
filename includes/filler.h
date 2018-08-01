@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/31 20:55:15 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 16:51:42 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define P2_NEW FDF_P2 - 1
 # define VAR 1
 # define PERIMETRE 27
+# define OPTI 0
 
 typedef enum		e_direction
 {up, right, down, left
