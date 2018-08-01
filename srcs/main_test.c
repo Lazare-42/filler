@@ -139,7 +139,6 @@ int	main(void)
 	//print_board_old(game_settings.x_max, game_settings.y_max, board);
 	//printf("\nx_max = %d y_max = %d\n", game_settings.x_max, game_settings.y_max); fflush(stdout);
 	//printf("game_settings - opponent: %d\n", game_settings.opponent); fflush(stdout);
-	ft_printf("[[~/Documents/42/filler/test.txt]]%d %d\n", best_position.y, best_position.x); fflush(stdout);
 	printf("%d %d\n", best_position.y, best_position.x); fflush(stdout);
 	}
 //	if (game_settings.opponent == 'X')
