@@ -35,36 +35,3 @@ int	fast_gnl(int fd, char (*line)[4096])
 	ft_memcpy(buf, buf + i + 1, BUFF_GNL - i - 1);
 	return (ft_strlen(*line));
 }
-
-/*
-
-int main(int argc, char **argv)
-{
-	char	*line;
-	char	buf[4096];
-	int		ret;
-	int		fd = open("/Users/lazrossi/Documents/42/filler/Makefile", O_RDONLY);
-
-	(void)argv;
-	ret = 1;
-	if (argc == 2)
-	{
-		while ((ret))
-		{
-			ret = fast_gnl(fd, &buf);
-			printf("%s\n", buf);
-		}
-		printf("%s\n", "we were in fast_gnl");
-	}
-	else 
-	{
-		while ((ret))
-		{
-			ret = get_next_line(fd, &line);
-			printf("%s\n", line);
-		}
-	}
-	close(fd);
-	return (0);
-}
-*/

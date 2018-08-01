@@ -67,7 +67,7 @@ typedef struct		s_point
 }					t_point;
 
 t_sqrt				**board_malloc(t_filler game_settings);
-t_sqrt				**board_init(t_sqrt **board, t_filler game_setting, int times);
+t_sqrt				**board_init(t_sqrt **board, t_filler game_setting);
 void				print_board(int x_max, int y_max, t_sqrt **board);
 void				boundary_draw(t_sqrt **board, t_filler filler);
 t_filler			get_game_settings(void);

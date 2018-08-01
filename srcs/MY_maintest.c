@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 18:40:41 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 16:43:13 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ int	main(void)
 	point.x = 2;
 	point.y = 6;
 
-	f.x_max = 50;
-	f.y_max = 200;
+	f.x_max = 30;
+	f.y_max = 30;
 	board = board_random(f, 0);
 	board_cpy = board_random(f, 0);
 
@@ -210,12 +210,12 @@ int	main(void)
 
 	print_board_old(f.x_max, f.y_max, board);
 	i = 0;
-	while (i++ < 100)
+	while (i++ < 1000)
 	{
 		boundary_draw_new(board, &f);
-		//print_board_old(f.x_max, f.y_max, board);
+		print_board_old(f.x_max, f.y_max, board);
 		//board_print(board, f);
-		//getchar();
+		getchar();
 		//if (i % 2)
 		//{
 			//pc = get_piece(pc);

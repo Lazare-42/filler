@@ -78,24 +78,25 @@ t_sqrt tile_init(t_filler game_settings, char position)
 	return (tile);
 }
 
-t_sqrt **board_init(t_sqrt **board, t_filler game_settings, int time)
+t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
 	char	buf[4096];
+	static	int first = 1;
 	int		x;
 	int		y;
 
 	y = 0;
-	if (time)
+	ft_memset(buf, 0, 4096);
+	if (!first)
 	{
 		fast_gnl(0, &buf);
 		ft_printf("[[~/Documents/42/filler/piece.txt]]%s\n", buf);
 	}
+	first = 0;
 	fast_gnl(0, &buf);
-		ft_printf("[[~/Documents/42/filler/piece.txt]]%s\n", buf);
 	while (y < game_settings.y_max)
 	{
 		fast_gnl(0, &buf);
-		ft_printf("[[~/Documents/42/filler/piece.txt]]%s\n", buf);
 		x = 0;
 		while (x < game_settings.x_max)
 		{
@@ -121,8 +122,7 @@ t_filler	get_game_settings()
 		game_settings.opponent = P2;
 	else
 		game_settings.opponent = P1;
-	while (!(ft_strstr(buf, "Plateau")))
-		fast_gnl(0, &buf);
+	fast_gnl(0, &buf);
 	while (buf[i] && !(ft_isdigit(buf[i])))
 		i++;
 	game_settings.y_max = ft_atoi(&buf[i]);

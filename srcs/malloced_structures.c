@@ -52,13 +52,9 @@ void	get_piece(t_piece *piece)
 
 	y = -1;
 	while (!ft_strstr(buf, "Piece"))
-	{
 		ret = fast_gnl(0, &buf);
-		ft_printf("[[~/Documents/42/filler/test.txt]] %s\n", buf);
-	}
 	piece->y_max = ft_atoi(&buf[5]);
 	ret = fast_gnl(0, &buf);
-	ft_printf("[[~/Documents/42/filler/test.txt]] %s\n", buf);
 	piece->x_max = ft_strlen(buf);
 	if (piece->layout)
 		ft_tabdel((void***)&piece->layout);
@@ -73,9 +69,6 @@ void	get_piece(t_piece *piece)
 		while (++x < piece->x_max)
 			piece->layout[y][x] = (buf[x] == '*');
 		if (y < piece->y_max - 1)
-		{
 			ret = fast_gnl(0, &buf);
-			ft_printf("[[~/Documents/42/filler/test.txt]] %s\n", buf);
-		}
 	}
 }
