@@ -15,30 +15,6 @@
 
 void	print_board_old(int x_max, int y_max, t_sqrt **board);
 
-static void		position_update(t_point *position, t_direction direction)
-{
-	int	x_diff;
-	int	y_diff;
-
-	x_diff = 0;
-	y_diff = 0;
-	if (direction == up)
-		y_diff--;
-	else if (direction == right)
-		x_diff++;
-	else if (direction == down)
-		y_diff++;
-	else if (direction == left)
-		x_diff--;
-	position->x += x_diff;
-	position->y += y_diff;
-}
-
-static void		position_init(t_point *position, int x, int y)
-{
-	position->x = x;
-	position->y = y;
-}
 
 static int		ft_filler_abs(int x)
 {
@@ -46,52 +22,6 @@ static int		ft_filler_abs(int x)
 		return (x);
 	else
 		return (-x);
-}
-
-static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
-{
-	t_point		pt;
-	t_direction	direction;
-	int			i;
-	int			i_lim;
-	float		distance_p1;
-	float		distance_p2;
-	int			time;
-
-	i_lim = 1;
-	position_init(&pt, o.x, o.y);
-	distance_p1 = -1;
-	distance_p2 = -1;
-	direction = up;
-	while (distance_p1 < 0 || distance_p2 < 0)
-	{
-		time = 0;
-		while (time++ < 2)
-		{
-			i = 0;
-			while (i++ < i_lim)
-			{
-				position_update(&pt, direction);
-				//				printf("position px %d py %d\n", pt.x, pt.y);
-				if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
-				{
-					if (board[pt.y][pt.x].possession == P1 && distance_p1 == -1)
-					{
-						distance_p1 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
-						//						printf("distance p1: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p1, pt.x, pt.y, o.x, o.y);
-					}
-					else if (board[pt.y][pt.x].possession == P2 && distance_p2 == -1)
-					{
-						distance_p2 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
-						//						printf("distance p2: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p2, pt.x, pt.y, o.x, o.y);
-					}
-				}
-			}
-			direction = (direction + 1) % 4;
-		}
-		i_lim++;
-	}
-	return (distance_p1 / (distance_p1 + distance_p2));
 }
 
 void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
@@ -171,239 +101,6 @@ void	possession_update(t_sqrt **board, t_filler filler)
 	}
 }
 
-void    board_distance_update_1(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float possession;
-
-	y = 0;
-	while (y < gs.y_max)
-	{
-		x = 1;
-		while (x < gs.x_max)
-		{
-			p1_d_tmp = board[y][x - 1].p1_distance + 1;
-			p2_d_tmp = board[y][x - 1].p2_distance + 1;
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			possession = board[y][x].possession;
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			x++;
-		}
-		y++;
-	}
-}
-
-void    board_distance_update_2(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float possession;
-
-	x = gs.x_max - 1;
-	while (x >= 0)
-	{
-		y = 1;
-		while (y < gs.y_max)
-		{
-			p1_d_tmp = board[y - 1][x].p1_distance + 1;
-			p2_d_tmp = board[y - 1][x].p2_distance + 1;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			possession = board[y][x].possession;
-			if (/*p1_d_tmp < PERIMETRE && */p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			y++;
-		}
-		x--;
-	}
-}
-
-void    board_distance_update_3(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float possession;
-
-	y = gs.y_max - 1;
-	while (y >= 0)
-	{
-		x = gs.x_max - 2;
-		while (x >= 0)
-		{
-			//printf("y: %d x: %d\n", y, x); fflush(stdout);
-			p1_d_tmp = board[y][x + 1].p1_distance + 1;
-			p2_d_tmp = board[y][x + 1].p2_distance + 1;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			possession = board[y][x].possession;
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			x--;
-		}
-		y--;
-	}
-}
-
-void    board_distance_update_4(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float possession;
-
-	x = 0;
-	while (x < gs.x_max)
-	{
-		y = gs.y_max - 2;
-		while (y >= 0)
-		{
-			p1_d_tmp = board[y + 1][x].p1_distance + 1;
-			p2_d_tmp = board[y + 1][x].p2_distance + 1;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			possession = board[y][x].possession;
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			y--;
-		}
-		x++;
-	}
-}
-
-void    board_distance_update_5(t_sqrt **board, t_filler gs)
-{
-	int     x;
-	int     y;
-	int     p1_d_tmp;
-	int     p2_d_tmp;
-	float   possession;
-
-	y = 1;
-	while (y < gs.y_max)
-	{
-		x = 1;
-		while (x < gs.x_max)
-		{
-			possession = board[y][x].possession;
-			p1_d_tmp = board[y - 1][x - 1].p1_distance + 2;
-			p2_d_tmp = board[y - 1][x - 1].p2_distance + 2;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			x++;
-		}
-		y++;
-	}
-}
-
-void    board_distance_update_6(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
-
-	x = gs.x_max - 2;
-	while (x >= 0)
-	{
-		y = 1;
-		while (y < gs.y_max)
-		{
-			possession = board[y][x].possession;
-			p1_d_tmp = board[y - 1][x + 1].p1_distance + 2;
-			p2_d_tmp = board[y - 1][x + 1].p2_distance + 2;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			y++;
-		}
-		x--;
-	}
-}
-
-void    board_distance_update_7(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
-
-	y = gs.y_max - 2;
-	while (y >= 0)
-	{
-		x = gs.x_max - 2;
-		while (x >= 0)
-		{
-			possession = board[y][x].possession;
-			p1_d_tmp = board[y + 1][x + 1].p1_distance + 2;
-			p2_d_tmp = board[y + 1][x + 1].p2_distance + 2;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			x--;
-		}
-		y--;
-	}
-}
-
-void    board_distance_update_8(t_sqrt **board, t_filler gs)
-{
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
-
-	x = 1;
-	while (x < gs.x_max)
-	{
-		y = gs.y_max - 2;
-		while (y >= 0)
-		{
-			possession = board[y][x].possession;
-			p1_d_tmp = board[y + 1][x - 1].p1_distance + 2;
-			p2_d_tmp = board[y + 1][x - 1].p2_distance + 2;
-			//if (p2_d_tmp > PERIMETRE){p2_d_tmp = 10000;}
-			//if (p1_d_tmp > PERIMETRE){p1_d_tmp = 10000;}
-			if (/*p1_d_tmp < PERIMETRE &&*/ p1_d_tmp < board[y][x].p1_distance && possession != P2)
-				board[y][x].p1_distance = p1_d_tmp;
-			if (p2_d_tmp < PERIMETRE && p2_d_tmp < board[y][x].p2_distance && possession != P1)
-				board[y][x].p2_distance = p2_d_tmp;
-			y--;
-		}
-		x++;
-	}
-}
-
 void    board_possession_update(t_sqrt **board, t_filler *gs)
 {
 	int				x;
@@ -426,9 +123,9 @@ void    board_possession_update(t_sqrt **board, t_filler *gs)
 			//if (possession != P1 && possession != P2)
 			board[y][x].possession = p2_d_tmp / (p2_d_tmp + board[y][x].p1_distance);
 			/*if (possession < 0.8 && possession > 0.2)
-				time++;
-			if (time > (gs->x_max * gs->y_max) / 20)
-				gs->fill_mode = 0;*/
+			  time++;
+			  if (time > (gs->x_max * gs->y_max) / 20)
+			  gs->fill_mode = 0;*/
 			x++;
 		}
 		y++;
@@ -478,35 +175,6 @@ void    board_update(t_sqrt **board, t_filler *gs)
 		board_distance_update_8(board, *gs);
 	}
 	board_possession_update(board, gs);
-}
-
-void    board_print(t_sqrt **board, t_filler gs)
-{
-	printf("BOARD_PRINT\n"); fflush(stdout);
-	int x;
-	int y;
-	float possession;
-
-	y = 0;
-	while (y < gs.y_max)
-	{
-		x = 0;
-		while (x < gs.x_max)
-		{
-			//	printf("%3.f ", board[y][x].p2_distance);
-			possession = board[y][x].possession;
-			if (possession == P1)
-				printf("  O  ");
-			else if (possession == P2)
-				printf("  X  ");
-			else
-				printf("%3.f%% ", possession * 100);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	printf("\n");
 }
 
 float   board_score_calc(t_sqrt **board, t_filler gs)
@@ -663,7 +331,7 @@ y++;
 //printf("mixed: %d\n", mixed); fflush(stdout);
 return ((mixed == 1));
 }
-*/
+ */
 void     piece_write_for_p2(t_sqrt ***board_cpy, t_piece pc, t_point o)
 {
 	int     x;
@@ -740,248 +408,58 @@ t_point get_best_position_from_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece
 
 	memo.x = 0;
 	memo.y = 0;
-		high_score = 0;
-		pt.y = (zone.y - 5 > -1) ? zone.y - 5 : -1;
-		while (++pt.y < y_lim)
+	high_score = 0;
+	pt.y = (zone.y - 5 > -1) ? zone.y - 5 : -1;
+	while (++pt.y < y_lim)
+	{
+		pt.x = (zone.x - 5 > -1) ? zone.x - 5 : -1;
+		while (++pt.x < x_lim)
 		{
-			pt.x = (zone.x - 5 > -1) ? zone.x - 5 : -1;
-			while (++pt.x < x_lim)
+			if (is_placeable(board, pc, pt, *gs))
 			{
-				if (is_placeable(board, pc, pt, *gs))
+				//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
+				//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
+				//{
+				//if (gs->fill_mode == 1)
+				//	return (pt);
+				board_to_board(board, board_cpy, *gs);
+				piece_write(board_cpy, pc, pt);
+				if (score_update(board_cpy, &high_score, gs))
 				{
-					//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
-					//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
-					//{
-						//if (gs->fill_mode == 1)
-							//	return (pt);
-						board_to_board(board, board_cpy, *gs);
-						piece_write(board_cpy, pc, pt);
-						if (score_update(board_cpy, &high_score, gs))
-						{
-							memo.x = pt.x;
-							memo.y = pt.y;
-						}
-					//}
+					memo.x = pt.x;
+					memo.y = pt.y;
 				}
+				//}
 			}
 		}
+	}
 	//}
-	return (memo);
+return (memo);
 }
-/*
-t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	t_point			pt;
-	t_point			memo;
-	float			high_score;
-	//int				opti;
-	int				placeable;
-
-	memo.x = 0;
-	memo.y = 0;
-	placeable = 9;
-	//opti = 0;
-	//while (memo.x == 0 && opti < 2)
-	//{
-		high_score = 0;
-		pt.y = -1;
-		//opti++;
-		while ((pt.y = pt.y + 10 < gs->y_max))
-		{
-			pt.x = -1;
-			while ((pt.x = pt.x + 10 < gs->x_max))
-			{
-				if (is_placeable(board, pc, pt, *gs))
-				{
-					//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
-					//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
-					//{
-						//if (gs->fill_mode == 1)
-								return (pt);
-						board_to_board(board, board_cpy, *gs);
-						piece_write(board_cpy, pc, pt);
-						if (score_update(board_cpy, &high_score, gs))
-						{
-							memo.x = pt.x;
-							memo.y = pt.y;
-						}
-					//}
-				}
-			}
-		}
-	//}
-	return (memo);
-}*/
-/*
-t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	t_point			pt;
-	t_point			memo;
-	float			high_score;
-	//int				opti;
-	int				placeable;
-
-	memo.x = 0;
-	memo.y = 0;
-	placeable = 1;
-	//opti = 0;
-	//while (memo.x == 0 && opti < 2)
-	//{
-		high_score = 0;
-		pt.y = -1;
-		//opti++;
-		while ((pt.y += 2 < gs->y_max))
-		{
-			pt.x = -1;
-			while (++pt.x < gs->x_max)
-			{
-				if (is_placeable(board, pc, pt, *gs))
-				{
-					//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
-					//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
-					//{
-						//if (gs->fill_mode == 1)
-						//return (pt);
-						board_to_board(board, board_cpy, *gs);
-						piece_write(board_cpy, pc, pt);
-						if (score_update(board_cpy, &high_score, gs))
-						{
-							memo.x = pt.x;
-							memo.y = pt.y;
-						}
-						pt.x = ((pt.x / 2) + 1) * 2;
-					//}
-				}
-			}
-		}
-	//}
-	return (memo);
-}*/
 
 t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
 	t_point			memo;
 	float			high_score;
-	//int				opti;
 	int				placeable;
 
 	memo.x = 0;
 	memo.y = 0;
 	placeable = 4;
-	//opti = 0;
-	//while (memo.x == 0 && opti < 2)
-	//{
-		high_score = 0;
-		pt.y = -1;
-		//opti++;
-		while (++pt.y < gs->y_max)
-		{
-			pt.x = -1;
-			while (++pt.x < gs->x_max)
-			{
-				if (is_placeable(board, pc, pt, *gs) && !(++placeable % 5))
-				{
-					//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
-					//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
-					//{
-						//if (gs->fill_mode == 1)
-							//	return (pt);
-						board_to_board(board, board_cpy, *gs);
-						piece_write(board_cpy, pc, pt);
-						if (score_update(board_cpy, &high_score, gs))
-						{
-							memo.x = pt.x;
-							memo.y = pt.y;
-						}
-					//}
-				}
-			}
-		}
-	//}
-	return (memo);
-}
-
-t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	//t_point			pt;
-	t_point			memo;
-	//float			high_score;
-	//int				opti;
-	//int				placeable;
-
-	memo.x = 0;
-	memo.y = 0;
-	memo = get_best_zone(board, board_cpy, pc, gs);
-	memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
-	return (memo);
-}
-/*
-t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	t_point			pt;
-	t_point			memo;
-	float			high_score;
-	//int				opti;
-	int				placeable;
-
-	memo.x = 0;
-	memo.y = 0;
-	placeable = 0;
-	//opti = 0;
-	//while (memo.x == 0 && opti < 2)
-	//{
-		high_score = 0;
-		pt.y = -1;
-		//opti++;
-		while (++pt.y < gs->y_max)
-		{
-			pt.x = -1;
-			while (++pt.x < gs->x_max)
-			{
-				if (is_placeable(board, pc, pt, *gs) && ++placeable % 10)
-				{
-					//printf("fill = %d - p2_d = %.f\n", gs->fill_mode, board[pt.y][pt.x].p2_distance); fflush(stdout);
-					//if (opti == 2 || board[pt.y][pt.x].p2_distance < 7 || gs->fill_mode == 1)
-					//{
-						//if (gs->fill_mode == 1)
-						//		return (pt);
-						board_to_board(board, board_cpy, *gs);
-						piece_write(board_cpy, pc, pt);
-						if (score_update(board_cpy, &high_score, gs))
-						{
-							memo.x = pt.x;
-							memo.y = pt.y;
-						}
-					//}
-				}
-			}
-		}
-	//}
-	return (memo);
-}
-*/
-t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	t_point pt;
-	t_point memo;
-	float   high_score;
-
+	high_score = 0;
 	pt.y = -1;
-	high_score = gs->x_max * gs->y_max;
 	while (++pt.y < gs->y_max)
 	{
 		pt.x = -1;
 		while (++pt.x < gs->x_max)
 		{
-			if (is_placeable_for_p2(board, pc, pt, *gs))
+			if (!(++placeable % 5) && is_placeable(board, pc, pt, *gs))
 			{
-				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
 				board_to_board(board, board_cpy, *gs);
-				piece_write_for_p2(board_cpy, pc, pt);
-				if (score_update_for_p2(board_cpy, &high_score, gs))
+				piece_write(board_cpy, pc, pt);
+				if (score_update(board_cpy, &high_score, gs))
 				{
-					//printf("new best position - score: %.2f\n", high_score); fflush(stdout);
 					memo.x = pt.x;
 					memo.y = pt.y;
 				}
@@ -991,56 +469,13 @@ t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc
 	return (memo);
 }
 
-void		boundary_draw_old(t_sqrt **board, t_filler filler)
+t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
-	//	printf("DRAW IN\n"); fflush(stdout);
-	t_point	pt;
-	float	possession;
+	t_point			memo;
 
-	pt.y = 0;
-	while (pt.y < filler.y_max)
-	{
-		pt.x = 0;
-		while (pt.x < filler.x_max)
-		{
-			possession = board[pt.y][pt.x].possession;
-			//printf("X: %d Y: %d Possession: %.2f\n", pt.x, pt.y, possession); fflush(stdout);
-			if (possession != P1 && possession != P2)
-				board[pt.y][pt.x].possession = get_possession(board, pt, filler);
-			//			printf("Possession: %.2f\n", possession); fflush(stdout);
-			//`			print_board_old(filler.x_max, filler.y_max, board);
-			//			getchar();
-			pt.x++;
-		}
-		pt.y++;
-	}
-}
-
-void		boundary_draw(t_sqrt **board, t_filler filler)
-{
-	t_point	pt;
-	float	possession;
-
-	pt.y = 0;
-	while (pt.y < filler.y_max)
-	{
-		pt.x = 0;
-		while (pt.x < filler.x_max)
-		{
-			possession = board[pt.y][pt.x].possession;
-			if (possession == P1 || possession == P2)
-				distance_update_from_point(board, pt, filler, (possession < 0) * 2 - 1);
-			pt.x++;
-		}
-		pt.y++;
-	}
-	possession_update(board, filler);
-}
-
-void		boundary_draw_new(t_sqrt **board, t_filler *f)
-{
-	//board_print(*board, f);
-	//board_print(*board, f);
-	board_update(board, f);
-	//board_print(*board, f);
+	memo.x = 0;
+	memo.y = 0;
+	memo = get_best_zone(board, board_cpy, pc, gs);
+	memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
+	return (memo);
 }

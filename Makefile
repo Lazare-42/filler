@@ -8,6 +8,9 @@ SOURCES =	main_test.c \
 			get_piece.c \
 			malloced_structures.c \
 			fast_gnl.c \
+			board_distance_1.c \
+			board_distance_2.c \
+			board_print.c \
 
 LIBDIR = libft
 
