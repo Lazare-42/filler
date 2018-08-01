@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 03:23:36 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 13:36:09 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,7 +446,7 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 
 	memo.x = 0;
 	memo.y = 0;
-	placeable = 4;
+	placeable = 0;
 	high_score = 0;
 	pt.y = -1;
 	while (++pt.y < gs->y_max)
@@ -454,7 +454,7 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 		pt.x = -1;
 		while (++pt.x < gs->x_max)
 		{
-			if (!(++placeable % 5) && is_placeable(board, pc, pt, *gs))
+			if (!(++placeable % 1) && is_placeable(board, pc, pt, *gs))
 			{
 				board_to_board(board, board_cpy, *gs);
 				piece_write(board_cpy, pc, pt);
@@ -476,6 +476,6 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	memo.x = 0;
 	memo.y = 0;
 	memo = get_best_zone(board, board_cpy, pc, gs);
-	memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
+	//memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
 	return (memo);
 }
