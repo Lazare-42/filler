@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 22:16:16 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/01 22:28:02 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,12 +563,10 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 	t_point			pt;
 	t_point			memo;
 	float			high_score;
-	//int				opti;
 	int				placeable;
 
-	memo.x = 0;
-	memo.y = 0;
-	placeable = 4;
+	memo = t_point_init(0, 0);
+	placeable = OPTI - 1;
 	high_score = 0;
 	pt.y = -1;
 	while (++pt.y < gs->y_max)
@@ -576,22 +574,21 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 		pt.x = -1;
 		while (++pt.x < gs->x_max)
 		{
-			if (is_placeable(board, pc, pt, *gs) && !(++placeable % 5))
+			if (is_placeable(board, pc, pt, *gs) && !(++placeable % OPTI))
 			{
+				if (gs->fill_mode == 1)
+					return (pt);
 				board_to_board(board, board_cpy, *gs);
 				piece_write(board_cpy, pc, pt);
 				if (score_update(board_cpy, &high_score, gs))
-				{
-					memo.x = pt.x;
-					memo.y = pt.y;
-				}
+					memo = t_point_init(pt.x, pt.y);
 			}
 		}
 	}
 	return (memo);
 }
-/*
-t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
+
+t_point get_best_position_std(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
 	t_point			memo;
@@ -618,7 +615,8 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	return (memo);
 }
-*/
+
+/*
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
@@ -651,8 +649,8 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	return (memo);
 }
+*/
 
-/*
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			memo;
@@ -662,7 +660,8 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	if (OPTI)
 	{
 		memo = get_best_zone(board, board_cpy, pc, gs);
-		memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
+		if (gs->fill_mode)
+			memo = get_best_position_from_zone(board, board_cpy, pc, gs, memo);
 	}
 	else
 	{
@@ -670,7 +669,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	return (memo);
 }
-*/
+
 t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point pt;
