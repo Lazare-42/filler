@@ -19,11 +19,13 @@
 # define P1 1
 # define P2 0
 # define BOARD 45
-# define P1_NEW P1 + 1
-# define P2_NEW P2 - 1
+# define BUFF_GNL 4096
 # define X_SIZE 1100
 # define Y_SIZE 1100
-# define BANNER_SIZE 100
+# define VIOLET 0x9370DB
+# define CYAN	0x37FDFC 
+# define GREY	0xA9A9A9
+# define WIN_CO 0xee0000
 
 typedef struct		s_sqrt
 {
@@ -45,6 +47,7 @@ typedef struct		s_filler
 {
 	int				x_max;
 	int				y_max;
+	int				player;
 	float			p1_possession;
 	float			p2_possession;
 	char			p1_info[1024];
@@ -68,7 +71,6 @@ int					draw(void);
 void    			board_distance_reset(t_sqrt **board, t_filler gs);
 void				possession_update(t_sqrt **board, t_filler filler);
 void				set_get_total_possession_p1(float possession, void *ret);
-void				find_winner(t_filler *game_settings, char *buf);
 void    			board_distance_update_1(t_sqrt **board, t_filler gs);
 void    			board_distance_update_2(t_sqrt **board, t_filler gs);
 void    			board_distance_update_3(t_sqrt **board, t_filler gs);
@@ -81,5 +83,8 @@ void				board_possession_update(t_sqrt **board, t_filler filler);
 void				get_total_possession(t_sqrt **board, t_filler *gs);
 void				display_pieces(t_filler game_settings, t_sqrt **board, int **screen);
 void				put_player_info(t_mlx mlx, t_filler gs, int player);
+void				pass_pieces_or_find_winner(t_filler *game_settings);
+void				find_winner(t_filler *game_settings, char *buf);
+int					fast_gnl(const int fd, char (*line)[4096]);
 
 # endif
