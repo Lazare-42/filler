@@ -5,9 +5,9 @@ void	find_winner(t_filler *game_settings, char *buf)
 	int				p1_score;
 	int				p2_score;
 
-	p1_score = ft_atoi(buf);
+	p1_score = ft_atoi(&buf[9]);
 	get_next_line(0, &buf);
-	p2_score = ft_atoi(buf);
+	p2_score = ft_atoi(&buf[9]);
 	if (p1_score > p2_score)
 	{
 		game_settings->game_over = P1 + 1;
