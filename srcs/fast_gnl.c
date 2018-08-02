@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/26 05:58:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 21:50:31 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/02 00:06:42 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int			fast_gnl(const int fd, char (*line)[4096])
 	ft_memcpy(s, ft_strchrnul(s, '\n') + 1, ft_strlen(s));
 	return ((rd > 0) || (ft_strlen(*line) > 0));
 }
+
 /*
 #include <stdio.h>
 
