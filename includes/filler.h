@@ -88,5 +88,6 @@ void    			board_distance_update_6(t_sqrt **board, t_filler gs);
 void    			board_distance_update_7(t_sqrt **board, t_filler gs);
 void    			board_distance_update_8(t_sqrt **board, t_filler gs);
 void				find_winner(t_filler *game_settings, char *buf);
+int					fast_gnl(const int fd, char (*line)[4096]);
 
 # endif

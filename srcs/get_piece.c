@@ -101,25 +101,3 @@ t_piece norm_piece(t_piece piece)
 	piece.y_max -= piece.free_lines;
 	return (piece);
 }
-
-void	print_piece(t_piece piece)
-{
-	int i;
-	int j;
-
-//	ft_printf("[[~/Documents/42/filler/debug.txt]]\nDEBUG");
-	ft_printf("[[~/Documents/42/filler/piece.txt]]\nthis is piece.y_max : %d\nthis is piece.x_max : %d\n", piece.y_max, piece.x_max);
-	i = 0;
-	while (i < piece.y_max)
-	{
-		j = 0;
-		while (j < piece.x_max)
-		{
-			ft_printf("[[~/Documents/42/filler/piece.txt]]%d", piece.layout[i][j]);
-			j++;
-		}
-			ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
-		i++;
-	}
-	ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
-}
