@@ -35,7 +35,7 @@ void	pass_void(void)
 	if (!first)
 	{
 		fast_gnl(0, &buf);
-		sleep(1);
+		usleep(500);
 	}
 	first = 0;
 	fast_gnl(0, &buf);
