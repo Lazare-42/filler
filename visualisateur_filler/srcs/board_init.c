@@ -59,6 +59,7 @@ t_sqrt **board_init(t_sqrt **board, t_filler *game_settings)
 			x++;
 		}
 		y++;
+		ft_memdel((void**)&buf);
 	}
 	return (board);
 }
@@ -116,6 +117,7 @@ t_filler	get_game_settings()
 	game_settings.game_over = 0;
 	while (!(ft_strstr(buf, "Plateau")))
 	{
+		ft_memdel((void**)&buf);
 		get_next_line(0, &buf);
 		if (ft_strstr(buf, "exec p1"))
 			set_player_info(buf, &game_settings, P1);
@@ -129,5 +131,6 @@ t_filler	get_game_settings()
 		i++;
 	game_settings.x_max = ft_atoi(&buf[i]);
 	first = 0;
+	ft_memdel((void**)&buf);
 	return (game_settings);
 }
