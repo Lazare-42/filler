@@ -32,7 +32,7 @@ t_sqrt	**board_malloc(t_filler game_settings)
 		x = 0;
 		while (x < game_settings.x_max)
 		{
-			board[y][x].possession = 0.5;
+			board[y][x].possession = -1;
 			board[y][x].p1_distance = game_settings.y_max * game_settings.x_max;
 			board[y][x].p2_distance = game_settings.y_max  *game_settings.x_max;
 			x++;

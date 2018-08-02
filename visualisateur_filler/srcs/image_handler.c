@@ -40,41 +40,7 @@ static	t_mlx	my_mlx_init(void)
 	return (mlx);
 }
 
-void	find_winner(t_filler *game_settings, char *buf)
-{
-	int				p1_score;
-	int				p2_score;
 
-	p1_score = ft_atoi(&buf[10]);
-	get_next_line(0, &buf);
-	p2_score = ft_atoi(&buf[10]);
-	if (p1_score > p2_score)
-	{
-		game_settings->game_over = P1 + 1;
-		game_settings->end_score = p1_score - p2_score;
-	}
-	else
-	{
-		game_settings->game_over = P2 + 1;
-		game_settings->end_score = p2_score - p1_score;
-	}
-	return ;
-}
-
-void	pass_pieces_or_find_winner(t_filler *game_settings)
-{
-	char			*buf;
-
-	buf = NULL;
-	while (get_next_line(0, &buf) && !(ft_strstr(buf, "Plateau")))
-	{
-		if (ft_strstr(buf, "fin"))
-			find_winner(game_settings, buf);
-	}
-	get_next_line(0, &buf);
-	if (ft_strstr(buf, "fin"))
-		find_winner(game_settings, buf);
-}
 
 void	mlx_put_winner(t_mlx mlx, t_filler gs)
 {
@@ -88,10 +54,12 @@ void	mlx_put_winner(t_mlx mlx, t_filler gs)
 		ft_memcpy(winner, gs.p1_info + 30, ft_strlen(gs.p1_info + 30)); 
 	if (gs.game_over == P2 + 1)
 		ft_memcpy(winner, gs.p2_info + 30, ft_strlen(gs.p2_info + 30)); 
-	ft_memcpy(winner + ft_strlen(winner), " won by : ", ft_strlen(" won by : ")); 
+	ft_memcpy(winner + ft_strlen(winner), " won by : ",
+	ft_strlen(" won by : ")); 
 	ft_memcpy(winner + ft_strlen(winner), result, ft_strlen(result));
 	ft_memdel((void**)&result);
-	mlx_string_put(mlx.mlx, mlx.win, (X_SIZE - (ft_strlen(winner) * 10)) / 2, 32, 0xff0000, winner);
+	mlx_string_put(mlx.mlx, mlx.win,
+	(X_SIZE - (ft_strlen(winner) * 10)) / 2, 32, WIN_CO, winner);
 }
 
 void	board_img_handler(void)

@@ -115,6 +115,7 @@ SRCS =	ft_memset.c\
 		width.c \
 		ft_str_mins_to_caps.c \
 		ft_myexit.c \
+		ft_decompose_color.c \
 
 # CC = gcc -Wall -Wextra -Werror -c -g
 

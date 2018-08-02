@@ -27,6 +27,20 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+void	pass_void(void)
+{
+	static	int first = 1;
+	char	buf[BUFF_SIZE];
+
+	if (!first)
+	{
+		fast_gnl(0, &buf);
+		usleep(500);
+	}
+	first = 0;
+	fast_gnl(0, &buf);
+}
+
 int	main(void)
 {
 	t_sqrt		**board;
@@ -44,6 +58,7 @@ int	main(void)
 		return (1);
 	while (1)
 	{
+		pass_void();
 		board = board_init(board, game_settings);
 		get_piece(&piece);
 		board_update(board, &game_settings);

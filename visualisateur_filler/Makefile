@@ -11,6 +11,7 @@ SOURCES =	main_test.c \
 			board_distance_update_2.c \
 			possession_update.c \
 			screen_display.c \
+			pass_pieces_or_find_winner.c \
 
 LIBDIR = libft
 
@@ -20,7 +21,7 @@ SDIR = srcs
 
 ODIR = bin
 
-CFLAGS = -Werror -fsanitize=address,undefined -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 
 INCDIR = includes
 

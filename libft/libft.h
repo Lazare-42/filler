@@ -54,6 +54,14 @@ typedef struct		s_str
 	char	str[BUFF_SIZE];
 }					t_str;
 
+typedef struct 		s_color_compound
+{
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+	int				RGB;
+}					t_color_compound;
+
 typedef struct		s_printf
 {
 	int				arg_len;
@@ -205,5 +213,7 @@ void				treat_and_store_argument(va_list ap,
 					t_str *argument_str);
 const char			*store_string(const char *format, t_str *argument_str);
 void				ft_str_mins_to_caps(char *c);
+void				ft_myexit(char *str);
+t_color_compound	ft_decompose_color(int color);
 
 #endif

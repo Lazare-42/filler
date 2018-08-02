@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 seed = 3638
 O: error on input
 ./resources/players/afoures.filler won
 Score:
 117AGAINST117
+=======
+seed = 9510
+X: error on input
+./resources/players/iburel.filler won
+Score:
+62AGAINST61
+>>>>>>> 987a793805eb3004bf572ac1ecf33fe6c9cf394d

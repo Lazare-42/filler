@@ -79,7 +79,6 @@ void				print_board_old(int x_max, int y_max, t_sqrt **board);
 t_point				get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs);
 void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
-int					fast_gnl(int fd, char (*line)[4096]);
 void    			board_distance_update_1(t_sqrt **board, t_filler gs);
 void    			board_distance_update_2(t_sqrt **board, t_filler gs);
 void    			board_distance_update_3(t_sqrt **board, t_filler gs);
@@ -88,5 +87,7 @@ void    			board_distance_update_5(t_sqrt **board, t_filler gs);
 void    			board_distance_update_6(t_sqrt **board, t_filler gs);
 void    			board_distance_update_7(t_sqrt **board, t_filler gs);
 void    			board_distance_update_8(t_sqrt **board, t_filler gs);
+void				find_winner(t_filler *game_settings, char *buf);
+int					fast_gnl(const int fd, char (*line)[4096]);
 
 # endif

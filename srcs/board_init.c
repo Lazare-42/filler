@@ -54,10 +54,6 @@ t_sqrt	**board_random(t_filler game_settings, int nb)
 	return (board);
 }
 
-
-#include <fcntl.h>
-#include <unistd.h>
-
 t_sqrt tile_init(t_filler game_settings, char position)
 {
 	t_sqrt tile;
@@ -80,20 +76,11 @@ t_sqrt tile_init(t_filler game_settings, char position)
 
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
-	char	buf[4096];
-	static	int first = 1;
+	char	buf[BUFF_SIZE];
 	int		x;
 	int		y;
 
 	y = 0;
-	ft_memset(buf, 0, 4096);
-	if (!first)
-	{
-		fast_gnl(0, &buf);
-		ft_printf("[[~/Documents/42/filler/piece.txt]]%s\n", buf);
-	}
-	first = 0;
-	fast_gnl(0, &buf);
 	while (y < game_settings.y_max)
 	{
 		fast_gnl(0, &buf);
