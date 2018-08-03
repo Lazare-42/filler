@@ -13,7 +13,7 @@
 #include "../includes/filler.h"
 #include "../libft/libft.h"
 
-int	check_empty_column(t_piece piece)
+int	check_empty_column_before(t_piece piece)
 {
 	int free_columns;
 	int	i;
@@ -30,29 +30,7 @@ int	check_empty_column(t_piece piece)
 	return (free_columns);
 }
 
-void	swap_columns(t_piece piece, int free_columns)
-{
-	int i;
-	int j;
-
-	i = 0;
-		while (i < piece.y_max)
-		{
-			j = 0;
-			while (j + free_columns < piece.x_max)
-			{
-				piece.layout[i][j] =
-				piece.layout[i][j + free_columns];
-				piece.layout[i][j + free_columns] =
-				(j + free_columns * 2  < piece.x_max) ?
-				piece.layout[i][j + free_columns * 2] : 0;
-				j++;
-			}
-			i++;
-		}
-}
-
-int check_empty_line(t_piece piece)
+int check_empty_line_before(t_piece piece)
 {
 	int free_lines;
 	int i;
@@ -69,35 +47,104 @@ int check_empty_line(t_piece piece)
 	return (free_lines);
 }
 
-void	swap_lines(t_piece piece, int free_lines)
+int check_empty_line_after(t_piece piece)
+{
+	int	free_lines;	
+	int	empty_line;
+	int	i;
+
+	free_lines = piece.free_lines;
+	empty_line = 0;
+	while (free_lines < piece.y_max && !empty_line)
+	{
+		empty_line = 1;
+		i = (piece.free_columns) ? piece.free_columns: 0;
+		while (i < piece.x_max)
+		{
+			if (piece.layout[free_lines][i] == 1)
+				empty_line = 0;
+			i++;
+		}
+		if (!empty_line)
+			free_lines++;
+	}
+	return (free_lines - piece.free_lines);
+}
+
+int check_empty_columns_after(t_piece piece)
+{
+	int free_columns;
+	int empty_column;
+	int i;
+
+	free_columns = piece.free_columns;
+	empty_column = 0;
+	while (free_columns < piece.x_max && !empty_column)
+	{
+		empty_column = 1;
+		i = (piece.free_lines) ? piece.free_lines : 0;
+		while (i < piece.y_max + piece.free_lines)
+		{
+			if (piece.layout[i][free_columns] == 1)
+					empty_column = 0;
+			i++;
+		}
+		if (!empty_column)
+			free_columns++;
+	}
+	return (free_columns - piece.free_columns);
+}
+
+void	norm_piece(t_piece *piece)
+{
+	piece->free_columns = check_empty_column_before(*piece);
+	piece->free_lines = check_empty_line_before(*piece);
+	print_piece_before_norm(*piece);
+	piece->y_max = check_empty_line_after(*piece);
+	piece->x_max = check_empty_columns_after(*piece);
+	print_piece_after_norm(*piece);
+}
+
+void	print_piece_before_norm(t_piece piece)
 {
 	int i;
 	int j;
-	
+
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\nBefore norm this is piece.y_max : %d\nthis is piece.x_max : %d\n", piece.y_max, piece.x_max);
 	i = 0;
-	while (i < piece.x_max)
+	while (i < piece.y_max)
 	{
 		j = 0;
-		while (j + free_lines < piece.y_max)
+		while (j < piece.x_max)
 		{
-			piece.layout[j][i] =
-			piece.layout[j + free_lines][i];
-			piece.layout[j + free_lines][i] =
-			(j + free_lines * 2  < piece.y_max) ? 
-			piece.layout[j + free_lines * 2][i] : 0;
+			ft_printf("[[~/Documents/42/filler/piece.txt]]%d", piece.layout[i][j]);
 			j++;
 		}
+			ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
 		i++;
 	}
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
 }
 
-t_piece norm_piece(t_piece piece)
+void	print_piece_after_norm(t_piece piece)
 {
-	if ((piece.free_columns = check_empty_column(piece)))
-		swap_columns(piece, piece.free_columns);
-	if ((piece.free_lines = check_empty_line(piece)))
-		swap_lines(piece, piece.free_lines);
-	piece.x_max -= piece.free_columns;
-	piece.y_max -= piece.free_lines;
-	return (piece);
+	int i;
+	int j;
+
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\n\
+After norm this is piece.y_max : %d\nthis is piece.x_max : %d\nthis is free_lines %d\nthis\
+ is free_columns %d\n", piece.y_max, piece.x_max, piece.free_lines, piece.free_columns);
+	i = piece.free_lines;
+	while (i < (piece.y_max + piece.free_lines))
+	{
+		j = piece.free_columns;
+		while (j < (piece.x_max + piece.free_columns))
+		{
+			ft_printf("[[~/Documents/42/filler/piece.txt]]%d", piece.layout[i][j]);
+			j++;
+		}
+			ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
+		i++;
+	}
+	ft_printf("[[~/Documents/42/filler/piece.txt]]\n");
 }

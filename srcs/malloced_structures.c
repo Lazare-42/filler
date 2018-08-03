@@ -71,4 +71,5 @@ void	get_piece(t_piece *piece)
 		if (y < piece->y_max - 1)
 			ret = fast_gnl(0, &buf);
 	}
+	//norm_piece(piece);
 }
