@@ -667,6 +667,8 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	{
 		memo = get_best_position_std(board, board_cpy, pc, gs);
 	}
+	if (!is_placeable(board, pc, memo, *gs))
+		gs->game_over = 1;
 	return (memo);
 }
 

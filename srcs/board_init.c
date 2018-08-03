@@ -54,6 +54,10 @@ t_sqrt	**board_random(t_filler game_settings, int nb)
 	return (board);
 }
 
+
+#include <fcntl.h>
+#include <unistd.h>
+
 t_sqrt tile_init(t_filler game_settings, char position)
 {
 	t_sqrt tile;
@@ -76,7 +80,7 @@ t_sqrt tile_init(t_filler game_settings, char position)
 
 t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 {
-	char	buf[BUFF_SIZE];
+	char	buf[BUFF_GNL];
 	int		x;
 	int		y;
 
@@ -116,5 +120,6 @@ t_filler	get_game_settings()
 	while (buf[i] && (ft_isdigit(buf[i])))
 		i++;
 	game_settings.x_max = ft_atoi(&buf[i]);
+	game_settings.game_over = 0;
 	return (game_settings);
 }

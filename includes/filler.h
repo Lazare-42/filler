@@ -43,6 +43,7 @@ typedef struct		s_filler
 	int				opponent;
 	float			**mask;
 	int				fill_mode;
+	int				game_over;
 }					t_filler;
 
 typedef struct		s_piece

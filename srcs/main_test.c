@@ -27,16 +27,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	pass_void(void)
+void	pass_void_info(void)
 {
 	static	int first = 1;
-	char	buf[BUFF_SIZE];
+	char	buf[BUFF_GNL];
 
 	if (!first)
-	{
 		fast_gnl(0, &buf);
-		usleep(500);
-	}
 	first = 0;
 	fast_gnl(0, &buf);
 }
@@ -56,14 +53,14 @@ int	main(void)
 		return (1);
 	if (!(board_cpy = board_malloc(game_settings)))
 		return (1);
-	while (1)
+	while (!game_settings.game_over)
 	{
-		pass_void();
+		pass_void_info();
 		board = board_init(board, game_settings);
 		get_piece(&piece);
 		board_update(board, &game_settings);
 		best_position = get_best_position(board, &board_cpy, piece, &game_settings);
-		printf("%d %d\n", best_position.y, best_position.x); fflush(stdout);
+		ft_printf("%d %d\n", best_position.y, best_position.x);
 	}
 	return (0);
 }
