@@ -306,20 +306,6 @@ float   board_score_calc(t_sqrt **board, t_filler gs)
 	return (score);
 }
 
-float   score_update_for_p2(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
-{
-	float score;
-
-	board_update(*board_cpy, gs);
-	score = board_score_calc(*board_cpy, *gs);
-	//printf("score = %.f hscore = %.f\n", score, *high_score); fflush(stdout);
-	if (score < *high_score)
-	{
-		*high_score = score;
-		return (1);
-	}
-	return (0);
-}
 
 float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 {
@@ -334,40 +320,6 @@ float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 		return (1);
 	}
 	return (0);
-}
-
-int     is_placeable_for_p2(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
-{
-	int     x;
-	int     y;
-	float   possession;
-	int		mixed;
-
-	mixed = 0;
-	if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
-		return (0);
-	y = 0/*pc.free_columns*/;
-	while (y < pc.y_max)
-	{
-		x = 0/*pc.free_lines*/;
-		while (x < pc.x_max)
-		{
-			possession = board[o.y + y][o.x + x].possession;
-			//printf("%.f ", possession); fflush(stdout);
-			if (pc.layout[y][x] == 1)
-			{
-				if (possession == P2)
-					mixed++;
-				else if (possession == P1)
-					return (0);
-			}
-			x++;
-		}
-		//printf("\n"); fflush(stdout);
-		y++;
-	}
-	//printf("mixed: %d\n", mixed); fflush(stdout);
-	return ((mixed == 1));
 }
 
 int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
@@ -440,28 +392,7 @@ y++;
 return ((mixed == 1));
 }
 */
-void     piece_write_for_p2(t_sqrt ***board_cpy, t_piece pc, t_point o)
-{
-	int     x;
-	int     y;
 
-	y = 0;
-	while (y < pc.y_max)
-	{
-		x = 0;
-		while (x < pc.x_max)
-		{
-			if (pc.layout[y][x] == 1)
-			{
-				(*board_cpy)[o.y + y][o.x + x].possession = 0;
-				(*board_cpy)[o.y + y][o.x + x].p1_distance = 99999;
-				(*board_cpy)[o.y + y][o.x + x].p2_distance = 0;
-			}
-			x++;
-		};
-		y++;
-	}
-}
 
 void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 {
@@ -669,36 +600,6 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	if (!is_placeable(board, pc, memo, *gs))
 		gs->game_over = 1;
-	return (memo);
-}
-
-t_point get_best_position_for_p2(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
-{
-	t_point pt;
-	t_point memo;
-	float   high_score;
-
-	pt.y = -1;
-	high_score = gs->x_max * gs->y_max;
-	while (++pt.y < gs->y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < gs->x_max)
-		{
-			if (is_placeable_for_p2(board, pc, pt, *gs))
-			{
-				//printf("placeable - x: %d, y: %d\n", pt.x, pt.y); fflush(stdout);
-				board_to_board(board, board_cpy, *gs);
-				piece_write_for_p2(board_cpy, pc, pt);
-				if (score_update_for_p2(board_cpy, &high_score, gs))
-				{
-					//printf("new best position - score: %.2f\n", high_score); fflush(stdout);
-					memo.x = pt.x;
-					memo.y = pt.y;
-				}
-			}
-		}
-	}
 	return (memo);
 }
 

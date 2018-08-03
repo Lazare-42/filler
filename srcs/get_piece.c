@@ -97,12 +97,12 @@ int check_empty_columns_after(t_piece piece)
 
 void	norm_piece(t_piece *piece)
 {
+//	print_piece_before_norm(*piece);
 	piece->free_columns = check_empty_column_before(*piece);
 	piece->free_lines = check_empty_line_before(*piece);
-	print_piece_before_norm(*piece);
 	piece->y_max = check_empty_line_after(*piece);
 	piece->x_max = check_empty_columns_after(*piece);
-	print_piece_after_norm(*piece);
+//	print_piece_after_norm(*piece);
 }
 
 void	print_piece_before_norm(t_piece piece)
