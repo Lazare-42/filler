@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/02 00:07:06 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/03 23:38:10 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	print_board_old(int x_max, int y_max, t_sqrt **board);
 
+
+/*
 static void		position_update(t_point *position, t_direction direction)
 {
 	int	x_diff;
@@ -93,6 +95,7 @@ static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
 	}
 	return (distance_p1 / (distance_p1 + distance_p2));
 }
+*/
 
 t_point t_point_init(int x, int y)
 {
@@ -102,6 +105,7 @@ t_point t_point_init(int x, int y)
 	return (point);
 }
 
+/*
 void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
 {
 	t_point		pt;
@@ -127,7 +131,9 @@ void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, in
 		pt.y++;
 	}
 }
+*/
 
+/*
 void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
 {
 	int			x;
@@ -155,6 +161,7 @@ void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int 
 		y++;
 	}
 }
+*/
 
 void	possession_update(t_sqrt **board, t_filler filler)
 {
@@ -330,13 +337,13 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 	int		mixed;
 
 	mixed = 0;
-	if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
+	if (pc.x_max + pc.free_columns > gs.x_max - o.x || pc.y_max + pc.free_lines > gs.y_max - o.y)
 		return (0);
-	y = pc.free_columns;
-	while (y < pc.y_max)
+	y = pc.free_lines;
+	while (y < pc.y_max + pc.free_lines)
 	{
-		x = pc.free_lines;
-		while (x < pc.x_max)
+		x = pc.free_columns;
+		while (x < pc.x_max + pc.free_columns)
 		{
 			possession = board[o.y + y][o.x + x].possession;
 			if (pc.layout[y][x] == 1)
@@ -399,11 +406,11 @@ void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 	int     x;
 	int     y;
 
-	y = 0;
-	while (y < pc.y_max)
+	y = pc.free_lines;
+	while (y < pc.y_max + pc.free_lines)
 	{
-		x = 0;
-		while (x < pc.x_max)
+		x = pc.free_columns;
+		while (x < pc.x_max + pc.free_columns)
 		{
 			if (pc.layout[y][x] == 1)
 			{
@@ -603,6 +610,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	return (memo);
 }
 
+/*
 void		boundary_draw_old(t_sqrt **board, t_filler filler)
 {
 	//	printf("DRAW IN\n"); fflush(stdout);
@@ -648,6 +656,7 @@ void		boundary_draw(t_sqrt **board, t_filler filler)
 	}
 	possession_update(board, filler);
 }
+*/
 
 void		boundary_draw_new(t_sqrt **board, t_filler *f)
 {

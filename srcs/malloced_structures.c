@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 18:32:54 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/26 03:54:50 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/03 23:26:29 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ void	get_piece(t_piece *piece)
 	int		x;
 	int		y;
 
-	int		ret;
-
 	y = -1;
 	while (!ft_strstr(buf, "Piece"))
-		ret = fast_gnl(0, &buf);
+		fast_gnl(0, &buf);
 	piece->y_max = ft_atoi(&buf[5]);
-	ret = fast_gnl(0, &buf);
+	fast_gnl(0, &buf);
 	piece->x_max = ft_strlen(buf);
 	if (piece->layout)
 		ft_tabdel((void***)&piece->layout);
@@ -69,7 +67,7 @@ void	get_piece(t_piece *piece)
 		while (++x < piece->x_max)
 			piece->layout[y][x] = (buf[x] == '*');
 		if (y < piece->y_max - 1)
-			ret = fast_gnl(0, &buf);
+			fast_gnl(0, &buf);
 	}
-//	norm_piece(piece);
+	norm_piece(piece);
 }
