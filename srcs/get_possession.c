@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/04 02:02:21 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 02:15:45 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 	int		mixed;
 
 	mixed = 0;
-	if (pc.x_max + pc.free_columns > gs.x_max - o.x || pc.y_max + pc.free_lines > gs.y_max - o.y)
+	if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
 		return (0);
 	y = pc.free_lines;
 	while (y < pc.y_max + pc.free_lines)
