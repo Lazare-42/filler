@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/04 00:59:18 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 12:48:09 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_sqrt tile_init(char position)
 
 t_sqrt **board_init(t_sqrt **board, t_filler *game_settings)
 {
-	char	buf[BUFF_GNL];
+	char	*buf;
 	int		x;
 	int		y;
 
@@ -46,18 +46,20 @@ t_sqrt **board_init(t_sqrt **board, t_filler *game_settings)
 	while (y < game_settings->y_max)
 	{
 		x = 0;
-		fast_gnl(0, &buf);
+		get_next_line(0, &buf);
 		if (ft_strstr(buf, "fin"))
 		{
 			find_winner(game_settings, buf);
 			return (board);
 		}
-		while (x < game_settings->x_max)
+		else while (x < game_settings->x_max)
 		{
 			if (buf[x + 4] != '.' && board[y][x].possession != -1)
 				board[y][x] = tile_init(buf[x + 4]);
 			x++;
 		}
+		if (!game_settings->game_over)
+			ft_memdel((void**)&buf);
 		y++;
 	}
 	return (board);
@@ -80,7 +82,7 @@ void	put_sentence(t_filler * gs, int player)
 }
 
 
-void	set_player_info(char buf[BUFF_GNL], t_filler *gs, int player)
+void	set_player_info(char *buf, t_filler *gs, int player)
 {
 	char	*tmp;
 	char	name[1024];
@@ -106,17 +108,18 @@ void	set_player_info(char buf[BUFF_GNL], t_filler *gs, int player)
 
 t_filler	get_game_settings()
 {
-	char			buf[BUFF_GNL];
+	char			*buf;
 	static t_filler	game_settings;
 	static int 		first = 1;
 	int				i;
 
-	fast_gnl(0, &buf);
+	get_next_line(0, &buf);
 	i = 0;
 	game_settings.game_over = 0;
 	while (!(ft_strstr(buf, "Plateau")))
 	{
-		fast_gnl(0, &buf);
+		ft_memdel((void**)&buf);
+		get_next_line(0, &buf);
 		if (ft_strstr(buf, "exec p1"))
 			set_player_info(buf, &game_settings, P1);
 		if (ft_strstr(buf, "exec p2"))
@@ -129,5 +132,6 @@ t_filler	get_game_settings()
 		i++;
 	game_settings.x_max = ft_atoi(&buf[i]);
 	first = 0;
+	ft_memdel((void**)&buf);
 	return (game_settings);
 }
