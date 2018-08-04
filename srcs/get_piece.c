@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 14:02:48 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/03 23:25:49 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 02:02:23 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,10 @@ int check_empty_columns_after(t_piece piece)
 
 void	norm_piece(t_piece *piece)
 {
-//	print_piece_before_norm(*piece);
 	piece->free_columns = check_empty_column_before(*piece);
 	piece->free_lines = check_empty_line_before(*piece);
 	piece->y_max = check_empty_line_after(*piece);
 	piece->x_max = check_empty_columns_after(*piece);
-//	print_piece_after_norm(*piece);
 }
 
 void	print_piece_before_norm(t_piece piece)

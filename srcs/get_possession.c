@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/03 23:38:10 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 02:02:21 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,7 +345,7 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 		x = pc.free_columns;
 		while (x < pc.x_max + pc.free_columns)
 		{
-			possession = board[o.y + y][o.x + x].possession;
+			possession = board[o.y + y - pc.free_lines][o.x + x - pc.free_columns].possession;
 			if (pc.layout[y][x] == 1)
 			{
 				if (possession == P1)
@@ -405,8 +405,12 @@ void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 {
 	int     x;
 	int     y;
+	int		fl;
+	int		fc;
 
 	y = pc.free_lines;
+	fl = pc.free_lines;
+	fc = pc.free_columns;
 	while (y < pc.y_max + pc.free_lines)
 	{
 		x = pc.free_columns;
@@ -414,9 +418,9 @@ void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 		{
 			if (pc.layout[y][x] == 1)
 			{
-				(*board_cpy)[o.y + y][o.x + x].possession = 1;
-				(*board_cpy)[o.y + y][o.x + x].p1_distance = 0;
-				(*board_cpy)[o.y + y][o.x + x].p2_distance = 99999;
+				(*board_cpy)[o.y + y - fl][o.x + x - fc].possession = 1;
+				(*board_cpy)[o.y + y - fl][o.x + x - fc].p1_distance = 0;
+				(*board_cpy)[o.y + y - fl][o.x + x - fc].p2_distance = 99999;
 			}
 			x++;
 		};
@@ -606,7 +610,10 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 		memo = get_best_position_std(board, board_cpy, pc, gs);
 	}
 	if (!is_placeable(board, pc, memo, *gs))
+	{
 		gs->game_over = 1;
+		print_piece_after_norm(pc);
+	}
 	return (memo);
 }
 

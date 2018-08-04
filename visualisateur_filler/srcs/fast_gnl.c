@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/26 05:58:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/01 21:50:31 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/02 00:06:42 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,23 @@ int	fast_gnl(int fd, char (*line)[4096])
 	ft_memcpy(buf, buf + i + 1, BUFF_GNL - i - 1);
 	return (ft_strlen(*line));
 }
+
+int			fast_gnl(const int fd, char (*line)[BUFF_GNL])
+{
+	char	tmp;
+	int		i;
+
+	i = 0;
+	tmp = 0;
+	while (tmp != '\n' && i < BUFF_GNL - 1)
+	{
+		read(fd, &tmp, 1);
+		(*line)[i] = tmp;
+		i++;
+	}
+	(*line)[i] = '\0';
+	return (1);
+}
 */
 
 int			fast_gnl(const int fd, char (*line)[4096])
@@ -42,27 +59,24 @@ int			fast_gnl(const int fd, char (*line)[4096])
 	int				rd;
 	char			buf[BUFF_GNL + 1];
 	static	char	s[BUFF_GNL * 4];
-	static	int		is_already_init;
 	char			*tmp;
 
 	if (!line || fd < 0 || read(fd, NULL, 0) < 0)
 		return (-1);
-	ft_memset(buf, '\0', BUFF_GNL + 1);
 	rd = 1;
-	if (!(is_already_init++))
-		ft_memset(s, '\0', BUFF_GNL * 4);
-	if (!(ft_strchr(s, '\n')))
+	while (!(ft_strchr(s, '\n')))
 	{
 		rd = read(fd, buf, BUFF_GNL);
 		buf[rd] = 0;
 		tmp = ft_strchr(s, '\0');
 		ft_memcpy(tmp, buf, ft_strlen(buf));
 	}
-	ft_memset(*line, '\0', BUFF_GNL + 1);
-	ft_memcpy(*line, s, ft_strchrnul(s, '\n') - s);
-	ft_memcpy(s, ft_strchrnul(s, '\n') + 1, ft_strlen(s));
+	ft_memset(*line, '\0', BUFF_GNL);
+	ft_memcpy(*line, s, ft_strchr(s, '\n') - s);
+	ft_memcpy(s, ft_strchr(s, '\n') + 1, ft_strlen(s));
 	return ((rd > 0) || (ft_strlen(*line) > 0));
 }
+
 /*
 #include <stdio.h>
 

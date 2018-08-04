@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/26 08:37:37 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/04 02:02:23 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(void)
 		get_piece(&piece);
 		board_update(board, &game_settings);
 		best_position = get_best_position(board, &board_cpy, piece, &game_settings);
-		ft_printf("%d %d\n", best_position.y, best_position.x);
+		ft_printf("%d %d\n", best_position.y - piece.free_lines, best_position.x - piece.free_columns);
 	}
 	return (0);
 }
