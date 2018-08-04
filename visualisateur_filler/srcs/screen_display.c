@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 13:11:49 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 13:15:37 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 13:33:17 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	screen_fill_possession(int **screen, t_sqrt tile, int where_to,
 	violet.red = (int)((float)violet.red * possession) / 2;
 	violet.green = (int)((float)violet.green * possession) / 2;
 	violet.blue = (int)((float)violet.blue * possession) / 2;
-	violet.RGB = violet.red << 16 | violet.green << 8 | violet.blue;
+	violet.rgb = violet.red << 16 | violet.green << 8 | violet.blue;
 	while (++y < (Y_SIZE - BOARD) / gs.y_max - 1)
 	{
 		x = -1;
 		while (++x < X_SIZE / gs.x_max - 1)
-			(*screen)[where_to + x] = violet.RGB;
+			(*screen)[where_to + x] = violet.rgb;
 		where_to += X_SIZE;
 	}
 }

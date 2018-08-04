@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 02:02:22 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 15:32:14 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@
 # define P1 1
 # define P2 0
 # define BUFF_GNL 4096
-# define P1_NEW FDF_P1 + 1
-# define P2_NEW FDF_P2 - 1
+# define SET_MEMO 20000
+# define FILL_MODE 5000
 # define VAR 1
 # define PERIMETRE 27
-# define OPTI 0
-
-typedef enum		e_direction
-{up, right, down, left
-}					t_direction;
+# define OPTI 2
 
 typedef struct		s_sqrt
 {
@@ -66,6 +62,14 @@ typedef struct		s_point
 	int				x;
 	int				y;
 }					t_point;
+
+typedef struct		s_arg
+{
+	t_sqrt			**board;
+	t_sqrt			***board_cpy;
+	t_filler		*gs;
+	t_piece			pc;
+}					t_arg;
 
 t_sqrt				**board_malloc(t_filler game_settings);
 t_sqrt				**board_init(t_sqrt **board, t_filler game_setting);
