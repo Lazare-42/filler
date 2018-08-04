@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/04 13:06:37 by lazrossi          #+#    #+#             */
+/*   Updated: 2018/08/04 13:09:32 by lazrossi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minilibx_macos/mlx.h"
-#include "../libft/libft.h"
 #include "../includes/filler.h"
 #include "../libft/libft.h"
 
@@ -19,7 +30,7 @@ int		loop_filler(int necessary)
 	return (1);
 }
 
-static	t_mlx	my_mlx_init(void)
+t_mlx	my_mlx_init(void)
 {
 	t_mlx	mlx;
 	int		bpp;
@@ -40,8 +51,6 @@ static	t_mlx	my_mlx_init(void)
 	return (mlx);
 }
 
-
-
 void	mlx_put_winner(t_mlx mlx, t_filler gs)
 {
 	char	winner[1024];
@@ -51,11 +60,11 @@ void	mlx_put_winner(t_mlx mlx, t_filler gs)
 	result = NULL;
 	result = ft_itoa(gs.end_score);
 	if (gs.game_over == P1 + 1)
-		ft_memcpy(winner, gs.p1_info + 30, ft_strlen(gs.p1_info + 30)); 
+		ft_memcpy(winner, gs.p1_info + 30, ft_strlen(gs.p1_info + 30));
 	if (gs.game_over == P2 + 1)
-		ft_memcpy(winner, gs.p2_info + 30, ft_strlen(gs.p2_info + 30)); 
+		ft_memcpy(winner, gs.p2_info + 30, ft_strlen(gs.p2_info + 30));
 	ft_memcpy(winner + ft_strlen(winner), " won by : ",
-	ft_strlen(" won by : ")); 
+	ft_strlen(" won by : "));
 	ft_memcpy(winner + ft_strlen(winner), result, ft_strlen(result));
 	ft_memdel((void**)&result);
 	mlx_string_put(mlx.mlx, mlx.win,
@@ -83,25 +92,10 @@ void	board_img_handler(void)
 		board = board_init(board, &game_settings);
 		board_update(board, &game_settings);
 	}
-	display_pieces(game_settings, board, &(mlx.screen_data)); 
+	display_pieces(game_settings, board, &(mlx.screen_data));
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.image, 0, 0);
 	put_player_info(mlx, game_settings, P1);
 	put_player_info(mlx, game_settings, P2);
 	if (game_settings.game_over)
 		mlx_put_winner(mlx, game_settings);
-}
-
-int		draw(void)
-{
-	static	t_mlx	mlx;
-	static	int		initalize = 0;
-
-	if (!initalize)
-	{
-		mlx = my_mlx_init();
-		initalize = 1;
-	}
-	mlx_loop_hook(mlx.mlx, loop_filler, 0);
-	mlx_loop(mlx.mlx);
-	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   possession_update.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/04 13:11:16 by lazrossi          #+#    #+#             */
+/*   Updated: 2018/08/04 13:11:41 by lazrossi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/filler.h"
 
 void	board_possession_update(t_sqrt **board, t_filler filler)
@@ -24,10 +36,10 @@ void	board_possession_update(t_sqrt **board, t_filler filler)
 
 void	get_total_possession(t_sqrt **board, t_filler *gs)
 {
-	int x;
-	int y;
-	float total_possession;
-	float total_size;
+	int		x;
+	int		y;
+	float	total_possession;
+	float	total_size;
 
 	y = 0;
 	total_size = gs->x_max * gs->y_max;
@@ -43,7 +55,7 @@ void	get_total_possession(t_sqrt **board, t_filler *gs)
 		y++;
 	}
 	gs->p1_possession = total_possession / total_size;
-	gs->p2_possession = 1 - gs->p1_possession; 
+	gs->p2_possession = 1 - gs->p1_possession;
 	gs->p2_possession *= 1000;
 	gs->p1_possession *= 1000;
 }

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   board_distance_update_2.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/04 12:55:20 by lazrossi          #+#    #+#             */
+/*   Updated: 2018/08/04 12:57:12 by lazrossi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/filler.h"
 
-void    board_distance_update_5(t_sqrt **board, t_filler gs)
+void	board_distance_update_5(t_sqrt **board, t_filler gs)
 {
-	int     x;
-	int     y;
-	int     p1_d_tmp;
-	int     p2_d_tmp;
-	float   possession;
+	int		x;
+	int		y;
+	int		p1_d_tmp;
+	int		p2_d_tmp;
+	float	possession;
 
 	y = 1;
 	while (y < gs.y_max)
@@ -27,13 +39,13 @@ void    board_distance_update_5(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_distance_update_6(t_sqrt **board, t_filler gs)
+void	board_distance_update_6(t_sqrt **board, t_filler gs)
 {
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
+	int		x;
+	int		y;
+	int		p1_d_tmp;
+	int		p2_d_tmp;
+	float	possession;
 
 	x = gs.x_max - 2;
 	while (x >= 0)
@@ -54,13 +66,13 @@ void    board_distance_update_6(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_distance_update_7(t_sqrt **board, t_filler gs)
+void	board_distance_update_7(t_sqrt **board, t_filler gs)
 {
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
+	int		x;
+	int		y;
+	int		p1_d_tmp;
+	int		p2_d_tmp;
+	float	possession;
 
 	y = gs.y_max - 2;
 	while (y >= 0)
@@ -81,13 +93,13 @@ void    board_distance_update_7(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_distance_update_8(t_sqrt **board, t_filler gs)
+void	board_distance_update_8(t_sqrt **board, t_filler gs)
 {
-	int x;
-	int y;
-	int p1_d_tmp;
-	int p2_d_tmp;
-	float   possession;
+	int		x;
+	int		y;
+	int		p1_d_tmp;
+	int		p2_d_tmp;
+	float	possession;
 
 	x = 1;
 	while (x < gs.x_max)

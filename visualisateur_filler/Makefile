@@ -4,7 +4,6 @@ SOURCES =	main_test.c \
 			get_possession.c \
 			board_init.c \
 			malloced_structures.c \
-			fast_gnl.c \
 			image_handler.c \
 			board_update.c \
 			board_distance_update_1.c \

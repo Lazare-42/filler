@@ -6,14 +6,13 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/26 08:37:15 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/04 13:05:57 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-#include <stdio.h>
 
-void    board_distance_reset(t_sqrt **board, t_filler gs)
+void	board_distance_reset(t_sqrt **board, t_filler gs)
 {
 	int		x;
 	int		y;
@@ -37,28 +36,28 @@ void    board_distance_reset(t_sqrt **board, t_filler gs)
 	}
 }
 
-float   board_score_calc(t_sqrt **board, t_filler gs)
+float	board_score_calc(t_sqrt **board, t_filler gs)
 {
-    float score;
-    int x;
-    int y;
+	float	score;
+	int		x;
+	int		y;
 
-    score = 0;
-    y = 0;
-    while (y < gs.y_max)
-    {
-        x = 0;
-        while (x < gs.x_max)
-        {
-            score += board[y][x].possession;
-            x++;
-        }
-        y++;
-    }
-    return (score);
+	score = 0;
+	y = 0;
+	while (y < gs.y_max)
+	{
+		x = 0;
+		while (x < gs.x_max)
+		{
+			score += board[y][x].possession;
+			x++;
+		}
+		y++;
+	}
+	return (score);
 }
 
-float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
+float	score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 {
 	float score;
 
@@ -72,10 +71,10 @@ float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)
 	return (0);
 }
 
-void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
+void	board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 {
-	int     x;
-	int     y;
+	int		x;
+	int		y;
 
 	y = 0;
 	while (y < gs.y_max)
@@ -87,7 +86,7 @@ void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 			(*dest)[y][x].p1_distance = src[y][x].p1_distance;
 			(*dest)[y][x].p2_distance = src[y][x].p2_distance;
 			x++;
-		};
+		}
 		y++;
 	}
 }

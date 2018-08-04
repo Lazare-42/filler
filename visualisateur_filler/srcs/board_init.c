@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/04 12:48:09 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 13:01:36 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-t_sqrt tile_init(char position)
+t_sqrt		tile_init(char position)
 {
 	t_sqrt tile;
 
@@ -36,53 +36,51 @@ t_sqrt tile_init(char position)
 	return (tile);
 }
 
-t_sqrt **board_init(t_sqrt **board, t_filler *game_settings)
+t_sqrt		**board_init(t_sqrt **board, t_filler *game_settings)
 {
 	char	*buf;
 	int		x;
 	int		y;
 
-	y = 0;
-	while (y < game_settings->y_max)
+	y = -1;
+	while (++y < game_settings->y_max)
 	{
-		x = 0;
+		x = -1;
 		get_next_line(0, &buf);
 		if (ft_strstr(buf, "fin"))
 		{
 			find_winner(game_settings, buf);
 			return (board);
 		}
-		else while (x < game_settings->x_max)
-		{
-			if (buf[x + 4] != '.' && board[y][x].possession != -1)
-				board[y][x] = tile_init(buf[x + 4]);
-			x++;
-		}
+		else
+			while (++x < game_settings->x_max)
+			{
+				if (buf[x + 4] != '.' && board[y][x].possession != -1)
+					board[y][x] = tile_init(buf[x + 4]);
+			}
 		if (!game_settings->game_over)
 			ft_memdel((void**)&buf);
-		y++;
 	}
 	return (board);
 }
 
-void	put_sentence(t_filler * gs, int player)
+void		put_sentence(t_filler *gs, int player)
 {
 	if (player == P1)
 	{
 		ft_memset(gs->p1_info, 0, 1024);
 		ft_memcpy(gs->p1_info, "Possession estimation for P1, ",
-		ft_strlen("Possession estimation for P1, "));
+				ft_strlen("Possession estimation for P1, "));
 	}
 	else if (player == P2)
 	{
 		ft_memset(gs->p2_info, 0, 1024);
 		ft_memcpy(gs->p2_info, "Possession estimation for P2, ",
-		ft_strlen("Possession estimation for P2, "));
+				ft_strlen("Possession estimation for P2, "));
 	}
 }
 
-
-void	set_player_info(char *buf, t_filler *gs, int player)
+void		set_player_info(char *buf, t_filler *gs, int player)
 {
 	char	*tmp;
 	char	name[1024];
@@ -106,11 +104,10 @@ void	set_player_info(char *buf, t_filler *gs, int player)
 		ft_memcpy(gs->p2_info + ft_strlen(gs->p2_info), name, ft_strlen(name));
 }
 
-t_filler	get_game_settings()
+t_filler	get_game_settings(void)
 {
 	char			*buf;
 	static t_filler	game_settings;
-	static int 		first = 1;
 	int				i;
 
 	get_next_line(0, &buf);
@@ -131,7 +128,6 @@ t_filler	get_game_settings()
 	while (buf[i] && (ft_isdigit(buf[i])))
 		i++;
 	game_settings.x_max = ft_atoi(&buf[i]);
-	first = 0;
 	ft_memdel((void**)&buf);
 	return (game_settings);
 }

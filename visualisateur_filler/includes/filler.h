@@ -6,12 +6,12 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/07/26 08:59:24 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/04 13:28:21 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef FILLER_H
-#define FILLER_H
+#ifndef FILLER_H
+# define FILLER_H
 
 # include <stdlib.h>
 # include "../libft/libft.h"
@@ -23,7 +23,7 @@
 # define X_SIZE 1100
 # define Y_SIZE 1100
 # define VIOLET 0x9370DB
-# define CYAN	0x37FDFC 
+# define CYAN	0x37FDFC
 # define GREY	0xA9A9A9
 # define WIN_CO 0xee0000
 
@@ -65,26 +65,27 @@ float				calc_score(t_sqrt **board, t_filler f);
 void				print_board_old(int x_max, int y_max, t_sqrt **board);
 void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
-int					fast_gnl(int fd, char (*line)[4096]);
 void				board_img_handler(void);
 int					draw(void);
-void    			board_distance_reset(t_sqrt **board, t_filler gs);
+void				board_distance_reset(t_sqrt **board, t_filler gs);
 void				possession_update(t_sqrt **board, t_filler filler);
 void				set_get_total_possession_p1(float possession, void *ret);
-void    			board_distance_update_1(t_sqrt **board, t_filler gs);
-void    			board_distance_update_2(t_sqrt **board, t_filler gs);
-void    			board_distance_update_3(t_sqrt **board, t_filler gs);
-void    			board_distance_update_4(t_sqrt **board, t_filler gs);
-void    			board_distance_update_5(t_sqrt **board, t_filler gs);
-void    			board_distance_update_6(t_sqrt **board, t_filler gs);
-void    			board_distance_update_7(t_sqrt **board, t_filler gs);
-void    			board_distance_update_8(t_sqrt **board, t_filler gs);
+void				board_distance_update_1(t_sqrt **board, t_filler gs);
+void				board_distance_update_2(t_sqrt **board, t_filler gs);
+void				board_distance_update_3(t_sqrt **board, t_filler gs);
+void				board_distance_update_4(t_sqrt **board, t_filler gs);
+void				board_distance_update_5(t_sqrt **board, t_filler gs);
+void				board_distance_update_6(t_sqrt **board, t_filler gs);
+void				board_distance_update_7(t_sqrt **board, t_filler gs);
+void				board_distance_update_8(t_sqrt **board, t_filler gs);
 void				board_possession_update(t_sqrt **board, t_filler filler);
 void				get_total_possession(t_sqrt **board, t_filler *gs);
-void				display_pieces(t_filler game_settings, t_sqrt **board, int **screen);
+void				display_pieces(t_filler game_settings, t_sqrt **board,
+		int **screen);
 void				put_player_info(t_mlx mlx, t_filler gs, int player);
 void				pass_pieces_or_find_winner(t_filler *game_settings);
 void				find_winner(t_filler *game_settings, char *buf);
-int					fast_gnl(const int fd, char (*line)[4096]);
+int					loop_filler(int necessary);
+t_mlx				my_mlx_init(void);
 
-# endif
+#endif

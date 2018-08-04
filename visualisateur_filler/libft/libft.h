@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:26:09 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/24 19:02:08 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 13:31:32 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@
 # define BCK "\x1B[40m"
 # define FRM "\x1B[51m"
 
-
-typedef	struct	s_list
+typedef	struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
-}				t_list;
+}					t_list;
 
 typedef struct		s_str
 {
@@ -54,12 +53,12 @@ typedef struct		s_str
 	char	str[BUFF_SIZE];
 }					t_str;
 
-typedef struct 		s_color_compound
+typedef struct		s_color_compound
 {
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
-	int				RGB;
+	int				rgb;
 }					t_color_compound;
 
 typedef struct		s_printf
@@ -98,7 +97,8 @@ char				*ft_strtcchr(const char *src, const char *tab, char c);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *big, const char *little);
-char				*ft_strnstr(const char *big, const char *little, size_t len);
+char				*ft_strnstr(const char *big, const char *little,
+		size_t len);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *nptr);
