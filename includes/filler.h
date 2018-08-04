@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 20:36:58 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 01:46:27 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # define P2 0
 # define BUFF_GNL 4096
 # define SET_MEMO 20000
+# define CORE_NUMBER 4
 # define FILL_MODE 5000
 # define VAR 1
 # define PERIMETRE 27
-# define OPTI 2
+# define OPTI 0
 
 typedef struct		s_sqrt
 {
@@ -63,13 +64,21 @@ typedef struct		s_point
 	int				y;
 }					t_point;
 
+typedef struct		s_memo
+{
+	t_point			memo;
+	float			score;
+}					t_memo;
+
 typedef struct		s_arg
 {
 	int				thread_nbr;
 	t_sqrt			**board;
-	t_sqrt			***board_cpy;
-	t_filler		*gs;
+	t_sqrt			**board_cpy[CORE_NUMBER];
+	int				thred_nbr;
+	t_filler		gs;
 	t_piece			pc;
+	t_memo			memo[CORE_NUMBER];
 }					t_arg;
 
 t_sqrt				**board_malloc(t_filler game_settings);
@@ -83,7 +92,7 @@ void				print_piece_after_norm(t_piece piece);
 void				get_piece(t_piece *piece);
 void				norm_piece(t_piece *piece);
 void				print_board_old(int x_max, int y_max, t_sqrt **board);
-t_point				get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs);
+t_point				get_best_position(t_arg *all, t_filler *gs);
 void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
 void    			board_distance_update_1(t_sqrt **board, t_filler gs);

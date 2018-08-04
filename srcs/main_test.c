@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 02:02:23 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 01:45:21 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,29 @@ void	pass_void_info(void)
 
 int	main(void)
 {
-	t_sqrt		**board;
-	t_sqrt		**board_cpy;
-	t_filler	game_settings;
+	t_arg		all;
 	t_point		best_position;
-	t_piece		piece;
+	int			i;
 
-	board = NULL;
-	piece.layout = NULL;
-	game_settings = get_game_settings();
-	if (!(board = board_malloc(game_settings)))
+	all.board = NULL;
+	all.pc.layout = NULL;
+	all.gs = get_game_settings();
+	i = 0;
+	if (!(all.board = board_malloc(all.gs)))
 		return (1);
-	if (!(board_cpy = board_malloc(game_settings)))
-		return (1);
-	while (!game_settings.game_over)
+	while (i < 4)
+	{
+		all.board_cpy[i] = board_malloc(all.gs);
+		i++;
+	}
+	while (!all.gs.game_over)
 	{
 		pass_void_info();
-		board = board_init(board, game_settings);
-		get_piece(&piece);
-		board_update(board, &game_settings);
-		best_position = get_best_position(board, &board_cpy, piece, &game_settings);
-		ft_printf("%d %d\n", best_position.y - piece.free_lines, best_position.x - piece.free_columns);
+		all.board = board_init(all.board, all.gs);
+		get_piece(&all.pc);
+		board_update(all.board, &all.gs);
+		best_position = get_best_position(&all, &(all.gs));
+		ft_printf("%d %d\n", best_position.y - all.pc.free_lines, best_position.x - all.pc.free_columns);
 	}
 	return (0);
 }
