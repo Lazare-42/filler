@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/04 16:28:29 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 20:45:29 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,16 @@ t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler 
 	return (memo);
 }
 
+int		set_get_core_numbers(void)
+{
+	static int		core_number = 0;
+	static size_t	count_len = sizeof(core_number);
+
+	if (!core_number)
+		sysctlbyname("hw.logicalcpu", &core_number, &count_len, NULL, 0);
+	return (core_number);
+}
+
 t_point set_fetch_best_position(t_point memo, float high_score, int set)
 {
 	static	t_point memo_found;
@@ -337,35 +347,25 @@ t_point set_fetch_best_position(t_point memo, float high_score, int set)
 		memo_found = memo;
 		high_score_found = FILL_MODE;
 	}
-	if (high_score_found == FILL_MODE)
-		return (memo);
 	// END OF FUTURE MUTEX LOCK
 	if (set != SET_MEMO)
-		return (memo);
-	// END OF FUTURE MUTEX LOCK
+	{
+		high_score_found = 0;
+		return (memo_found);
+	}
 	else
 	{
-		if (high_score > high_score_found)
+		if (high_score >= high_score_found)
 		{
 			high_score_found = high_score;
 			memo_found = memo;
 		}
 	}
 	// END OF FUTURE MUTEX LOCK
-	return (memo);
+	return (memo_found);
 }
 
-int		set_get_core_numbers(void)
-{
-	static int		core_number = 0;
-	static size_t	count_len = sizeof(core_number);
-
-	if (!core_number)
-		sysctlbyname("hw.logicalcpu", &core_number, &count_len, NULL, 0);
-	return (core_number);
-}
-
-t_point get_best_position_std(t_arg all)
+void get_best_position_std(t_arg all)
 {
 	t_point			pt;
 	t_point			memo;
@@ -384,7 +384,7 @@ t_point get_best_position_std(t_arg all)
 				if (all.gs->fill_mode == 1)
 				{
 					set_fetch_best_position(pt, 0, FILL_MODE);
-					return (pt);
+					return ;
 				}
 				board_to_board(all.board, all.board_cpy, *all.gs);
 				piece_write(all.board_cpy, all.pc, pt);
@@ -396,13 +396,13 @@ t_point get_best_position_std(t_arg all)
 			}
 		}
 	}
-	return (set_fetch_best_position(memo, high_score, SET_MEMO));
 }
 
 t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)
 {
 	t_point			memo;
 	t_arg			all;
+	int				thread_nbr;
 
 	memo.x = 0;
 	memo.y = 0;
@@ -410,6 +410,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	all.pc = pc;
 	all.board_cpy = board_cpy;
 	all.board = board;
+	thread_nbr = 0;
 	/*
 	if (OPTI)
 	{
@@ -419,8 +420,7 @@ t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_fil
 	}
 	else
 	*/
-	// GOAL IS FOR BEST_POSITION TO RETURN VOID AND THEN FETCH IF ; TO IMPLEMENT MULTITHREAD WITH GET_BEST_POSITION
-		memo   = get_best_position_std(all);
+	get_best_position_std(all);
 	memo = set_fetch_best_position(memo, 0, 0);
 	if (!is_placeable(board, pc, memo, *gs))
 		gs->game_over = 1;

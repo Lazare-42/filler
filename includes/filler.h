@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 15:32:14 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/04 20:36:58 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_point
 
 typedef struct		s_arg
 {
+	int				thread_nbr;
 	t_sqrt			**board;
 	t_sqrt			***board_cpy;
 	t_filler		*gs;
