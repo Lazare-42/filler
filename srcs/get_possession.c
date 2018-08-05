@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 17:12:50 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 18:27:39 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <pthread.h>
 
 pthread_cond_t condition;
-	pthread_mutex_t lock;
+pthread_mutex_t lock;
 
 void	print_board_old(int x_max, int y_max, t_sqrt **board);
 
@@ -308,7 +308,7 @@ void	get_best_position_std_1(void *arg)
 		pt.x = -1;
 		while (++pt.x < block->info.gs->x_max)
 		{
-			if (++placeable % 4 == (block->index + 1) && is_placeable(block->info.board, block->info.pc, pt, *(block->info.gs)))
+			if (/*((++placeable + 1) % CORE_NUMBER) == (block->index + 1) &&*/ is_placeable(block->info.board, block->info.pc, pt, *(block->info.gs)))
 			{
 				board_to_board(block->info.board, &(block->board_cpy), *(block->info.gs));
 				piece_write(&(block->board_cpy), block->info.pc, pt);

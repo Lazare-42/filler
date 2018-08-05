@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/05 17:08:10 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 18:33:22 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define P2 0
 # define BUFF_GNL 4096
 # define SET_MEMO 20000
-# define CORE_NUMBER 4
+# define CORE_NUMBER 2
 # define FILL_MODE 5000
 # define VAR 1
 # define PERIMETRE 27
