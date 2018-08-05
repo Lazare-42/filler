@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/19 16:02:34 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/05 01:45:21 by lazrossi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/07/19 15:57:46 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 17:14:54 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +28,32 @@ void	pass_void_info(void)
 
 int	main(void)
 {
-	t_arg		all;
-	t_point		best_position;
-	int			i;
+	t_arg			info;
+	t_thread_arg	block[CORE_NUMBER];
+	t_point			best_position;
+	int				i;
 
-	all.board = NULL;
-	all.pc.layout = NULL;
-	all.gs = get_game_settings();
+	info.board = NULL;
+	info.pc.layout = NULL;
+	*(info.gs) = get_game_settings();
 	i = 0;
-	if (!(all.board = board_malloc(all.gs)))
+	if (!(info.board = board_malloc(*(info.gs))))
 		return (1);
 	while (i < 4)
 	{
-		all.board_cpy[i] = board_malloc(all.gs);
+		block[i].index = 0;
+		block[i].board_cpy = board_malloc(*(info.gs));
+		block[i].info = info;
 		i++;
 	}
-	while (!all.gs.game_over)
+	while (!info.gs->game_over)
 	{
 		pass_void_info();
-		all.board = board_init(all.board, all.gs);
-		get_piece(&all.pc);
-		board_update(all.board, &all.gs);
-		best_position = get_best_position(&all, &(all.gs));
-		ft_printf("%d %d\n", best_position.y - all.pc.free_lines, best_position.x - all.pc.free_columns);
+		info.board = board_init(info.board, *(info.gs));
+		get_piece(&info.pc);
+		board_update(info.board, info.gs);
+		best_position = get_best_position(block);
+		ft_printf("%d %d\n", best_position.y - info.pc.free_lines, best_position.x - info.pc.free_columns);
 	}
 	return (0);
 }
