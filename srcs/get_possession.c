@@ -287,6 +287,88 @@ t_point	get_best_score_from_tab(t_thread_arg block[CORE_NUMBER])
 	return (memo);
 }
 
+int     is_placeable_with_mask(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
+{
+	int     x;
+	int     y;
+	float   possession;
+	int		mixed;
+
+	mixed = 0;
+	if (pc.x_max + pc.free_columns > gs.x_max - o.x || pc.y_max + pc.free_lines > gs.y_max - o.y)
+		return (0);
+	y = pc.free_lines;
+	while (y < pc.y_max + pc.free_lines)
+	{
+		x = pc.free_columns;
+		while (x < pc.x_max + pc.free_columns)
+		{
+			if (pc.layout[y][x] == 1 && gs.mask[(o.y + y - pc.free_lines) % 16][(o.x + x - pc.free_columns) % 16] == 0)
+			{
+				possession = board[o.y + y - pc.free_lines][o.x + x - pc.free_columns].possession;
+				if (pc.layout[y][x] == 1)
+				{
+					if (possession == P1)
+						mixed++;
+					else if (possession == P2)
+						return (0);
+					if (mixed > 1)
+						return (0);
+				}
+			}
+			else if (pc.layout[y][x] == 1 && gs.mask[(o.y + y - pc.free_lines) % 16][(o.x + x - pc.free_columns) % 16] == 1)
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return ((mixed == 1));
+}
+
+t_point get_best_position_fill(t_sqrt **board, t_piece pc, t_filler *gs)
+{
+	t_point			pt;
+	t_point			memo;
+	float			high_score;
+
+	memo = t_point_init(0, 0);
+	high_score = 0;
+	pt.y = -1;
+	while (++pt.y < gs->y_max)
+	{
+		pt.x = -1;
+		while (++pt.x < gs->x_max)
+		{
+			if (is_placeable_with_mask(board, pc, pt, *gs))
+				return (pt);
+		}
+	}
+	gs->fill_mode = 2;
+	return (memo);
+}
+
+t_point get_best_position_fill_and_win(t_sqrt **board, t_piece pc, t_filler *gs)
+{
+	t_point			pt;
+	t_point			memo;
+	float			high_score;
+
+	memo = t_point_init(0, 0);
+	high_score = 0;
+	pt.y = gs->y_max;
+	while (--pt.y > 0)
+	{
+		pt.x = gs->x_max;
+		while (--pt.x > 0)
+		{
+			if (is_placeable(board, pc, pt, *gs))
+				return (pt);
+		}
+	}
+	return (memo);
+
+}
+
 void	get_best_position_std_1(void *arg)
 {
 	t_point			pt;
@@ -331,19 +413,24 @@ t_point get_best_position(t_thread_arg block[CORE_NUMBER])
 	memo.x = 0;
 	memo.y = 0;
 	y = -1;
-	while (++y < CORE_NUMBER)
+	if (block[0].info.gs->fill_mode == 0)
 	{
-		arg = &block[y];
-		if (pthread_create(&threads[y], NULL, (void*)get_best_position_std_1, (arg)))
-			ft_myexit("thread creation error");
+		while (++y < CORE_NUMBER)
+		{
+			arg = &block[y];
+			if (pthread_create(&threads[y], NULL, (void*)get_best_position_std_1, (arg)))
+				ft_myexit("thread creation error");
+		}
+		y = -1;
+		while (++y < CORE_NUMBER)
+			pthread_join(threads[y], NULL);
+		memo = get_best_score_from_tab(block);
 	}
-	y = -1;
-	while (++y < CORE_NUMBER)
-		pthread_join(threads[y], NULL);
-	memo = get_best_score_from_tab(block);
+	else
+		memo = get_best_position_fill(block[0].info.board, block[0].info.pc, block[0].info.gs);
+	if (block[0].info.gs->fill_mode == 2)
+		memo = get_best_position_fill_and_win(block[0].info.board, block[0].info.pc, block[0].info.gs);
 	if (!is_placeable(block[0].info.board, block[0].info.pc, memo, *(block[0].info.gs)))
-	{
 		block[0].info.gs->game_over = 1;
-	}
 	return (memo);
 }

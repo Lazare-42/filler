@@ -1,6 +1,6 @@
 NAME = the_legend_27
 
-SOURCES =	main_test.c \
+SOURCES =	main.c \
 			print.c \
 			get_possession.c \
 			board_init.c \

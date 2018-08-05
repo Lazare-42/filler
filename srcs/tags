@@ -4,8 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-bloc_len	macrobloc.c	/^#define bloc_len /;"	d	file:
 board_distance_reset	get_possession.c	/^void    board_distance_reset(t_sqrt **board, t_filler gs)$/;"	f
+board_distance_reset	hearts.c	/^void    board_distance_reset(t_sqrt **board, t_filler gs)$/;"	f
 board_distance_update_1	board_distance_1.c	/^void    board_distance_update_1(t_sqrt **board, t_filler gs)$/;"	f
 board_distance_update_2	board_distance_1.c	/^void    board_distance_update_2(t_sqrt **board, t_filler gs)$/;"	f
 board_distance_update_3	board_distance_1.c	/^void    board_distance_update_3(t_sqrt **board, t_filler gs)$/;"	f
@@ -17,47 +17,52 @@ board_distance_update_8	board_distance_2.c	/^void    board_distance_update_8(t_s
 board_init	board_init.c	/^t_sqrt **board_init(t_sqrt **board, t_filler game_settings)$/;"	f
 board_malloc	malloced_structures.c	/^t_sqrt	**board_malloc(t_filler game_settings)$/;"	f
 board_possession_update	get_possession.c	/^void    board_possession_update(t_sqrt **board, t_filler *gs)$/;"	f
+board_possession_update	hearts.c	/^void    board_possession_update(t_sqrt **board, t_filler *gs)$/;"	f
 board_print	board_print.c	/^void    board_print(t_sqrt **board, t_filler gs)$/;"	f
 board_random	board_init.c	/^t_sqrt	**board_random(t_filler game_settings, int nb)$/;"	f
 board_score_calc	get_possession.c	/^float   board_score_calc(t_sqrt **board, t_filler gs)$/;"	f
+board_score_calc	hearts.c	/^float   board_score_calc(t_sqrt **board, t_filler gs)$/;"	f
 board_to_board	get_possession.c	/^void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)$/;"	f
+board_to_board	hearts.c	/^void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)$/;"	f
 board_update	get_possession.c	/^void    board_update(t_sqrt **board, t_filler *gs)$/;"	f
-boundary_draw_new	get_possession.c	/^void		boundary_draw_new(t_sqrt **board, t_filler *f)$/;"	f
+board_update	hearts.c	/^void    board_update(t_sqrt **board, t_filler *gs)$/;"	f
+boundary_draw_new	hearts.c	/^void		boundary_draw_new(t_sqrt **board, t_filler *f)$/;"	f
 calc_score	calc_score.c	/^float	calc_score(t_sqrt **board, t_filler f)$/;"	f
 check_empty_column_before	get_piece.c	/^int	check_empty_column_before(t_piece piece)$/;"	f
 check_empty_columns_after	get_piece.c	/^int check_empty_columns_after(t_piece piece)$/;"	f
 check_empty_line_after	get_piece.c	/^int check_empty_line_after(t_piece piece)$/;"	f
 check_empty_line_before	get_piece.c	/^int check_empty_line_before(t_piece piece)$/;"	f
+condition	get_possession.c	/^pthread_cond_t condition;$/;"	v
 fast_gnl	fast_gnl.c	/^int			fast_gnl(const int fd, char (*line)[4096])$/;"	f
-get_best_position	get_possession.c	/^t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)$/;"	f
-get_best_position_from_zone	get_possession.c	/^t_point get_best_position_from_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs, t_point zone)$/;"	f
-get_best_position_std	get_possession.c	/^t_point get_best_position_std(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)$/;"	f
-get_best_zone	get_possession.c	/^t_point get_best_zone(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)$/;"	f
+get_best_position	get_possession.c	/^t_point get_best_position(t_thread_arg block[CORE_NUMBER])$/;"	f
+get_best_position	hearts.c	/^t_point get_best_position(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)$/;"	f
+get_best_position_fill	hearts.c	/^t_point get_best_position_fill(t_sqrt **board, t_piece pc, t_filler *gs)$/;"	f
+get_best_position_fill_and_win	hearts.c	/^t_point get_best_position_fill_and_win(t_sqrt **board, t_piece pc, t_filler *gs)$/;"	f
+get_best_position_std	hearts.c	/^t_point get_best_position_std(t_sqrt **board, t_sqrt ***board_cpy, t_piece pc, t_filler *gs)$/;"	f
+get_best_position_std_1	get_possession.c	/^void	get_best_position_std_1(void *arg)$/;"	f
+get_best_score_from_tab	get_possession.c	/^t_point	get_best_score_from_tab(t_thread_arg block[CORE_NUMBER])$/;"	f
 get_game_settings	board_init.c	/^t_filler	get_game_settings()$/;"	f
 get_piece	malloced_structures.c	/^void	get_piece(t_piece *piece)$/;"	f
 is_placeable	get_possession.c	/^int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)$/;"	f
-layout_init	MY_maintest.c	/^static int **layout_init(char layout[3][3])$/;"	f	file:
-main	MY_maintest.c	/^int	main(void)$/;"	f
-main	macrobloc.c	/^int main()$/;"	f
-main	main_test.c	/^int	main(void)$/;"	f
-mask_init	MY_maintest.c	/^static float	**mask_init(void)$/;"	f	file:
+is_placeable	hearts.c	/^int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)$/;"	f
+is_placeable_with_mask	hearts.c	/^int     is_placeable_with_mask(t_sqrt **board, t_piece pc, t_point o, t_filler gs)$/;"	f
+lock	get_possession.c	/^pthread_mutex_t lock;$/;"	v
+main	main.c	/^int		main(void)$/;"	f
+main_loop_func	main.c	/^void	main_loop_func(t_thread_arg block[CORE_NUMBER], t_arg info)$/;"	f
 norm_piece	get_piece.c	/^void	norm_piece(t_piece *piece)$/;"	f
-pass_void_info	main_test.c	/^void	pass_void_info(void)$/;"	f
+pass_void_info	main.c	/^void	pass_void_info(void)$/;"	f
 piece_get_score	get_possession.c	/^float     piece_get_score(t_sqrt **board, t_piece pc, t_point o, float lowest_score)$/;"	f
+piece_get_score	hearts.c	/^float     piece_get_score(t_sqrt **board, t_piece pc, t_point o, float lowest_score)$/;"	f
 piece_write	get_possession.c	/^void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)$/;"	f
+piece_write	hearts.c	/^void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)$/;"	f
 possession_update	get_possession.c	/^void	possession_update(t_sqrt **board, t_filler filler)$/;"	f
+possession_update	hearts.c	/^void	possession_update(t_sqrt **board, t_filler filler)$/;"	f
 print_board	print.c	/^void	print_board(int x_max, int y_max, t_sqrt **board)$/;"	f
 print_board_old	print.c	/^void	print_board_old(int x_max, int y_max, t_sqrt **board)$/;"	f
 print_piece_after_norm	get_piece.c	/^void	print_piece_after_norm(t_piece piece)$/;"	f
 print_piece_before_norm	get_piece.c	/^void	print_piece_before_norm(t_piece piece)$/;"	f
-s_point	macrobloc.c	/^typedef struct   s_point$/;"	s	file:
 score_update	get_possession.c	/^float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)$/;"	f
-step_maj	macrobloc.c	/^int step_maj(t_point *step)$/;"	f
-t_point	macrobloc.c	/^}               t_point;$/;"	t	typeref:struct:s_point	file:
+score_update	hearts.c	/^float   score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs)$/;"	f
 t_point_init	get_possession.c	/^t_point t_point_init(int x, int y)$/;"	f
-t_point_init	macrobloc.c	/^t_point t_point_init(int x, int y)$/;"	f
+t_point_init	hearts.c	/^t_point t_point_init(int x, int y)$/;"	f
 tile_init	board_init.c	/^t_sqrt tile_init(t_filler game_settings, char position)$/;"	f
-x	macrobloc.c	/^    int x;$/;"	m	struct:s_point	file:
-x_max	macrobloc.c	/^#define x_max /;"	d	file:
-y	macrobloc.c	/^    int y;$/;"	m	struct:s_point	file:
-y_max	macrobloc.c	/^#define y_max /;"	d	file:
