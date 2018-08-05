@@ -14,6 +14,7 @@
 #define FILLER_H
 
 # include <stdlib.h>
+# include <pthread.h>
 # include "../libft/libft.h"
 
 # define P1 1
@@ -76,6 +77,7 @@ typedef struct		s_arg
 	t_sqrt			**board;
 	t_sqrt			**board_cpy[CORE_NUMBER];
 	int				thred_nbr;
+	pthread_mutex_t	*lock;
 	t_filler		gs;
 	t_piece			pc;
 	t_memo			memo[CORE_NUMBER];

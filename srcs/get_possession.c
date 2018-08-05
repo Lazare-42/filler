@@ -481,8 +481,16 @@ void	get_best_position_std_1(void *arg)
 	float			high_score;
 	t_arg			*all;
 	int				placeable;
+	pthread_mutex_t *lock;
+
+	int i;
+
 
 	all = arg;
+	i = all->thread_nbr;
+	lock = (all->lock);
+	pthread_mutex_unlock(lock);
+
 	memo.memo = t_point_init(0, 0);
 	high_score = 0;
 	pt.y = -1;
@@ -492,118 +500,19 @@ void	get_best_position_std_1(void *arg)
 		pt.x = -1;
 		while (++pt.x < all->gs.x_max)
 		{
-			if (++placeable % 4 == 1 && is_placeable(all->board, all->pc, pt, all->gs))
+			if (++placeable % 4 == (i + 1) && is_placeable(all->board, all->pc, pt, all->gs))
 			{
-				board_to_board(all->board, &(all->board_cpy[0]), all->gs);
-				piece_write(&(all->board_cpy[0]), all->pc, pt);
-				if (score_update(&(all->board_cpy[0]), &high_score, &(all->gs)))
+				board_to_board(all->board, &(all->board_cpy[i]), all->gs);
+				piece_write(&(all->board_cpy[i]), all->pc, pt);
+				if (score_update(&(all->board_cpy[i]), &high_score, &(all->gs)))
 				{
 					memo.memo = t_point_init(pt.x, pt.y);
 					memo.score = high_score;
 				}
 			}
 		}
-		all->memo[0] = memo;
+		all->memo[i] = memo;
 	}
-}
-
-void	get_best_position_std_2(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 2 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[1]), all->gs);
-				piece_write(&(all->board_cpy[1]), all->pc, pt);
-				if (score_update(&(all->board_cpy[1]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-		all->memo[1] = memo;
-	}
-}
-
-void	get_best_position_std_3(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 3 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[2]), all->gs);
-				piece_write(&(all->board_cpy[2]), all->pc, pt);
-				if (score_update(&(all->board_cpy[2]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-		all->memo[2] = memo;
-	}
-}
-
-void	get_best_position_std_4(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 0 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[3]), all->gs);
-				piece_write(&(all->board_cpy[3]), all->pc, pt);
-				if (score_update(&(all->board_cpy[3]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-	}
-	all->memo[3] = memo;
 }
 
 t_point	get_best_score_from_tab(t_arg *all)
@@ -631,20 +540,20 @@ t_point get_best_position(t_arg *all, t_filler *gs)
 	void			*arg;
 	pthread_t		threads[4];
 	int				y;
+	pthread_mutex_t	lock;
 
 	memo.x = 0;
 	memo.y = 0;
 	arg = all;
 	y = -1;
-	all->thread_nbr = 1;
-	if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[1], NULL, (void*)get_best_position_std_2, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[2], NULL, (void*)get_best_position_std_3, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[3], NULL, (void*)get_best_position_std_4, (arg)))
-		ft_myexit("thread creation error");
+	while (++y < 4)
+	{
+		if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (arg)))
+			ft_myexit("thread creation error");
+		pthread_mutex_lock(&lock);
+		all->thread_nbr = y;
+		all->lock = &lock;
+	}
 	y = -1;
 	while (++y < 4)
 		pthread_join(threads[y], NULL);
