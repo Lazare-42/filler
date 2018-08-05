@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/05 01:46:27 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 03:46:39 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,12 @@ typedef struct		s_memo
 
 typedef struct		s_arg
 {
-	int				thread_nbr;
+	int				nbr;
 	t_sqrt			**board;
-	t_sqrt			**board_cpy[CORE_NUMBER];
-	int				thred_nbr;
-	t_filler		gs;
-	t_piece			pc;
-	t_memo			memo[CORE_NUMBER];
+	t_sqrt			**board_cpy;
+	t_filler		*gs;
+	t_piece			*pc;
+	t_memo			memo;
 }					t_arg;
 
 t_sqrt				**board_malloc(t_filler game_settings);
@@ -92,7 +91,7 @@ void				print_piece_after_norm(t_piece piece);
 void				get_piece(t_piece *piece);
 void				norm_piece(t_piece *piece);
 void				print_board_old(int x_max, int y_max, t_sqrt **board);
-t_point				get_best_position(t_arg *all, t_filler *gs);
+t_point				get_best_position(t_arg all[CORE_NUMBER]);
 void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
 void    			board_distance_update_1(t_sqrt **board, t_filler gs);

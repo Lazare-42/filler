@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 01:57:15 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 03:58:09 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -476,10 +476,10 @@ void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 
 void	get_best_position_std_1(void *arg)
 {
+	t_arg			*all;
 	t_point			pt;
 	t_memo			memo;
 	float			high_score;
-	t_arg			*all;
 	int				placeable;
 
 	all = arg;
@@ -487,126 +487,27 @@ void	get_best_position_std_1(void *arg)
 	high_score = 0;
 	pt.y = -1;
 	placeable = 0;
-	while (++pt.y < all->gs.y_max)
+	while (++pt.y < all->gs->y_max)
 	{
 		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
+		while (++pt.x < all->gs->x_max)
 		{
-			if (++placeable % 4 == 1 && is_placeable(all->board, all->pc, pt, all->gs))
+			if (++placeable % 4 == (1 + all->nbr) && is_placeable(all->board, *(all->pc), pt, *(all->gs)))
 			{
-				board_to_board(all->board, &(all->board_cpy[0]), all->gs);
-				piece_write(&(all->board_cpy[0]), all->pc, pt);
-				if (score_update(&(all->board_cpy[0]), &high_score, &(all->gs)))
+				board_to_board(all->board, &(all->board_cpy), *(all->gs));
+				piece_write(&(all->board_cpy), *(all->pc), pt);
+				if (score_update(&(all->board_cpy), &high_score, (all->gs)))
 				{
 					memo.memo = t_point_init(pt.x, pt.y);
 					memo.score = high_score;
 				}
 			}
 		}
-		all->memo[0] = memo;
+		all->memo = memo;
 	}
 }
 
-void	get_best_position_std_2(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 2 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[1]), all->gs);
-				piece_write(&(all->board_cpy[1]), all->pc, pt);
-				if (score_update(&(all->board_cpy[1]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-		all->memo[1] = memo;
-	}
-}
-
-void	get_best_position_std_3(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 3 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[2]), all->gs);
-				piece_write(&(all->board_cpy[2]), all->pc, pt);
-				if (score_update(&(all->board_cpy[2]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-		all->memo[2] = memo;
-	}
-}
-
-void	get_best_position_std_4(void *arg)
-{
-	t_point			pt;
-	t_memo			memo;
-	float			high_score;
-	t_arg			*all;
-	int				placeable;
-
-	all = arg;
-	memo.memo = t_point_init(0, 0);
-	high_score = 0;
-	pt.y = -1;
-	placeable = 0;
-	while (++pt.y < all->gs.y_max)
-	{
-		pt.x = -1;
-		while (++pt.x < all->gs.x_max)
-		{
-			if (++placeable % 4 == 0 && is_placeable(all->board, all->pc, pt, all->gs))
-			{
-				board_to_board(all->board, &(all->board_cpy[3]), all->gs);
-				piece_write(&(all->board_cpy[3]), all->pc, pt);
-				if (score_update(&(all->board_cpy[3]), &high_score, &(all->gs)))
-				{
-					memo.memo = t_point_init(pt.x, pt.y);
-					memo.score = high_score;
-				}
-			}
-		}
-	}
-	all->memo[3] = memo;
-}
-
-t_point	get_best_score_from_tab(t_arg *all)
+t_point	get_best_score_from_tab(t_arg all[CORE_NUMBER])
 {
 	t_point	memo;
 	int		i;
@@ -614,44 +515,40 @@ t_point	get_best_score_from_tab(t_arg *all)
 
 	score_tmp = 0;
 	i = -1;
-	while (++i < 4)
+	while (++i < CORE_NUMBER)
 	{
-		if (score_tmp < all->memo[i].score)
+		if (score_tmp < all[i].memo.score)
 		{
-			memo = all->memo[i].memo;
-			score_tmp = all->memo[i].score;
+			memo = all[i].memo.memo;
+			score_tmp = all[i].memo.score;
 		}
 	}
 	return (memo);
 }
 
-t_point get_best_position(t_arg *all, t_filler *gs)
+t_point get_best_position(t_arg all[CORE_NUMBER])
 {
 	t_point			memo;
-	void			*arg;
 	pthread_t		threads[4];
 	int				y;
+	
 
 	memo.x = 0;
 	memo.y = 0;
-	arg = all;
 	y = -1;
-	all->thread_nbr = 1;
-	if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[1], NULL, (void*)get_best_position_std_2, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[2], NULL, (void*)get_best_position_std_3, (arg)))
-		ft_myexit("thread creation error");
-	if (pthread_create(&threads[3], NULL, (void*)get_best_position_std_4, (arg)))
-		ft_myexit("thread creation error");
+	while (y < CORE_NUMBER)
+	{
+		all[y].nbr = y;
+		if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (void*)(&(all[y]))))
+			ft_myexit("thread creation error");
+	}
 	y = -1;
 	while (++y < 4)
 		pthread_join(threads[y], NULL);
 	memo = get_best_score_from_tab(all);
-	if (!is_placeable(all->board, all->pc, memo, *gs))
+	if (!is_placeable(all[0].board, *(all[0].pc), memo, *(all[0].gs)))
 	{
-		gs->game_over = 1;
+		all[0].gs->game_over = 1;
 	}
 	return (memo);
 }
