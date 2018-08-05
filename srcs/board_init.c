@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:04 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 03:21:06 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 05:57:15 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_sqrt **board_init(t_sqrt **board, t_filler game_settings)
 	y = 0;
 	while (y < game_settings.y_max)
 	{
+		ft_printf("[[~/Documents/42/filler/thread.txt]]%d\n", y);
 		fast_gnl(0, &buf);
 		x = 0;
 		while (x < game_settings.x_max)

@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 19:21:22 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 03:58:09 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 06:15:56 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,90 +15,6 @@
 #include <sys/sysctl.h>
 #include <pthread.h>
 
-void	print_board_old(int x_max, int y_max, t_sqrt **board);
-
-
-/*
-   static void		position_update(t_point *position, t_direction direction)
-   {
-   int	x_diff;
-   int	y_diff;
-
-   x_diff = 0;
-   y_diff = 0;
-   if (direction == up)
-   y_diff--;
-   else if (direction == right)
-   x_diff++;
-   else if (direction == down)
-   y_diff++;
-   else if (direction == left)
-   x_diff--;
-   position->x += x_diff;
-   position->y += y_diff;
-   }
-
-   static void		position_init(t_point *position, int x, int y)
-   {
-   position->x = x;
-   position->y = y;
-   }
-
-   static int		ft_filler_abs(int x)
-   {
-   if (x > 0)
-   return (x);
-   else
-   return (-x);
-   }
-
-   static float	get_possession(t_sqrt **board, t_point o, t_filler filler)
-   {
-   t_point		pt;
-   t_direction	direction;
-   int			i;
-   int			i_lim;
-   float		distance_p1;
-   float		distance_p2;
-   int			time;
-
-   i_lim = 1;
-   position_init(&pt, o.x, o.y);
-   distance_p1 = -1;
-   distance_p2 = -1;
-   direction = up;
-   while (distance_p1 < 0 || distance_p2 < 0)
-   {
-   time = 0;
-   while (time++ < 2)
-   {
-   i = 0;
-   while (i++ < i_lim)
-   {
-   position_update(&pt, direction);
-//				printf("position px %d py %d\n", pt.x, pt.y);
-if (pt.x >= 0 && pt.x < filler.x_max && pt.y >= 0 && pt.y < filler.y_max)
-{
-if (board[pt.y][pt.x].possession == P1 && distance_p1 == -1)
-{
-distance_p1 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
-//						printf("distance p1: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p1, pt.x, pt.y, o.x, o.y);
-}
-else if (board[pt.y][pt.x].possession == P2 && distance_p2 == -1)
-{
-distance_p2 = (ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)) * 2;
-//						printf("distance p2: %d - px %d - py %d - pox %d - poy %d\n", (int)distance_p2, pt.x, pt.y, o.x, o.y);
-}
-}
-}
-direction = (direction + 1) % 4;
-}
-i_lim++;
-}
-return (distance_p1 / (distance_p1 + distance_p2));
-}
-*/
-
 t_point t_point_init(int x, int y)
 {
 	t_point point;
@@ -106,64 +22,6 @@ t_point t_point_init(int x, int y)
 	point.y = y;
 	return (point);
 }
-
-/*
-   void	possession_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
-   {
-   t_point		pt;
-   float		distance;
-
-   pt.y = 0;
-   while (pt.y < filler.y_max)
-   {
-   pt.x = 0;
-   while (pt.x < filler.x_max)
-   {
-   if (board[pt.y][pt.x].possession != P1 && board[pt.y][pt.x].possession != P2)
-   {
-   if (player_side < 0 && board[pt.y][pt.x].p1_distance >
-   (distance = ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)))
-   board[pt.y][pt.x].p1_distance = distance;
-   else if (player_side > 0 && board[pt.y][pt.x].p2_distance >
-   (distance = ft_filler_abs(pt.y - o.y) + ft_filler_abs(pt.x - o.x)))
-   board[pt.y][pt.x].p2_distance = distance;
-   }
-   pt.x++;
-   }
-   pt.y++;
-   }
-   }
-   */
-
-/*
-   void	distance_update_from_point(t_sqrt **board, t_point o, t_filler filler, int player_side)
-   {
-   int			x;
-   int			y;
-   float		distance;
-   float		possession;
-
-   y = 0;
-   while (y < filler.y_max)
-   {
-   x = 0;
-   while (x < filler.x_max)
-   {
-   possession = board[y][x].possession;
-   if (possession != P1 && possession != P2)
-   {
-   distance = ft_filler_abs(y - o.y) + ft_filler_abs(x - o.x);
-   if (player_side < 0  && board[y][x].p1_distance > distance)
-   board[y][x].p1_distance = distance;
-   else if (player_side > 0 && board[y][x].p2_distance > distance)
-   board[y][x].p2_distance = distance;
-   }
-   x++;
-   }
-   y++;
-   }
-   }
-   */
 
 void	possession_update(t_sqrt **board, t_filler filler)
 {
@@ -264,36 +122,7 @@ void    board_update(t_sqrt **board, t_filler *gs)
 	}
 	board_possession_update(board, gs);
 }
-/*
-   void    board_print(t_sqrt **board, t_filler gs)
-   {
-   printf("BOARD_PRINT\n"); fflush(stdout);
-   int x;
-   int y;
-   float possession;
 
-   y = 0;
-   while (y < gs.y_max)
-   {
-   x = 0;
-   while (x < gs.x_max)
-   {
-//	printf("%3.f ", board[y][x].p2_distance);
-possession = board[y][x].possession;
-if (possession == P1)
-printf("  O  ");
-else if (possession == P2)
-printf("  X  ");
-else
-printf("%3.f%% ", possession * 100);
-x++;
-}
-printf("\n");
-y++;
-}
-printf("\n");
-}
-*/
 float   board_score_calc(t_sqrt **board, t_filler gs)
 {
 	float score;
@@ -363,45 +192,6 @@ int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
 	}
 	return ((mixed == 1));
 }
-/*
-   int     is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs)
-   {
-   int     x;
-   int     y;
-   float   possession;
-   int		mixed;
-
-   mixed = 0;
-   if (pc.x_max > gs.x_max - o.x || pc.y_max > gs.y_max - o.y)
-   return (0);
-   y = pc.free_columns;
-   while (y < pc.y_max)
-   {
-   x = pc.free_lines;
-   while (x < pc.x_max)
-   {
-//printf("%.f ", possession); fflush(stdout);
-//printf("%.f", possession); fflush(stdout);
-if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 0)
-{
-possession = board[o.y + y][o.x + x].possession;
-if (possession == P1)
-mixed++;
-else if (possession == P2)
-return (0);
-}
-else if (pc.layout[y][x] == 1 && gs.mask[(o.y + y) % 7][(o.x + x) % 7] == 1)
-return (0);
-x++;
-}
-//printf("\n"); fflush(stdout);
-y++;
-}
-//printf("mixed: %d\n", mixed); fflush(stdout);
-return ((mixed == 1));
-}
-*/
-
 
 void     piece_write(t_sqrt ***board_cpy, t_piece pc, t_point o)
 {
@@ -536,14 +326,15 @@ t_point get_best_position(t_arg all[CORE_NUMBER])
 	memo.x = 0;
 	memo.y = 0;
 	y = -1;
-	while (y < CORE_NUMBER)
+	while (++y < CORE_NUMBER)
 	{
+		ft_printf("[[~/Documents/42/filler/test.txt]]COUCOU?\n");
 		all[y].nbr = y;
 		if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (void*)(&(all[y]))))
 			ft_myexit("thread creation error");
 	}
 	y = -1;
-	while (++y < 4)
+	while (++y < CORE_NUMBER)
 		pthread_join(threads[y], NULL);
 	memo = get_best_score_from_tab(all);
 	if (!is_placeable(all[0].board, *(all[0].pc), memo, *(all[0].gs)))
