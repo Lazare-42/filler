@@ -1,6 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/* ************************************************************************** */ /*                                                                            */ /*                                                        :::      ::::::::   */
 /*   get_possession.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
@@ -308,7 +306,7 @@ void	get_best_position_std_1(void *arg)
 		pt.x = -1;
 		while (++pt.x < block->info.gs->x_max)
 		{
-			if (((++placeable + 1) % CORE_NUMBER) == (block->index + 1) && is_placeable(block->info.board, block->info.pc, pt, *(block->info.gs)))
+			if (((++placeable + 1) % CORE_NUMBER) == (block->index) && is_placeable(block->info.board, block->info.pc, pt, *(block->info.gs)))
 			{
 				board_to_board(block->info.board, &(block->board_cpy), *(block->info.gs));
 				piece_write(&(block->board_cpy), block->info.pc, pt);
@@ -336,7 +334,7 @@ t_point get_best_position(t_thread_arg block[CORE_NUMBER])
 	while (++y < CORE_NUMBER)
 	{
 		arg = &block[y];
-		if (pthread_create(&threads[0], NULL, (void*)get_best_position_std_1, (arg)))
+		if (pthread_create(&threads[y], NULL, (void*)get_best_position_std_1, (arg)))
 			ft_myexit("thread creation error");
 	}
 	y = -1;

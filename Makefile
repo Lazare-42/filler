@@ -18,7 +18,7 @@ SDIR = srcs
 
 ODIR = bin
 
-CFLAGS = -Werror -Wall -Wextra -Ofast -O3 -fsanitize=address
+CFLAGS = -Werror -Wall -Wextra -Ofast -O3
 
 INCDIR = includes
 

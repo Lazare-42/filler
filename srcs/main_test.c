@@ -6,7 +6,7 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 18:51:02 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 19:25:16 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 		return (1);
 	while (++i < CORE_NUMBER)
 	{
-		block[i].index = 0;
+		block[i].index = i;
 		if (!(block[i].board_cpy = board_malloc(*(info.gs))))
 			return (1);
 		block[i].info = info;
