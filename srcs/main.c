@@ -6,39 +6,42 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:48:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/05 21:05:36 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/05 23:53:39 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include <unistd.h>
+
+static float	get_global(int x, int y)
+{
+	static float	g_model[16][16] = \
+	{ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
+
+	return (g_model[y][x]);
+}
 
 static float	**mask_init(void)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 	float	**ret;
-	float	model[16][16] = 
-	{
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0},
-		{0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
-		{0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
-		{0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
-		{0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0},
-		{0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
 
 	y = 0;
 	ret = (float **)malloc(sizeof(float *) * 16);
@@ -48,17 +51,15 @@ static float	**mask_init(void)
 		x = 0;
 		while (x < 16)
 		{
-			ret[y][x] = model[y][x];
-			printf("%.f ", ret[y][x]);
+			ret[y][x] = get_global(x, y);
 			x++;
 		}
-		printf("\n");
 		y++;
 	}
 	return (ret);
 }
 
-void	pass_void_info(void)
+void			pass_void_info(void)
 {
 	static	int first = 1;
 	char		buf[BUFF_GNL];
@@ -69,7 +70,7 @@ void	pass_void_info(void)
 	fast_gnl(0, &buf);
 }
 
-void	main_loop_func(t_thread_arg block[CORE_NUMBER], t_arg info)
+void			main_loop_func(t_thread_arg block[CORE_NUMBER], t_arg info)
 {
 	t_point			best_position;
 	int				i;
@@ -79,6 +80,7 @@ void	main_loop_func(t_thread_arg block[CORE_NUMBER], t_arg info)
 		pass_void_info();
 		info.board = board_init(info.board, *(info.gs));
 		get_piece(&info.pc);
+		norm_piece(&info.pc);
 		board_update(info.board, info.gs);
 		i = -1;
 		while (++i < CORE_NUMBER)
@@ -88,11 +90,11 @@ void	main_loop_func(t_thread_arg block[CORE_NUMBER], t_arg info)
 		}
 		best_position = get_best_position(block);
 		ft_printf("%d %d\n", best_position.y - info.pc.free_lines,
-		best_position.x - info.pc.free_columns);
+				best_position.x - info.pc.free_columns);
 	}
 }
 
-int		main(void)
+int				main(void)
 {
 	t_arg			info;
 	t_thread_arg	block[CORE_NUMBER];

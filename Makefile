@@ -1,7 +1,6 @@
 NAME = the_legend_27
 
 SOURCES =	main.c \
-			print.c \
 			get_possession.c \
 			board_init.c \
 			calc_score.c \
@@ -10,7 +9,11 @@ SOURCES =	main.c \
 			fast_gnl.c \
 			board_distance_1.c \
 			board_distance_2.c \
-			board_print.c \
+			board_update_handler.c \
+			board_possession.c \
+			fill_mode.c \
+			t_point_init.c \
+			is_placeable.c \
 
 LIBDIR = libft
 

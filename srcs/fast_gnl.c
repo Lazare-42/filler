@@ -6,53 +6,12 @@
 /*   By: jboursal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/26 05:58:11 by jboursal          #+#    #+#             */
-/*   Updated: 2018/08/02 00:06:42 by jboursal         ###   ########.fr       */
+/*   Updated: 2018/08/05 23:10:33 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/filler.h"
-#include <stdio.h>
-/*
-int	fast_gnl(int fd, char (*line)[4096])
-{
-	static char				buf[BUFF_GNL];
-	int						i;
-	int						rd;
-
-	rd = 0;
-	i = 0;
-	if (!(ft_strchr(buf, '\n')))
-		if ((rd = read(fd, buf, BUFF_GNL - 1) == -1))
-			return (-1);
-	while (buf[i] && buf[i] != '\n')
-		i++;
-	ft_memcpy((*line), buf, i);
-	if (buf[i] && i == 0 && buf[i] == '\n')
-		(*line)[2] = 0;
-	else
-		(*line)[i] = 0;
-	ft_memcpy(buf, buf + i + 1, BUFF_GNL - i - 1);
-	return (ft_strlen(*line));
-}
-
-int			fast_gnl(const int fd, char (*line)[BUFF_GNL])
-{
-	char	tmp;
-	int		i;
-
-	i = 0;
-	tmp = 0;
-	while (tmp != '\n' && i < BUFF_GNL - 1)
-	{
-		read(fd, &tmp, 1);
-		(*line)[i] = tmp;
-		i++;
-	}
-	(*line)[i] = '\0';
-	return (1);
-}
-*/
 
 int			fast_gnl(const int fd, char (*line)[4096])
 {
@@ -76,22 +35,3 @@ int			fast_gnl(const int fd, char (*line)[4096])
 	ft_memcpy(s, ft_strchr(s, '\n') + 1, ft_strlen(s));
 	return ((rd > 0) || (ft_strlen(*line) > 0));
 }
-
-/*
-#include <stdio.h>
-
-int main(int argc, char *argv[])
-{
-	int		rd;
-	char	line[BUFF_GNL + 1];
-	char	*line2;
-	int		fd = open(argv[1], O_RDONLY);
-
-	while ((rd = fast_gnl_2(fd, &line)))
-	{
-		printf("rd = %d - line = \'%s\'\n", rd, line); fflush(stdout);
-	}
-	printf("rd = %d - line = \'%s\'\n", rd, line); fflush(stdout);
-	close(fd);
-	return (0);
-}*/

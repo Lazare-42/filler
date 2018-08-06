@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/05 18:51:00 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/06 01:34:17 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # define P2 0
 # define BUFF_GNL 4096
 # define SET_MEMO 20000
-# define CORE_NUMBER 4
+# define CORE_NUMBER 8
 # define FILL_MODE 5000
 # define VAR 1
-# define PERIMETRE 27
+# define PERIMETRE 150
 # define OPTI 0
 
 typedef struct		s_sqrt
@@ -111,5 +111,14 @@ void    			board_distance_update_7(t_sqrt **board, t_filler gs);
 void    			board_distance_update_8(t_sqrt **board, t_filler gs);
 void				find_winner(t_filler *game_settings, char *buf);
 int					fast_gnl(const int fd, char (*line)[4096]);
+void    			board_possession_update(t_sqrt **board, t_filler *gs);
+float   			score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs);
+t_point				get_best_score_from_tab(t_thread_arg block[CORE_NUMBER]);
+t_point				t_point_init(int x, int y);
+t_point				get_best_position_fill(t_sqrt **board, t_piece pc, t_filler *gs);
+t_point				get_best_position_fill_and_win(t_sqrt **board, t_piece pc, t_filler *gs);
+int					is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs);
+t_point				t_point_init(int x, int y);
+void				board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs);
 
 # endif
