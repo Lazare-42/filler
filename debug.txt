@@ -1,1 +1,0 @@
-game_settings.x_max 40 ; game_settings.y_max 24game_settings.x_max 40 ; game_settings.y_max 24
