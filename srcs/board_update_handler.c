@@ -6,13 +6,13 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 00:11:10 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/06 00:30:13 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/06 03:30:42 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-static void    board_distance_reset(t_sqrt **board, t_filler gs)
+static	void	board_distance_reset(t_sqrt **board, t_filler gs)
 {
 	int			x;
 	int			y;
@@ -38,9 +38,10 @@ static void    board_distance_reset(t_sqrt **board, t_filler gs)
 	}
 }
 
-void    board_update(t_sqrt **board, t_filler *gs)
+void			board_update(t_sqrt **board, t_filler *gs)
 {
 	int i;
+
 	i = 0;
 	board_distance_reset(board, *gs);
 	while (i++ < 1)
@@ -57,10 +58,10 @@ void    board_update(t_sqrt **board, t_filler *gs)
 	board_possession_update(board, gs);
 }
 
-void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
+void			board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 {
-	int     x;
-	int     y;
+	int		x;
+	int		y;
 
 	y = 0;
 	while (y < gs.y_max)
@@ -72,7 +73,7 @@ void    board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs)
 			(*dest)[y][x].p1_distance = src[y][x].p1_distance;
 			(*dest)[y][x].p2_distance = src[y][x].p2_distance;
 			x++;
-		};
+		}
 		y++;
 	}
 }

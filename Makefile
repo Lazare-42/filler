@@ -1,4 +1,4 @@
-NAME = the_legend_27
+NAME = the_legend_27.filler
 
 SOURCES =	main.c \
 			get_possession.c \

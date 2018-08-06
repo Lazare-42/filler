@@ -6,7 +6,7 @@
 #    By: jboursal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 11:05:26 by jboursal          #+#    #+#              #
-#    Updated: 2018/07/24 19:01:44 by lazrossi         ###   ########.fr        #
+#    Updated: 2018/08/06 03:32:56 by lazrossi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,6 @@ SRCS =	ft_memset.c\
 		ft_strsubfree.c\
 		ft_strjoinfree.c\
 		ft_strjoinfree2.c\
-		ft_exit_error.c\
 		ft_multifree.c\
 		get_next_line.c\
 		ft_tabdel.c \

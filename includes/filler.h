@@ -6,12 +6,12 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/06 01:34:17 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/06 03:40:00 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef FILLER_H
-#define FILLER_H
+#ifndef FILLER_H
+# define FILLER_H
 
 # include <stdlib.h>
 # include <pthread.h>
@@ -101,24 +101,28 @@ void				print_board_old(int x_max, int y_max, t_sqrt **board);
 t_point				get_best_position(t_thread_arg block[CORE_NUMBER]);
 void				board_update(t_sqrt **board, t_filler *gs);
 void				board_print(t_sqrt **board, t_filler gs);
-void    			board_distance_update_1(t_sqrt **board, t_filler gs);
-void    			board_distance_update_2(t_sqrt **board, t_filler gs);
-void    			board_distance_update_3(t_sqrt **board, t_filler gs);
-void    			board_distance_update_4(t_sqrt **board, t_filler gs);
-void    			board_distance_update_5(t_sqrt **board, t_filler gs);
-void    			board_distance_update_6(t_sqrt **board, t_filler gs);
-void    			board_distance_update_7(t_sqrt **board, t_filler gs);
-void    			board_distance_update_8(t_sqrt **board, t_filler gs);
+void				board_distance_update_1(t_sqrt **board, t_filler gs);
+void				board_distance_update_2(t_sqrt **board, t_filler gs);
+void				board_distance_update_3(t_sqrt **board, t_filler gs);
+void				board_distance_update_4(t_sqrt **board, t_filler gs);
+void				board_distance_update_5(t_sqrt **board, t_filler gs);
+void				board_distance_update_6(t_sqrt **board, t_filler gs);
+void				board_distance_update_7(t_sqrt **board, t_filler gs);
+void				board_distance_update_8(t_sqrt **board, t_filler gs);
 void				find_winner(t_filler *game_settings, char *buf);
 int					fast_gnl(const int fd, char (*line)[4096]);
-void    			board_possession_update(t_sqrt **board, t_filler *gs);
-float   			score_update(t_sqrt ***board_cpy, float *high_score, t_filler *gs);
+void				board_possession_update(t_sqrt **board, t_filler *gs);
+float				score_update(t_sqrt ***board_cpy, float *high_score,
+		t_filler *gs);
 t_point				get_best_score_from_tab(t_thread_arg block[CORE_NUMBER]);
 t_point				t_point_init(int x, int y);
-t_point				get_best_position_fill(t_sqrt **board, t_piece pc, t_filler *gs);
-t_point				get_best_position_fill_and_win(t_sqrt **board, t_piece pc, t_filler *gs);
-int					is_placeable(t_sqrt **board, t_piece pc, t_point o, t_filler gs);
+t_point				get_best_position_fill(t_sqrt **board, t_piece pc,
+		t_filler *gs);
+t_point				get_best_position_fill_and_win(t_sqrt **board, t_piece pc,
+		t_filler *gs);
+int					is_placeable(t_sqrt **board, t_piece pc, t_point o,
+		t_filler gs);
 t_point				t_point_init(int x, int y);
 void				board_to_board(t_sqrt **src, t_sqrt ***dest, t_filler gs);
 
-# endif
+#endif
