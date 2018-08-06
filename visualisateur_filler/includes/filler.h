@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 18:19:45 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/04 13:38:23 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/08/06 04:29:47 by lazrossi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define P2 0
 # define BOARD 60
 # define BUFF_GNL 4096
-# define X_SIZE 1375
-# define Y_SIZE 1375
+# define X_SIZE 2560
+# define Y_SIZE 1440
 # define VIOLET 0x9370DB
 # define CYAN	0x37FDFC
 # define GREY	0xA9A9A9
