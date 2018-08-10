@@ -18,7 +18,7 @@ void	board_update(t_sqrt **board, t_filler *gs)
 
 	i = 0;
 	board_distance_reset(board, *gs);
-	while (i++ < 3)
+	while (i++ < 5)
 	{
 		board_distance_update_1(board, *gs);
 		board_distance_update_2(board, *gs);
