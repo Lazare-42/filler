@@ -6,7 +6,7 @@
 /*   By: lazrossi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 13:11:49 by lazrossi          #+#    #+#             */
-/*   Updated: 2018/08/06 17:44:41 by lazrossi         ###   ########.fr       */
+/*   Updated: 2018/12/19 16:05:41 by jboursal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,49 +33,66 @@ void	screen_fill(int **screen, int player, int where_to, t_filler gs)
 	}
 }
 
-void	screen_fill_possession(int **screen, t_sqrt tile, int where_to,
-		t_filler gs)
+void	possession_shade_p1(float possession, int **screen, int where_to,
+			t_filler gs)
 {
 	int					x;
 	int					y;
-	float				possession;
 	t_color_compound	violet;
+
+	y = -1;
+	possession -= (float)0.5;
+	violet = ft_decompose_color(VIOLET);
+	violet.red = (int)(((float)violet.red * possession) / (float)1.3);
+	violet.green = (int)(((float)violet.green * possession) / (float)1.3);
+	violet.blue = (int)(((float)violet.blue * possession) / (float)1.3);
+	violet.rgb = violet.red << 16 | violet.green << 8 | violet.blue;
+	while (++y < (Y_SIZE - BOARD) / gs.y_max - 1)
+	{
+		x = -1;
+		while (++x < X_SIZE / gs.x_max - 1)
+			(*screen)[where_to + x] = violet.rgb;
+		where_to += X_SIZE;
+	}
+}
+
+void	possession_shade_p2(float possession, int **screen, int where_to,
+			t_filler gs)
+{
+	int					x;
+	int					y;
 	t_color_compound	cyan;
 
 	y = -1;
+	possession += (float)0.5;
+	cyan = ft_decompose_color(CYAN);
+	cyan.red = (int)((float)cyan.red * (1 - possession)) / 2;
+	cyan.green = (int)((float)cyan.green * (1 - possession)) / 2;
+	cyan.blue = (int)((float)cyan.blue * (1 - possession)) / 2;
+	cyan.rgb = cyan.red << 16 | cyan.green << 8 | cyan.blue;
+	while (++y < (Y_SIZE - BOARD) / gs.y_max - 1)
+	{
+		x = -1;
+		while (++x < X_SIZE / gs.x_max - 1)
+			(*screen)[where_to + x] = cyan.rgb;
+		where_to += X_SIZE;
+	}
+}
+
+void	screen_fill_possession(int **screen, t_sqrt tile, int where_to,
+			t_filler gs)
+{
+	float				possession;
+
 	possession = (float)(tile.p2_distance /
 			(tile.p2_distance + tile.p1_distance));
 	if (possession > (float)0.5)
 	{
-		possession -= (float)0.5;
-		violet = ft_decompose_color(VIOLET);
-		violet.red = (int)(((float)violet.red * possession) / (float)1.3);
-		violet.green = (int)(((float)violet.green * possession) / (float)1.3);
-		violet.blue = (int)(((float)violet.blue * possession) / (float)1.3);
-		violet.rgb = violet.red << 16 | violet.green << 8 | violet.blue;
-		while (++y < (Y_SIZE - BOARD) / gs.y_max - 1)
-		{
-			x = -1;
-			while (++x < X_SIZE / gs.x_max - 1)
-				(*screen)[where_to + x] = violet.rgb;
-			where_to += X_SIZE;
-		}
+		possession_shade_p1(possession, screen, where_to, gs);
 	}
 	else
 	{
-		possession += (float)0.5;
-		cyan = ft_decompose_color(CYAN);
-		cyan.red = (int)((float)cyan.red * (1 - possession)) / 2;
-		cyan.green = (int)((float)cyan.green * (1 - possession)) / 2;
-		cyan.blue = (int)((float)cyan.blue * (1  - possession)) / 2;
-		cyan.rgb = cyan.red << 16 | cyan.green << 8 | cyan.blue;
-		while (++y < (Y_SIZE - BOARD) / gs.y_max - 1)
-		{
-			x = -1;
-			while (++x < X_SIZE / gs.x_max - 1)
-				(*screen)[where_to + x] = cyan.rgb;
-			where_to += X_SIZE;
-		}
+		possession_shade_p2(possession, screen, where_to, gs);
 	}
 }
 
