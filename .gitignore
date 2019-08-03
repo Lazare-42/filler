@@ -3,3 +3,6 @@
 *.txt
 *.trace
 *.filler
+*.swp
+*.swo
+.DS_Store
