@@ -19,4 +19,10 @@ I also made a simple visualizer which represents the implementation of my algori
 
 To launch filler with my player against "carli" use the following command :
 
-```./resources/filler_vm -p1 ./resources/players/carli.filler-p2 ./the_legend_27.filler -f resources/maps/map02 | visualisateur_filler/visualisateur```
+```./resources/filler_vm -p1 ./resources/players/carli.filler-p2 ./the_legend_27.filler -f resources/maps/map02 ```
+
+### Visualizer
+
+Add ``` | visualisateur_filler/visualisateur``` at the end of your command.
+To modify the filler visualizer size, modify X_SIZE and Y_SIZE in ./visualisateur_filler/includes/filler.h
+
