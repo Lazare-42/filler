@@ -6,7 +6,7 @@ Two competeting algorithms are placed on a board, and receive, turn by turn,
 a new piece given by a Virtual Machine. They can place this new piece anywhere, as
 long as one of its tiles overlaps with one of the previous tiles placed of the player.
 
-![Filler and its visualizer](./VisualizerFiller.png" Screen shot of my filler.")
+[Filler and its visualizer](./VisualizerFiller.png" Screen shot of my filler.")
 
 
 ## About
