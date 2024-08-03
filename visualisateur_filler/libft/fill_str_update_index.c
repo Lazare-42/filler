@@ -14,9 +14,7 @@
 
 void	update_str(t_str *argument, void *to_cpy, int mem_op_size)
 {
-	int tmp;
 
-	tmp = 0;
 	if (argument->position + mem_op_size >= BUFF_SIZE)
 		launch_string_print(NULL, 0, argument, 1);
 	while (mem_op_size >= BUFF_SIZE)

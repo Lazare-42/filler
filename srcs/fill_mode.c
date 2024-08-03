@@ -60,10 +60,8 @@ t_point	get_best_position_fill(t_sqrt **board, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
 	t_point			memo;
-	float			high_score;
 
 	memo = t_point_init(0, 0);
-	high_score = 0;
 	pt.y = -1;
 	while (++pt.y < gs->y_max)
 	{
@@ -82,10 +80,8 @@ t_point	get_best_position_fill_and_win(t_sqrt **board, t_piece pc, t_filler *gs)
 {
 	t_point			pt;
 	t_point			memo;
-	float			high_score;
 
 	memo = t_point_init(0, 0);
-	high_score = 0;
 	pt.y = gs->y_max;
 	while (--pt.y > 0)
 	{

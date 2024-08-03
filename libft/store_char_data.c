@@ -18,10 +18,8 @@
 void		store_str_data(va_list ap, t_str *argument_str, t_printf *argument)
 {
 	char	*va_arg_str;
-	int		strlen;
 
 	va_arg_str = NULL;
-	strlen = 0;
 	va_arg_str = va_arg(ap, char *);
 	if (!va_arg_str)
 		update_str(argument_str, (void*)"(null)", argument->arg_len);

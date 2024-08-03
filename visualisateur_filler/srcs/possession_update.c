@@ -17,7 +17,6 @@ void	board_possession_update(t_sqrt **board, t_filler filler)
 	int			x;
 	int			y;
 	float		p2_d;
-	float		possession;
 
 	y = 0;
 	while (y < filler.y_max)
@@ -26,7 +25,6 @@ void	board_possession_update(t_sqrt **board, t_filler filler)
 		while (x < filler.x_max)
 		{
 			p2_d = board[y][x].p2_distance;
-			possession = board[y][x].possession;
 			board[y][x].possession = p2_d / (p2_d + board[y][x].p1_distance);
 			x++;
 		}
